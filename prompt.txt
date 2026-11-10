@@ -1,0 +1,2192 @@
+/prompt role: anda seorang fullstack developer sekaligus dev ops dan quality control goal: anda ditugaskan untuk melanjutkan project ncode crawler tadi, tujuannya gini ncode crawler dengan basis tappermonkey akan mengambil metadata seperti title, author, sinopsis, jumlah chapter, raw source secara otomatis, data ini akan di terjemahkan menggunakna calibre ebook fere translator yang mekakai google trasnlate, kemudian hasil epub outpu dikirm ke backend supermom backend dari folder mynovels reference:lightnovel crawler, calibre ebookfere translator, folder MyNovels, gambaran: saya inginmembuat sebuah dashboard web mungkin terus bisa automatis oantau perjalanan crawlernya dari crawling terjmahkan sampai upload ke backend, terus nanti bisa mode bulk, auto bulk juga mungkin gitu, untuk crawler bisa sesuai referensi tapper monkey dengan mungkinminjem tekniknya light novel crawler, raw html ncode syosetsu: <html lang="en" class="translated-ltr"><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-2YQV7PZTL9&amp;cx=c&amp;gtm=4e6b41"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-1TH9CF4FPC&amp;cx=c&amp;gtm=4e6b41"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-KYKXHTF2DZ&amp;cx=c&amp;gtm=4e6b41"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-KQ8R95M8"></script><head>
+<meta charset="UTF-8">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KQ8R95M8');</script>
+<!-- End Google Tag Manager -->
+<title>Frozen Heart Dragon</title>
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=1088, maximum-scale=1.0, user-scalable=yes">
+<meta name="WWWC" content="2019/07/28 16:16"><meta property="og:type" content="website">
+<meta property="og:title" content="凍心の竜">
+<meta property="og:url" content="https://ncode.syosetu.com/n5005ev/">
+<meta property="og:description" content="R15 残酷な描写あり 異世界転生 人外 チート 魔法 TS 友達 厨二病は作者 魔術理論 魔法理論 ESN大賞">
+<meta property="og:image" content="https://sbo.syosetu.com/n5005ev/twitter.png">
+<meta property="og:site_name" content="小説家になろう">
+<meta name="twitter:site" content="@syosetu">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="Fin">
+
+<meta name="description" content="　融けて、溶けて、解けて、解けた心は光を求める。自ら掴み取っ// 無料オンライン小説です">
+<link href="https://api.syosetu.com/writernovel/1330119.Atom" rel="alternate" type="application/atom+xml" title="Atom">
+
+<link rel="shortcut icon" href="https://static.syosetu.com/view/images/narou.ico?psawph">
+<link rel="icon" href="https://static.syosetu.com/view/images/narou.ico?psawph">
+<link rel="apple-touch-icon-precomposed" href="https://static.syosetu.com/view/images/apple-touch-icon-precomposed.png?ojjr8x">
+
+<script type="text/javascript"><!--
+var domain = 'syosetu.com';
+//--></script>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://static.syosetu.com/view/js/lib/jquery.hina.js?t4tsco"></script>
+<script type="text/javascript" src="https://static.syosetu.com/view/js/global.js?tk9bnu"></script>
+
+<script type="text/javascript" src="https://static.syosetu.com/view/js/char_count.js?scfmgz"></script>
+<script type="text/javascript" src="https://static.syosetu.com/novelview/js/novelview.js?susnoh"></script>
+
+
+<link rel="stylesheet" type="text/css" href="https://static.syosetu.com/view/css/lib/jquery.hina.css?oyb9lo" media="screen,print">
+<link rel="stylesheet" media="all" href="https://static.syosetu.com/view/css/lib/tippy.css?ov2lia">
+<link rel="stylesheet" media="all" href="https://static.syosetu.com/novelview/css/siori_toast_pc.css?q6lspt">
+<link rel="stylesheet" media="all" href="https://static.syosetu.com/view/css/lib/remodal.css?oqe20g">
+<link rel="stylesheet" media="all" href="https://static.syosetu.com/view/css/lib/remodal-default_pc-theme.css?r9whxq">
+<link rel="stylesheet" media="all" href="https://static.syosetu.com/novelview/css/remodal_pc.css?rfnxgm">
+<link rel="stylesheet" media="all" href="https://static.syosetu.com/novelview/css/p_novel-pc.css?tkman0">
+
+<script type="text/javascript" src="https://static.syosetu.com/view/js/lib/jquery.readmore.js?o7mki8"></script>
+<script type="text/javascript" src="https://static.syosetu.com/view/js/lib/tippy.min.js?oqe1mv"></script>
+<script type="text/javascript" src="https://static.syosetu.com/novelview/js/lib/jquery.raty.js?q6lspt"></script>
+<script type="text/javascript" src="https://static.syosetu.com/novelview/js/novel_bookmarkmenu.js?t47k5w"></script>
+<script type="text/javascript" src="https://static.syosetu.com/novelview/js/novel_point.js?szj1dc"></script>
+<script type="text/javascript" src="https://static.syosetu.com/view/js/lib/remodal.min.js?oqe1mv"></script>
+<script type="text/javascript" src="https://static.syosetu.com/novelview/js/reaction_novel.js?sqv66e"></script>
+<script type="text/javascript" src="https://static.syosetu.com/novelview/js/novel_adview.js?srk035"></script>
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/">
+
+<rdf:Description
+rdf:about="https://ncode.syosetu.com/n5005ev/
+dc:identifier="https://ncode.syosetu.com/n5005ev/"
+/>
+</rdf:RDF>
+-->
+
+
+
+<script>
+  window.gnshbrequest = window.gnshbrequest || {cmd:[]};
+  window.gnshbrequest.cmd.push(function(){
+    window.gnshbrequest.registerPassback("1527974");
+    window.gnshbrequest.registerPassback("1563325");
+    window.gnshbrequest.registerPassback("1563326");
+    window.gnshbrequest.registerPassback("1571416");
+    window.gnshbrequest.registerPassback("1571417");
+    window.gnshbrequest.registerPassback("1571418");
+    window.gnshbrequest.registerPassback("1571419");
+    window.gnshbrequest.registerPassback("1571420");
+    window.gnshbrequest.registerPassback("1494628");
+    window.gnshbrequest.registerPassback("1544189");
+    window.gnshbrequest.registerPassback("1544188");
+    window.gnshbrequest.registerPassback("1564066");
+    window.gnshbrequest.registerPassback("1564065");
+    window.gnshbrequest.registerPassback("1571585");
+    window.gnshbrequest.registerPassback("1571586");
+    window.gnshbrequest.registerPassback("1571587");
+    window.gnshbrequest.registerPassback("1571588");
+    window.gnshbrequest.registerPassback("1571617");
+    window.gnshbrequest.registerPassback("1504269");
+    window.gnshbrequest.registerPassback("1571618");
+    window.gnshbrequest.registerPassback("1511276");
+    window.gnshbrequest.registerPassback("1511277");
+    window.gnshbrequest.registerPassback("1593272");
+    window.gnshbrequest.registerPassback("1593273");
+window.gnshbrequest.registerPassback("1609974");
+    window.gnshbrequest.forceInternalRequest();
+  });
+</script>
+<script async="" src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+<script async="" src="https://cpt.geniee.jp/hb/v1/210776/476/wrapper.min.js"></script>
+
+
+<style>
+      #wtr-sy-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 999999;
+        background: #000;
+        color: #fff;
+        border: 2px solid #fff;
+        padding: 8px 14px;
+        font-family: monospace;
+        font-size: 13px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      }
+      #wtr-sy-panel {
+        position: fixed;
+        bottom: 65px;
+        right: 20px;
+        width: 360px;
+        max-width: calc(100vw - 40px);
+        background: #111;
+        color: #eee;
+        border: 2px solid #555;
+        font-family: monospace;
+        font-size: 12px;
+        z-index: 999999;
+        display: none;
+        flex-direction: column;
+        padding: 12px;
+        gap: 10px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.8);
+      }
+      .wtr-row { display: flex; flex-direction: column; gap: 4px; }
+      .wtr-label { font-size: 11px; color: #aaa; text-transform: uppercase; }
+      .wtr-input { background: #222; border: 1px solid #444; color: #fff; padding: 6px; font-family: inherit; font-size: 12px; }
+      .wtr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+      .wtr-btn-main { background: #fff; color: #000; border: 1px solid #fff; font-weight: bold; padding: 8px; cursor: pointer; font-family: inherit; }
+      .wtr-btn-main:hover { background: #ccc; }
+      .wtr-btn-sec { background: #222; color: #ccc; border: 1px solid #444; padding: 6px; cursor: pointer; font-family: inherit; font-size: 11px; font-weight: bold; }
+      .wtr-btn-sec:hover { background: #333; color: #fff; }
+      .wtr-progress { background: #222; border: 1px solid #444; height: 10px; width: 100%; }
+      .wtr-progress-fill { background: #fff; height: 100%; width: 0%; transition: width 0.1s linear; }
+      .wtr-log { font-size: 11px; color: #aaa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-height: 16px; }
+      .wtr-storage { font-size: 11px; color: #888; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; padding-bottom: 6px; }
+      .wtr-check { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #bbb; cursor: pointer; }
+    </style><link type="text/css" rel="stylesheet" charset="UTF-8" href="https://www.gstatic.com/_/translate_http/_/ss/k=translate_http.tr.zZZZhVqDDCw.L.W.O/am=AAAADA/d=0/rs=AN8SPfpM5SHGlT3x0dEbBnb5Xeruc5ptjw/m=el_main_css"><script charset="utf-8" src="https://platform.twitter.com/js/button.2276a045429f6681b56da5eb1dcfa53c.js"></script></head>
+<body class="p-novelmain js-customlayout1">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KQ8R95M8"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<a class="js-navigater-tobottom c-navigater c-navigater--tobottom" href="#footer"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">↓</font></font></a>
+<a id="pageTop" class="js-navigater-totop c-navigater c-navigater--totop" href="#main" style="display: none;"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">↑ Back to top of page</font></font></a>
+
+<header class="c-menu l-scrollheader js-scrollheader" style="position: fixed;">
+<nav class="c-menu__body">
+<a class="c-menu__item" href="https://syosetu.com/?ref=ncodeheader"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Let's become a novelist</font></font></a>
+<a class="c-menu__item" href="https://yomou.syosetu.com/rank/top/?ref=ncodeheader"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Ranking</font></font></a>
+<a class="c-menu__item c-menu__item--login c-menu__item--separate" href="https://syosetu.com/login/input/?ref=ncodeheader"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Log in</font></font></a>
+<a class="c-menu__item c-menu__item--headnav c-menu__item--separate" href="https://ncode.syosetu.com/novelview/infotop/ncode/n5005ev/?ref=ncodeheader"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Product Information</font></font></a>
+<a class="c-menu__item c-menu__item--headnav" href="https://novelcom.syosetu.com/impression/list/ncode/1254880/?ref=ncodeheader"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">thoughts</font></font></a>
+<a class="c-menu__item c-menu__item--headnav" href="https://novelcom.syosetu.com/novelreview/list/ncode/1254880/?ref=ncodeheader"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">review</font></font></a>
+<div class="c-menu__item c-menu__item--bookmark">
+<span class="c-bookmark-button c-bookmark-button--disabled"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Add to bookmarks</font></font></span>
+
+<input type="hidden" class="js-bookmark_url" value="https://syosetu.com/favnovelmain/addajax/favncode/1254880/no/0/?token=3acaeb50d7b089baacbfeb353b081bab">
+</div>
+
+</nav>
+<div class="p-adjust-layout js-adjust-layout">
+<div class="js-adjust-layout-on p-adjust-layout__switch"><span><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Display adjustment</font></font></span></div>
+<div class="js-adjust-layout-off p-adjust-layout__switch p-adjust-layout__switch--turn-off"><span><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">close</font></font></span></div>
+<div class="p-adjust-layout__controller js-adjust-layout-controller">
+<div class="p-adjust-layout__illustration">
+<img src="//static.syosetu.com/novelview/img/novelview_on.gif" width="100" height="20" style="cursor:pointer;" onclick="sasieclick(true);" class="js-adjust-layout-illustflag" alt="Illustration display toggle button">
+<script type="text/javascript"><!--
+sasieinit();
+//--></script>
+</div><!-- /.p-adjust-layout__illustration -->
+<div class="p-adjust-layout__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">▼Color scheme</font></font></div>
+<ul class="p-adjust-layout__list c-form">
+<li class="p-adjust-layout__list-item c-form__radio"><input type="radio" value="1" name="colorset" id="color1" class="c-form__radio-input"><label for="color1" class="c-form__radio-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Standard settings</font></font></label></li>
+<li class="p-adjust-layout__list-item c-form__radio"><input type="radio" value="2" name="colorset" id="color2" class="c-form__radio-input"><label for="color2" class="c-form__radio-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Black Mode</font></font></label></li>
+<li class="p-adjust-layout__list-item c-form__radio"><input type="radio" value="3" name="colorset" id="color3" class="c-form__radio-input"><label for="color3" class="c-form__radio-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Black Mode 2</font></font></label></li>
+<li class="p-adjust-layout__list-item c-form__radio"><input type="radio" value="4" name="colorset" id="color4" class="c-form__radio-input"><label for="color4" class="c-form__radio-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Normal [1]</font></font></label></li>
+<li class="p-adjust-layout__list-item c-form__radio"><input type="radio" value="5" name="colorset" id="color5" class="c-form__radio-input"><label for="color5" class="c-form__radio-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Normal [2]</font></font></label></li>
+<li class="p-adjust-layout__list-item c-form__radio"><input type="radio" value="6" name="colorset" id="color6" class="c-form__radio-input"><label for="color6" class="c-form__radio-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">simple</font></font></label></li>
+<li class="p-adjust-layout__list-item c-form__radio"><input type="radio" value="7" name="colorset" id="color7" class="c-form__radio-input"><label for="color7" class="c-form__radio-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Recommended settings</font></font></label></li>
+</ul><!-- /.p-adjust-layout__list -->
+
+<div class="p-adjust-layout__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">▼Menu bar</font></font></div>
+<ul class="p-adjust-layout__list c-form">
+<li class="p-adjust-layout__list-item c-form__checkbox"><input type="checkbox" name="fix_menu_bar" id="followmenu" class="c-form__checkbox-input"><label for="followmenu" class="c-form__checkbox-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Follow</font></font></label></li>
+</ul><!-- /.p-adjust-layout__list -->
+<div class="p-adjust-layout__bottom-close js-adjust-layout-bottom-off"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">× Close</font></font></div>
+</div><!-- /.p-adjust-layout__controller -->
+</div>
+</header>
+
+<div class="l-container">
+
+<main class="l-main">
+
+
+<!-- /.c-modal -->
+<div class="c-toast c-toast--addend js-toaster-success js-toaster_success" id="toaster_success"></div>
+<div class="c-toast c-toast--error js-toaster-error js-toaster_error" id="toaster_error">
+<strong class="c-toast__message c-toast__message--strong js-toaster_error_mes"></strong>
+<div class="c-toast__box-right">
+<a href="#" class="toaster_close c-toast__close"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">close</font></font></a>
+</div>
+</div>
+
+<!-- /.c-modal -->
+<!-- /.c-modal -->
+
+
+<div class="c-announce-box">
+<div class="c-announce c-announce--note"><font dir="auto" style="vertical-align: inherit;"></font><a href="https://syosetu.com/login/input/?redirectlink=https%3A%2F%2Fncode.syosetu.com%2Fn5005ev%2F&amp;redirecthash=f82f39b8e628bc5533489b5860cd998c910508ab" target="_blank" class="c-announce__emphasis c-announce__emphasis--strong"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Please log in</font></font></a><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> 
+to use the bookmark function </font><font dir="auto" style="vertical-align: inherit;">.
+</font></font></div>
+<div class="c-announce">
+<span class="c-announce__emphasis"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">&lt;R15&gt;</font></font></span><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> Please leave </font></font><a href="https://syosetu.com"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">if</font></font></a><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> you are under 15 years old . </font></font><br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+This work contains graphic violence.
+</font></font></div>
+
+
+</div><!-- /.c-announce-box -->
+<article class="p-novel">
+
+<div class="c-ad c-ad--leaderboard">
+
+<div data-cptid="1511277" style="display: block;">
+<script>
+window.gnshbrequest.cmd.push(function() {
+window.gnshbrequest.applyPassback("1511277", "[data-cptid='1511277']");
+});
+</script>
+</div>
+
+
+</div>
+
+
+<h1 class="p-novel__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Frozen Heart Dragon</font></font></h1>
+
+<div class="p-novel__author"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Author: Fin
+</font></font></div>
+
+
+<div class="p-novel__date-published"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Latest episode published: 2019/07/28</font></font></div><!-- /.p-novel__date-published -->
+
+<div id="novel_ex" class="p-novel__summary"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">　Melting, melting, dissolving, the dissolved heart seeks light. The light of hope that it has grasped for itself. </font></font><br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+　No one yet knows that there is no light beyond that. </font></font><br>
+<br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+　The girl stands there on top of countless sacrifices, and everything she believed in is consumed by the flames of rage. </font></font><br>
+<br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+　All ties intersect, heading towards the end. </font></font><br>
+<br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+　A novel full of plot holes, second installment, </font></font><br>
+<br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+　with illustrations added. Please take a look if you like. There are currently three illustrations: Cyan, Lux, and Lee.</font></font></div>
+
+<div class="c-ad c-ad--layout-horizontal">
+<div class="c-ad__item-horizontal">
+
+<div data-cptid="1564065" style="display: block;">
+<script>
+  window.gnshbrequest.cmd.push(function() {
+window.gnshbrequest.applyPassback("1564065", "[data-cptid='1564065']");
+  });
+</script>
+</div>
+
+
+</div>
+<div class="c-ad__item-horizontal">
+
+<div data-cptid="1564066" style="display: block;">
+<script>
+  window.gnshbrequest.cmd.push(function() {
+window.gnshbrequest.applyPassback("1564066", "[data-cptid='1564066']");
+  });
+</script>
+</div>
+
+
+</div>
+</div>
+
+
+
+
+<div class="p-eplist">
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/1/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+0 [K] Absolute temperature
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/06/24 00:20
+ </font></font><span title="Revised on 2019/02/17 04:22"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">( </font></font><u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">revised</font></font></u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> )</font></font></span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/2/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+273,16 [K] The triple point of water
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/06/27 23:05
+ </font></font><span title="Revised on 2018/08/10 03:30"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">( </font></font><u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">revised</font></font></u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> )</font></font></span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/3/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+N/A[K]Melt
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/07/01 11:56
+ </font></font><span title="Revised on 2018/12/16 23:00"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">( </font></font><u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">revised</font></font></u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> )</font></font></span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/4/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+373.15 [K] ~Water boils at 100 degrees Celsius~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/07/02 23:00
+ </font></font><span title="Revised on 2018/08/10 03:38"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">( </font></font><u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">revised</font></font></u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> )</font></font></span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/5/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+4273.15 [K] ～Water direct thermal decomposition～
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/07/05 07:43
+ </font></font><span title="Revised on 2018/08/10 03:40"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">( </font></font><u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">revised</font></font></u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> )</font></font></span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/6/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+N/A [K] ~Aware-Recrystallization~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/07/07 15:16
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/7/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+54.15[K] ~Oxygen freezes at 54.15 Kelvin~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/07/08 22:48
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/8/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Digression ~Physical Laws~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/07/09 23:14
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/9/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+～Iron became iron oxide combines with oxygen～
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/07/11 23:51
+ </font></font><span title="Revised on 2018/12/17 07:29"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">( </font></font><u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">revised</font></font></u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> )</font></font></span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/10/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+～Aluminum yielded aluminum oxide combines with oxygen～
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/07/14 12:38
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/11/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+～And oxygen was met with hydrogen.～
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/07/15 20:29
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/12/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+〜Because it is a combination of oxygen and hydrogen〜
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/07/20 07:28
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/13/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+〜The concentration of the produced oxygen in photosynthesis〜
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/07/26 16:26
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/14/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+〜Is it chlorine of flame reaction?〜
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/07/29 01:53
+ </font></font><span title="Revised on 2018/08/10 03:42"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">( </font></font><u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">revised</font></font></u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> )</font></font></span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/15/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+〜I will to use his life to reduce it〜
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/08/01 09:42
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/16/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+~And neutrons disappear~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/08/04 03:48
+ </font></font><span title="Revised on 2018/08/04 04:11"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">( </font></font><u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">revised</font></font></u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> )</font></font></span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/17/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+~more melted~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/08/10 00:05
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/18/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+〜It is one of the best movers and shakers〜
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/08/16 15:43
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/19/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+~The last secret weapon~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/08/18 02:47
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/20/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+~Murderers of Bystanders~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/08/23 20:10
+ </font></font><span title="Revised on 2018/08/25 03:05"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">( </font></font><u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">revised</font></font></u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> )</font></font></span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/21/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+~That knight is a sword's slave~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/08/26 11:16
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/22/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+~Incandescence~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/08/29 00:00
+ </font></font><span title="Revised on 2019/05/01 20:41"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">( </font></font><u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">revised</font></font></u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> )</font></font></span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/23/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Duel ~Wriggling things we~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/09/01 11:00
+ </font></font><span title="Revised on 2018/09/01 11:07"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">( </font></font><u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">revised</font></font></u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> )</font></font></span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/24/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Determination ~Beginning and achievement~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/09/02 22:20
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/25/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Qualities ~Preparation for Surviving~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/09/06 22:14
+ </font></font><span title="Revised on 2019/05/01 20:39"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">( </font></font><u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">revised</font></font></u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> )</font></font></span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/26/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Rentan ~Vengeance and traffickers~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/09/10 22:48
+ </font></font><span title="Revised on 2018/09/12 17:00"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">( </font></font><u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">revised</font></font></u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> )</font></font></span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/27/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Tenki ~Restlessness repeats~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/09/15 13:24
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/28/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Circuit~I want to quit again~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/09/18 22:24
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/29/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Ghost ~Terribly Section Magic~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/09/23 20:05
+ </font></font><span title="Revised on 2019/03/11 21:37"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">( </font></font><u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">revised</font></font></u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> )</font></font></span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/30/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+A side note ~Magical laws~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/09/24 22:04
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/31/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Questions
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/09/29 13:16
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/32/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Coexist
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/10/03 07:34
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/33/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Comrades
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/10/07 01:10
+ </font></font><span title="Revised on 2018/10/11 06:47"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">( </font></font><u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">revised</font></font></u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> )</font></font></span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/34/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Desperation
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/10/10 22:47
+ </font></font><span title="Revised on 2018/12/25 01:46"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">( </font></font><u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">revised</font></font></u><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> )</font></font></span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/35/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Third's
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/10/14 18:25
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/36/" class="p-eplist__subtitle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Digression ~Spiritual Laws~
+</font></font></a>
+
+<div class="p-eplist__update"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+2018/10/17 16:13
+</font></font></div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/37/" class="p-eplist__subtitle">
+閑話〜Princess of rubble and Wings made in vain〜
+</a>
+
+<div class="p-eplist__update">
+2018/10/22 22:49
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/38/" class="p-eplist__subtitle">
+〜agate〜
+</a>
+
+<div class="p-eplist__update">
+2018/10/26 16:18
+<span title="Revised on 2018/11/18 17:54">（<u>改</u>）</span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/39/" class="p-eplist__subtitle">
+〜mica〜
+</a>
+
+<div class="p-eplist__update">
+2018/11/01 23:06
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/40/" class="p-eplist__subtitle">
+〜molybdenite〜
+</a>
+
+<div class="p-eplist__update">
+2018/11/07 07:34
+<span title="Revised on 2019/02/16 03:24">（<u>改</u>）</span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/41/" class="p-eplist__subtitle">
+〜uvarovite〜
+</a>
+
+<div class="p-eplist__update">
+2018/11/12 19:37
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/42/" class="p-eplist__subtitle">
+〜Olivine〜
+</a>
+
+<div class="p-eplist__update">
+2018/11/18 18:23
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/43/" class="p-eplist__subtitle">
+〜rutile〜
+</a>
+
+<div class="p-eplist__update">
+2018/11/24 14:37
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/44/" class="p-eplist__subtitle">
+閑話〜Coulomb's law〜
+</a>
+
+<div class="p-eplist__update">
+2018/11/27 13:05
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/45/" class="p-eplist__subtitle">
+〜Themis〜
+</a>
+
+<div class="p-eplist__update">
+2018/12/03 17:09
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/46/" class="p-eplist__subtitle">
+〜Vivasvat〜
+</a>
+
+<div class="p-eplist__update">
+2018/12/12 07:39
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/47/" class="p-eplist__subtitle">
+〜Ixtab〜
+</a>
+
+<div class="p-eplist__update">
+2018/12/25 00:22
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/48/" class="p-eplist__subtitle">
+〜Rudra〜
+</a>
+
+<div class="p-eplist__update">
+2019/01/03 13:26
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/49/" class="p-eplist__subtitle">
+〜Tishtrya〜
+</a>
+
+<div class="p-eplist__update">
+2019/01/06 16:18
+<span title="Revised on 2019/01/08 07:07">（<u>改</u>）</span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/50/" class="p-eplist__subtitle">
+〜Tlahuixcalpantecuhtli〜
+</a>
+
+<div class="p-eplist__update">
+2019/01/10 07:31
+<span title="Revised on 2019/05/16 21:23">（<u>改</u>）</span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/51/" class="p-eplist__subtitle">
+閑話〜Kirchhoff's laws〜
+</a>
+
+<div class="p-eplist__update">
+2019/01/18 07:32
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/52/" class="p-eplist__subtitle">
+〜Mythology〜
+</a>
+
+<div class="p-eplist__update">
+2019/01/21 22:50
+<span title="Revised on 2019/03/25 22:42">（<u>改</u>）</span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/53/" class="p-eplist__subtitle">
+〜Anecdote〜
+</a>
+
+<div class="p-eplist__update">
+2019/01/30 22:03
+<span title="Revised on 2019/02/03 14:30">（<u>改</u>）</span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/54/" class="p-eplist__subtitle">
+〜Fiction〜
+</a>
+
+<div class="p-eplist__update">
+2019/02/04 22:54
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/55/" class="p-eplist__subtitle">
+〜instruction manual〜
+</a>
+
+<div class="p-eplist__update">
+2019/02/13 01:26
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/56/" class="p-eplist__subtitle">
+〜Lie〜
+</a>
+
+<div class="p-eplist__update">
+2019/02/15 21:59
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/57/" class="p-eplist__subtitle">
+〜Says one person〜
+</a>
+
+<div class="p-eplist__update">
+2019/02/17 08:10
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/58/" class="p-eplist__subtitle">
+〜Eschatology〜
+</a>
+
+<div class="p-eplist__update">
+2019/02/28 04:02
+<span title="Revised on 2019/02/28 04:06">（<u>改</u>）</span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/59/" class="p-eplist__subtitle">
+〜Even if though nestled in the flame〜
+</a>
+
+<div class="p-eplist__update">
+2019/03/07 19:15
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/60/" class="p-eplist__subtitle">
+〜that day was rain from morning〜
+</a>
+
+<div class="p-eplist__update">
+2019/03/12 17:23
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/61/" class="p-eplist__subtitle">
+〜genius〜
+</a>
+
+<div class="p-eplist__update">
+2019/03/19 02:06
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/62/" class="p-eplist__subtitle">
+〜Conference〜
+</a>
+
+<div class="p-eplist__update">
+2019/03/23 01:24
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/63/" class="p-eplist__subtitle">
+〜at that time〜
+</a>
+
+<div class="p-eplist__update">
+2019/03/30 00:56
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/64/" class="p-eplist__subtitle">
+〜Turning point of a certain one〜
+</a>
+
+<div class="p-eplist__update">
+2019/04/13 22:42
+<span title="Revised on 2019/05/15 22:28">（<u>改</u>）</span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/65/" class="p-eplist__subtitle">
+〜In one way〜
+</a>
+
+<div class="p-eplist__update">
+2019/04/24 21:49
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/66/" class="p-eplist__subtitle">
+閑話〜Pseudo-personality〜
+</a>
+
+<div class="p-eplist__update">
+2019/05/02 23:13
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/67/" class="p-eplist__subtitle">
+〜Endangered〜
+</a>
+
+<div class="p-eplist__update">
+2019/05/05 23:21
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/68/" class="p-eplist__subtitle">
+〜The child is a saint〜
+</a>
+
+<div class="p-eplist__update">
+2019/05/17 12:25
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/69/" class="p-eplist__subtitle">
+〜The magic of fate〜
+</a>
+
+<div class="p-eplist__update">
+2019/05/27 23:23
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/70/" class="p-eplist__subtitle">
+〜Broken broken broken broken〜
+</a>
+
+<div class="p-eplist__update">
+2019/06/12 12:33
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/71/" class="p-eplist__subtitle">
+〜Detonation and silence〜
+</a>
+
+<div class="p-eplist__update">
+2019/06/23 22:18
+<span title="Revised on 2019/06/23 22:53">（<u>改</u>）</span>
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/72/" class="p-eplist__subtitle">
+〜indignation〜
+</a>
+
+<div class="p-eplist__update">
+2019/07/09 06:29
+</div>
+</div>
+
+<div class="p-eplist__sublist">
+<a href="/n5005ev/73/" class="p-eplist__subtitle">
+〜Shout! The one who leaves〜
+</a>
+
+<div class="p-eplist__update">
+2019/07/28 16:16
+</div>
+</div>
+</div><!--/.p-eplist-->
+
+
+</article><!-- /.p-novel -->
+
+
+
+</main><!-- /.l-main -->
+
+
+<div class="l-foot-contents">
+<div class="p-bookmark-bar">
+<div class="p-bookmark-bar__body">
+
+<div class="p-bookmark-bar__left">
+<div class="p-bookmark-bar__item">
+<div class="c-sns">
+<div class="c-sns__item"><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="X Post Button" src="https://platform.twitter.com/widgets/tweet_button.1227a5674072e080ffb1ba14ac0c1079.ja.html#dnt=false&amp;hashtags=narou%2CnarouN5005EV&amp;id=twitter-widget-0&amp;lang=ja&amp;original_referer=https%3A%2F%2Fncode.syosetu.com%2Fn5005ev%2F&amp;size=m&amp;text=%E3%80%8C%E5%87%8D%E5%BF%83%E3%81%AE%E7%AB%9C%E3%80%8D&amp;time=1794227175591&amp;type=share&amp;url=https%3A%2F%2Fncode.syosetu.com%2Fn5005ev%2F" style="position: static; visibility: visible; width: 77px; height: 20px;" data-url="https://ncode.syosetu.com/n5005ev/"></iframe><script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div><!-- /.c-up-sns__item -->
+<div class="c-sns__item">
+<a href="http://line.me/R/msg/text/?%E5%87%8D%E5%BF%83%E3%81%AE%E7%AB%9C%0Ahttps%3A%2F%2Fncode.syosetu.com%2Fn5005ev%2F" target="_blank" class="c-sns__button c-sns__button--line">LINEで送る</a>
+</div><!-- /.c-sns__item -->
+<div class="c-sns__item"><button data-url="凍心の竜
+https://ncode.syosetu.com/n5005ev/" target="_blank" class="c-sns__button c-sns__button--linkcopy p-icon p-icon--file-copy js_copy_btn">コピー</button></div><!-- /.c-sns__item -->
+<div class="c-toast c-toast--addend js_toaster_copy"></div>
+</div><!-- c-sns -->
+
+<script type="text/javascript"><!--
+$(function(){
+$('.js_copy_btn').click(function () {
+        // クリップボードにコピー
+        navigator.clipboard.writeText($(this).data('url'))
+
+// 表示するトーストのセレクタを設定
+let selector = $('.js_toaster_copy');
+
+// トースターに表示するメッセージをセット
+selector.html('<strong>タイトルとリンクを<br>コピーしました</strong>');
+
+// セレクターをフェードインする
+selector.fadeIn(1000);
+
+// 2000ミリ秒後にフェードアウトを実行する
+setTimeout(hidediley, 3000, selector);
+    });
+});
+
+// フェードアウトを実行する
+function hidediley(selector){
+selector.fadeOut(1000);
+}
+//--></script>
+</div><!-- /.p-bookmark-bar__item -->
+</div><!-- /.p-bookmark-bar__left -->
+
+<div class="p-bookmark-bar__right">
+<div class="p-bookmark-bar__item">
+<span class="c-bookmark-button c-bookmark-button--disabled">ブックマークに追加</span>
+
+<input type="hidden" class="js-bookmark_url" value="https://syosetu.com/favnovelmain/addajax/favncode/1254880/no/0/?token=3acaeb50d7b089baacbfeb353b081bab">
+</div><!-- /.p-bookmark-bar__item -->
+
+
+<div class="p-bookmark-bar__item">
+<a class="p-bookmark-bar__bkm-link" href="https://syosetu.com/favnovelmain/list/">ブックマーク</a>
+</div><!-- /.p-bookmark-bar__item -->
+</div><!-- /.p-bookmark-bar__right -->
+
+</div><!-- /.p-bookmark-bar__body -->
+</div><!-- /.p-bookmark-bar -->
+<div class="c-announce-box">
+<div class="c-announce c-announce--note">
+ブックマーク機能を使うには<a href="https://syosetu.com/login/input/?redirectlink=https%3A%2F%2Fncode.syosetu.com%2Fn5005ev%2F&amp;redirecthash=f82f39b8e628bc5533489b5860cd998c910508ab" target="_blank" class="c-announce__emphasis c-announce__emphasis--strong">ログイン</a>してください。
+</div>
+</div>
+
+<div class="c-ad c-ad--layout-horizontal">
+<div class="c-ad__item-horizontal">
+
+<div data-cptid="1571586" style="display: block;">
+<script>
+  window.gnshbrequest.cmd.push(function() {
+window.gnshbrequest.applyPassback("1571586", "[data-cptid='1571586']");
+  });
+</script>
+</div>
+
+
+</div>
+<div class="c-ad__item-horizontal">
+
+<div data-cptid="1571585" style="display: block;">
+<script>
+  window.gnshbrequest.cmd.push(function() {
+window.gnshbrequest.applyPassback("1571585", "[data-cptid='1571585']");
+  });
+</script>
+</div>
+
+
+</div>
+</div><!-- /.c-ad c-ad--rectangle-parallel -->
+
+
+
+
+<aside class="p-recommend an--recommend--view-recommend" data-nosnippet="" data-analytics="an--recommend">
+<div class="p-recommend__lead">この作品をブックマークに登録している人はこんな作品も読んでいます</div>
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n2211cx/">野生のラスボスが現れた！<span class="p-recommend__ncode">（N2211CX）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">時はミズガルズ暦２８００年。かつて覇を唱え、世界を征服する寸前まで至った覇王がいた。
+名をルファス・マファール。黒翼の覇王と恐れられる女傑である。
+彼女はあまり//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+ハイファンタジー〔ファンタジー〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+完結済(全201エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">47 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2019/04/15 20:00</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n8920fa/">最強剣士のRe：スタート<span class="p-recommend__ncode">（N8920FA）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">（オーバーラップ文庫様より書籍化されました。令和元年１０月２５日より発売中です）
+　最強と言われた剣士が死に、エルフの娘として生まれ変わった。
+　前世では殺すこ//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+ハイファンタジー〔ファンタジー〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+連載(全126エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">50 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2020/06/05 00:07</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n3258fh/">【最終巻配信決定】クラスメイトに殺された時、僕の復讐は大体達成された<span class="p-recommend__ncode">（N3258FH）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">クラスメイトたちとともに異世界召喚された通山真は『契約』のスキルを得る。
+スキルを得たことにいち早く気が付いた真は、クラスメイトたちを勇者として召喚した国――フ//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+ハイファンタジー〔ファンタジー〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+完結済(全197エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">48 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2023/09/07 21:12</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n4138ck/">夜伽の国の月光姫<span class="p-recommend__ncode">（N4138CK）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">とある小国にアルエという美しい王女がいました。けれど、この国には隠されたもう一人の美姫、第二王女のセレネという少女も居たのです。セレネは、その異質さにより忌み子//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+ハイファンタジー〔ファンタジー〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+連載(全113エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">47 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2025/12/30 22:02</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n6475db/">私、能力は平均値でって言ったよね！<span class="p-recommend__ncode">（N6475DB）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">アスカム子爵家長女、アデル・フォン・アスカムは、１０歳になったある日、強烈な頭痛と共に全てを思い出した。
+　自分が以前、栗原海里（くりはらみさと）という名の１８//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+ハイファンタジー〔ファンタジー〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+連載(全760エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">42 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2026/10/27 00:00</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n2933fj/">英雄王、武を極めるため転生す ～そして、世界最強の見習い騎士♀～<span class="p-recommend__ncode">（N2933FJ）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">※TVアニメ2023年放送ありがとうございました！
+※書籍第13巻 コミカライズ第6巻まで発売中です！　ぜひよろしくお願いします！
+英雄王イングリス。
+彼は女神//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+ハイファンタジー〔ファンタジー〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+連載(全536エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">50 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2026/07/18 18:10</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n4736dz/">よくわからないけれど異世界に転生していたようです<span class="p-recommend__ncode">（N4736DZ）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">事故で前世のおっさんの記憶を思い出した少女が特に目的も無くふらふらする話。
+
+【講談社　Ｋラノベブックスより書籍1～6巻・シリウスＫＣよりコミカライズ1～28巻//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+ハイファンタジー〔ファンタジー〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+連載(全175エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">60 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2025/07/13 07:00</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n7975cr/">蜘蛛ですが、なにか？<span class="p-recommend__ncode">（N7975CR）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">勇者と魔王が争い続ける世界。勇者と魔王の壮絶な魔法は、世界を超えてとある高校の教室で爆発してしまう。その爆発で死んでしまった生徒たちは、異世界で転生することにな//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+ハイファンタジー〔ファンタジー〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+完結済(全600エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">47 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2022/01/28 00:00</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n1695cq/">ゲームキャラで異世界転生して、大草原ではじめるスローライフ<span class="p-recommend__ncode">（N1695CQ）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">VRMMO全盛期にレトロ系MMORPGをプレイしていた主人公は、いつの間にか異世界に放り出された。しかも大平原のど真ん中、目の前には迷宮があるだけ。そこで保護し//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+ハイファンタジー〔ファンタジー〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+完結済(全272エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">42 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2019/02/14 12:00</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n6829bd/">賢者の弟子を名乗る賢者<span class="p-recommend__ncode">（N6829BD）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">仮想空間に構築された世界の一つ。鑑(かがみ)は、その世界で九賢者という術士の最高位に座していた。
+ある日、徹夜の疲れから仮想空間の中で眠ってしまう。そして目を覚//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+ハイファンタジー〔ファンタジー〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+連載(全704エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">58 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2026/11/09 12:00</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n1136bt/">吸血姫は薔薇色の夢をみる<span class="p-recommend__ncode">（N1136BT）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">【コミカライズ化決定】事故で死亡したはずのボクは『エターナル・ホライゾン・オンライン』の自キャラ吸血姫として目覚めた。ゲーム内の資産や領地、部下のモンスターごと//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+異世界〔恋愛〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+連載(全164エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">41 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2021/06/28 09:57</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n9047dz/">TS転生してまさかのサブヒロインに。<span class="p-recommend__ncode">（N9047DZ）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">────引きニートが死んだ時、物語は始まる。ハーレムを作りたい童貞は、異世界でどう生き抜くのか。
+
+特に重いテーマとかは無いです。ドタバタギャグがメインの、軽い//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+異世界〔恋愛〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+連載(全63エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">42 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2026/09/30 12:00</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n9850fl/">【コミックス６巻発売中！】転生前は男だったので逆ハーレムはお断りしております<span class="p-recommend__ncode">（N9850FL）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">【コミカライズ・書籍化のお知らせ】
+コミカライズ①~⑥巻発売中です！(*'▽')
+原作書籍①②巻発売中です！
+
+
+――――転生したら美少女だったから、人生勝ち組//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+ハイファンタジー〔ファンタジー〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+連載(全227エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">41 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2026/10/11 20:54</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n0170db/">美少女になったけど、ネトゲ廃人やってます。<span class="p-recommend__ncode">（N0170DB）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">　愛の告白に大失敗した高校生、訊太郎。
+　彼の災難は続き、ニュースで話題の性転化病を発症してしまう。性別が逆転し、銀髪美少女に変貌した彼は、ショックのあまりVR//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+VRゲーム〔SF〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+連載(全360エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">56 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2022/12/24 20:55</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n6517bw/">リビティウム皇国のブタクサ姫<span class="p-recommend__ncode">（N6517BW）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">リビティウム皇国のオーランシュ辺境伯にはシルティアーナ姫という、それはそれは……醜く性格の悪いお姫様がいました。
+『リビティウム皇国のブタクサ姫』と嘲笑される彼//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+ハイファンタジー〔ファンタジー〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+完結済(全347エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">44 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2025/12/31 00:10</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n1391fh/">先パイ勇者やるんですか？じゃあ僕回復やりますね　　～最上位回復職が聖女なんて聞いてない～<span class="p-recommend__ncode">（N1391FH）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">　高校に入り、たった二年で四度の失恋を経験した少年　清川棗。
+
+　今日も容姿を理由にフラレた彼を慰める幼馴染、武原葵と、武原秀彦の二人との下校中、突然響き渡る鐘//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+ハイファンタジー〔ファンタジー〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+連載(全149エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">41 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2025/11/12 19:09</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n4069ea/">英雄の娘として生まれ変わった英雄は再び英雄を目指す<span class="p-recommend__ncode">（N4069EA）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">英雄と呼ばれた六人のうちの一人レイドは、単独で魔神と戦う羽目に陥り、相打ちとなって果てた。
+怪しい神の導きの後、再び彼が目覚めた時、彼は赤ん坊として生まれ変わっ//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+ハイファンタジー〔ファンタジー〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+完結済(全633エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">45 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2023/11/01 00:00</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n6832ei/">最強の力を手に入れたかわりに女になりました　～楽をして暮らしたい冒険者の苦労生活～<span class="p-recommend__ncode">（N6832EI）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">　中性的な容姿を持つＢランクの冒険者であり、魔導師のレイン。
+　「お前が女だったらなぁ」と言われることの多いレインは、いつものようにある場所へと向かっていた。
+//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+ハイファンタジー〔ファンタジー〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+連載(全103エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">45 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2023/03/17 23:33</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n8514df/">異世界から戻った俺は銀髪巫女になっていた<span class="p-recommend__ncode">（N8514DF）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">普通の男子高校生如月幾人は、異世界に召喚されて魔王を倒す旅に出る。
+一年程の旅の末、ついに魔王を打ち倒した幾人だったが、魔王の最期の攻撃で相打ちとなり致命傷を負//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+ローファンタジー〔ファンタジー〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+完結済(全139エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">41 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2022/09/21 00:00</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n0407cz/">転生吸血鬼さんはお昼寝がしたい<span class="p-recommend__ncode">（N0407CZ）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">丁寧系無気力少年が異世界で転生したのは、吸血鬼の美少女だった。
+剣も魔法もある異世界に、チート能力盛りだくさんで転生した主人公が求めるもの、それは――！
+
+「三//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+コメディー〔文芸〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+完結済(全283エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">58 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2019/05/08 19:00</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n2558ez/">一人っ子男児の俺が四つ子姉妹の一人になったわけ<span class="p-recommend__ncode">（N2558EZ）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">一人っ子の男が四つ子姉妹の一人になった話</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+現実世界〔恋愛〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+連載(全67エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">43 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2024/02/22 07:00</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n2321du/">生まれ変わったらドラゴンだった<span class="p-recommend__ncode">（N2321DU）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary">勇者の家系に生まれながら、何も力が覚醒しなかった少年クリスは12歳の誕生日に家の習わしとして深い洞窟の奈落へ処分されてしまう。
+目が覚めると……
+
+※シリアスと//</p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre">
+ハイファンタジー〔ファンタジー〕
+</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">
+連載(全153エピソード)
+</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked">42 user</div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item">最終掲載日：2021/08/13 19:00</div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n8042em/">ゆりてん！～勇者として召喚されたのに理不尽な呪いによって女の子として生活することになった件～<span class="p-recommend__ncode">（N8042EM）</span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Naoki, summoned to another world by a begging god to defeat the immortal king, was transformed into a young girl by the immortal king's final curse. Surrounded by the former hero...</font></font></p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+High fantasy [fantasy]
+</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Serialized (317 episodes in total)
+</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">49 users</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Last posted: 2021/02/07 21:19</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n7972dm/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">I Became a Beautiful Girl with Animal Ears in Another World </font></font><span class="p-recommend__ncode"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">(N7972DM)</font></font></span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">The story follows a male protagonist who, instead of being reincarnated in another world, accidentally transforms into a beautiful woman with animal ears, leading to various events in that new world. He laments, "I do like animal ears, but... no! That's not it!"</font></font></p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+High fantasy [fantasy]
+</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Serialized (166 episodes in total)
+</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">41 users</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Last posted: 2020/12/20 18:00</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n0141ec/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">[Comic Adaptation] The Strongest Black Knight (Male) Changed Jobs to a Battle Maid (Female) [Book Adaptation] </font></font><span class="p-recommend__ncode"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">(N0141EC)</font></font></span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">[Volume 14 of the manga will be released on September 24, 2026!] / Albright, the strongest and most fearsome Black Knight who died at the young age of 27, is reborn as Maria, a lovely maid who looks great with a big ribbon.</font></font></p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Otherworldly Romance
+</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Serialized (399 episodes in total)
+</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">42 users</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Last posted: 2025/05/13 03:35</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n5900fl/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">The Saint with the Heavenly Eye ~One Day I Will Guide You to S-Rank~ </font></font><span class="p-recommend__ncode"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">(N5900FL)</font></font></span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">　There are two special things about the girl named Riko. First, she was born with the ability to see and bless people's abilities. Second, she has memories of her past life, and...</font></font></p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+High fantasy [fantasy]
+</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Serialized (269 episodes in total)
+</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">45 users</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Last posted: 2022/08/27 13:38</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n6049cc/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Aristail in a Fantasy World </font></font><span class="p-recommend__ncode"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">(N6049CC)</font></font></span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Feeling burnt out in the real world, I became addicted to online games during my reclusive college life. One day, I suddenly felt like trying out a female character online, so I looked for a suitable game and created a character...</font></font></p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+High fantasy [fantasy]
+</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Serialized (170 episodes in total)
+</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">44 users</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Last posted: 2023/01/03 22:37</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n1672eu/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">The Hero's Redo: The Hero Who Saved the World is Reborn as a Beautiful Girl </font></font><span class="p-recommend__ncode"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">(N1672EU)</font></font></span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Brave, the hero who once saved the world. While people initially welcomed him warmly upon his triumphant return, they gradually began to resent his power and treat him as an obstacle. He faced troublesome social interactions and insidious bullying...</font></font></p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+High fantasy [fantasy]
+</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Serialized (197 episodes in total)
+</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">43 users</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Last posted: 2021/03/19 23:06</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n4236dr/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">The Vampire Girl Wants to Become a Man Again! </font></font><span class="p-recommend__ncode"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">(N4236DR)</font></font></span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">A boy who was reincarnated into a fantasy world of swords and magic had one problem: due to a mistake by a clumsy goddess, he had been reincarnated as a girl. Luna Reston, formerly a hardcore gamer, longs to return to being a boy.</font></font></p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+High fantasy [fantasy]
+</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Serialized (452 ​​episodes in total)
+</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">48 users</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Last posted: 2026/08/01 21:30</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n3144ev/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Swords, tiaras, and high heels ~The Duchess's Daughter Possesses the Soul of a Hero~ </font></font><span class="p-recommend__ncode"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">(N3144EV)</font></font></span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">[Volume 2 is scheduled to be published by TO Books on December 10, 2020! And a comic adaptation has also been decided! Thank you!] Ortus, the knight hailed as the strongest on the continent, met a tragic end in the last great war.</font></font></p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+High fantasy [fantasy]
+</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Serialized (206 episodes in total)
+</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">42 users</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Last posted: 2020/12/13 12:00</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+<div class="p-recommend__item">
+
+<div class="p-recommend__title"><a class="p-recommend__title-link an--recommend--link-novel-title" href="https://ncode.syosetu.com/n7608cw/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Reincarnating a joke character is just too much! </font></font><span class="p-recommend__ncode"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">(N7608CW)</font></font></span></a></div><!-- /.p-recommend__title -->
+
+<p class="p-recommend__summary"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Working part-time jobs, cutting back on food expenses, sacrificing his youth to repeatedly spend money on in-game purchases—that was Toru Aikawa's life, resisting loneliness and boredom with only games as his weapon. One day, on his way home from his part-time job, Toru was on a runaway bus...</font></font></p>
+<div class="p-recommend__info">
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--genre"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+High fantasy [fantasy]
+</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+Serialized (167 episodes in total)
+</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+<div class="p-recommend__info-row">
+<div class="p-recommend__info-item p-recommend__info-item--bookmarked"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">53 users</font></font></div><!-- /.p-recommend__info-item -->
+<div class="p-recommend__info-item"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Last posted: 2020/04/23 00:00</font></font></div><!-- /.p-recommend__info-item -->
+</div><!-- /.p-recommend__info-row -->
+</div><!-- /.p-recommend__info -->
+</div><!--/.p-recommend__item-->
+</aside><!--p-recommend-->
+
+
+<div class="c-under-nav">
+<a class="c-under-nav__item" href="https://mypage.syosetu.com/1330119/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Author's My Page</font></font></a>
+<form class="c-under-nav__item" action="https://ncode.syosetu.com/novelpdf/creatingpdf/ncode/n5005ev/" method="post">
+<font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"><input type="submit" value="Vertical text PDF" class="c-under-nav__pdflink" data-nolock="true"></font></font>
+<input type="hidden" name="token" value="3acaeb50d7b089baacbfeb353b081bab">
+</form>
+<a class="c-under-nav__item" href="https://syosetu.com/ihantsuhou/input/ncode/1254880/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Information provision</font></font></a>
+</div><!--/.c-under-nav-->
+
+
+<div class="c-novel-attention">
+<div class="c-novel-attention__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">+Attention+</font></font></div>
+<p class="c-novel-attention__warning"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Unless otherwise stated, all works published are fiction and have no relation to any real people or organizations. </font></font><br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Unless otherwise stated, the copyright of the published works belongs to the author (with some exceptions). </font></font><br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Unauthorized reproduction of works by anyone other than the author that goes beyond fair use is prohibited and constitutes a violation of copyright law.</font></font></p>
+</div><!--c-novel-attention-->
+
+</div><!-- /.l-foot-contents -->
+
+
+
+<div data-cptid="1593272" style="display: block;">
+<script>
+  window.gnshbrequest.cmd.push(function() {
+    window.gnshbrequest.applyPassback("1593272", "[data-cptid='1593272']");
+  });
+</script>
+</div>
+
+
+</div><!-- /.l-container -->
+
+<footer class="l-footer">
+<div class="p-footer-nav">
+<div class="p-footer-nav__body">
+<a class="p-footer-nav__item" href="https://syosetu.com"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Let's become a novelist</font></font></a>
+<a class="p-footer-nav__item" href="https://yomou.syosetu.com"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Let's read a novel!</font></font></a>
+<a class="p-footer-nav__item" href="https://yomou.syosetu.com/search.php"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Search for works</font></font></a>
+</div><!-- /.p-footer-nav__body -->
+</div><!-- /.p-footer-nav -->
+</footer>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-1TH9CF4FPC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-1TH9CF4FPC');
+    </script>
+
+                <script>
+            gtag('config', 'G-2YQV7PZTL9');
+        </script>
+    
+
+
+
+<div class="remodal-overlay remodal-is-closed" style="display: none;"></div><div class="remodal-wrapper remodal-is-closed" style="display: none;"><div class="c-modal c-modal--bookmark remodal remodal-is-initialized remodal-is-closed" data-remodal-id="add_bookmark" tabindex="-1">
+<div class="c-modal__close js-add_bookmark_modal_close"></div>
+
+<div class="c-modal__body">
+<p class="c-modal__item-title js-add_bookmark_title"></p>
+<p class="c-modal__item-message"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Added to bookmarks</font></font></p>
+
+<div class="p-bookmark-modal c-form">
+<div class="p-bookmark-modal__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">setting</font></font></div>
+<div class="p-bookmark-modal__itembox">
+<div class="p-bookmark-modal__item c-form__checkbox-inline">
+<div class="c-form__checkbox"><input type="checkbox" name="isnotice" value="1" class="c-form__checkbox-input" id="bookmarkisnotice"><label for="bookmarkisnotice" class="c-form__checkbox-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Update notification</font></font></label></div>
+<div class="js-isnoticecnt"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">0/400</font></font></div>
+</div>
+<div class="p-bookmark-modal__item c-form__radio-inline">
+<div class="c-form__radio"><input type="radio" name="jyokyo" class="bookmark_jyokyo c-form__radio-input" value="2" checked="checked" id="bookmark-jyokyo-1"><label for="bookmark-jyokyo-1" class="c-form__radio-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">public</font></font></label></div>
+<div class="c-form__radio"><input type="radio" name="jyokyo" class="bookmark_jyokyo c-form__radio-input" value="1" id="bookmark-jyokyo-2"><label for="bookmark-jyokyo-2" class="c-form__radio-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">private</font></font></label></div>
+</div>
+<div class="c-toast c-toast--addend js-bookmark_save_toaster" id="bookmark_save_toaster">
+<strong class="c-toast__message c-toast__message--strong"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Settings saved.</font></font></strong>
+</div>
+<div class="c-toast c-toast--error js-bookmark_save_err_toaster">
+<strong class="c-toast__message c-toast__message--strong"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">An error has occurred</font></font></strong>
+<div id="bookmark_save_errmsg" class="js-bookmark_save_errmsg"></div>
+<div class="c-toast__box-right">
+<a href="#" class="toaster_close"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">close</font></font></a>
+</div>
+</div>
+<div class="p-bookmark-modal__item c-form__group">
+<div class="p-bookmark-modal__colbox">
+<label class="p-bookmark-modal__col-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">category</font></font></label>
+<div class="p-bookmark-modal__col-form"><select name="categoryid" class="js-category_select c-form__select"></select></div>
+</div><!-- /.p-bookmark-modal__colbox -->
+</div>
+<div class="p-bookmark-modal__item c-form__group">
+<div class="p-bookmark-modal__colbox">
+<label class="p-bookmark-modal__col-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Memo</font></font></label>
+<div class="p-bookmark-modal__col-form">
+<input type="text" maxlength="" class="js-bookmark_memo c-form__input-text p-bookmark-modal__input-memo">
+<span class="c-form__help-block"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">*Within character limit</font></font></span>
+</div>
+</div><!-- /.p-bookmark-modal__colbox -->
+
+</div>
+</div><!-- /.p-bookmark-modal__itembox -->
+
+<input type="hidden" class="js-bookmark_setting_url" value="https://syosetu.com/favnovelmain/updateajax/">
+<input type="hidden" class="js-bookmark_setting_useridfavncode" value="">
+<input type="hidden" class="js-bookmark_setting_xidfavncode" value="">
+<input type="hidden" class="js-bookmark_setting_token" value="">
+
+<div class="c-button-box c-button-box--center"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"><input type="button" class="c-button c-button--beige js-bookmark_setting_submit" value="Save settings"></font></font></div><!-- /.c-button-box c-button-box--center -->
+</div><!-- /.c-modal__item.p-bookmark-modal -->
+<input type="hidden" value="https://syosetu.com/favnovelmain/list/" class="js-base_bookmark_url">
+<div class="c-button-box c-button-box--center">
+<a href="https://syosetu.com/favnovelmain/list/" class="c-button c-button--gray js-modal_bookmark_btn"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Move to bookmarks</font></font></a>
+</div><!-- /.c-button-box c-button-box--center -->
+</div><!-- /.c-modal__body -->
+</div></div><div class="remodal-wrapper remodal-is-closed" style="display: none;"><div class="c-modal c-modal--small remodal remodal-is-initialized remodal-is-closed" data-remodal-id="delend_bookmark" tabindex="-1">
+<div class="c-modal__close js-delend_bookmark_modal_close"></div>
+<div class="c-modal__body c-modal__body--cancell">
+<div class="c-modal__item-message"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">I have removed the bookmark.</font></font></div>
+</div><!-- /.c-modal__body -->
+</div></div><div class="remodal-wrapper remodal-is-closed" style="display: none;"><div class="c-modal c-modal--small remodal remodal-is-initialized remodal-is-closed" data-remodal-id="error_modal" tabindex="-1">
+<div class="c-modal__close js-error_modal_close"></div>
+
+<div class="c-modal__body">
+<p class="c-modal__item-message-error"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">An error has occurred.</font></font></p>
+<p class="c-modal__item-message-error js-modal_err_mes"></p>
+<p class="c-modal__item-message"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">If you are unsure of the cause of the error, </font><font dir="auto" style="vertical-align: inherit;">please check </font></font><a href="https://syosetu.com/helpcenter/top/" target="_blank"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">the Help Center .</font></font></a><font dir="auto" style="vertical-align: inherit;"></font></p>
+</div><!-- /.c-modal__body -->
+</div></div><button id="wtr-sy-toggle"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">◆ EPUB EXPORT</font></font></button><div id="goog-gt-tt" class="VIpgJd-yAWNEb-L7lbkb skiptranslate" style="display: none; border-radius: 12px; margin: 0 0 0 -23px; padding: 0; font-family: 'Google Sans', Arial, sans-serif;" data-id=""><div id="goog-gt-vt" class="VIpgJd-yAWNEb-hvhgNd"><div class="VIpgJd-yAWNEb-hvhgNd-Ud7fr"><img src="https://fonts.gstatic.com/s/i/productlogos/translate/v14/24px.svg" width="24" height="24" alt=""><div class=" VIpgJd-yAWNEb-hvhgNd-IuizWc-i3jM8c " dir="ltr">Original text</div></div><div class="VIpgJd-yAWNEb-hvhgNd-k77Iif"><div id="goog-gt-original-text" class="VIpgJd-yAWNEb-nVMfcd-fmcmS VIpgJd-yAWNEb-hvhgNd-axAV1"></div></div><div class="VIpgJd-yAWNEb-hvhgNd-N7Eqid ltr"><div class="VIpgJd-yAWNEb-hvhgNd-N7Eqid-B7I4Od ltr" dir="ltr"><div class="VIpgJd-yAWNEb-hvhgNd-UTujCb">Rate this translation</div><div class="VIpgJd-yAWNEb-hvhgNd-eO9mKe">Your feedback will be used to help improve Google Translate</div></div><div class="VIpgJd-yAWNEb-hvhgNd-xgov5 ltr"><button id="goog-gt-thumbUpButton" type="button" class="VIpgJd-yAWNEb-hvhgNd-bgm6sf" title="Good translation" aria-label="Good translation" aria-pressed="false"><span id="goog-gt-thumbUpIcon"><svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="VIpgJd-yAWNEb-hvhgNd-THI6Vb NMm5M"><path d="M21 7h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 0S7.08 6.85 7 7H2v13h16c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73V9c0-1.1-.9-2-2-2zM7 18H4V9h3v9zm14-7l-3 7H9V8l4.34-4.34L12 9h9v2z"></path></svg></span><span id="goog-gt-thumbUpIconFilled"><svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="VIpgJd-yAWNEb-hvhgNd-THI6Vb NMm5M"><path d="M21 7h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 0S7.08 6.85 7 7v13h11c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73V9c0-1.1-.9-2-2-2zM5 7H1v13h4V7z"></path></svg></span></button><button id="goog-gt-thumbDownButton" type="button" class="VIpgJd-yAWNEb-hvhgNd-bgm6sf" title="Poor translation" aria-label="Poor translation" aria-pressed="false"><span id="goog-gt-thumbDownIcon"><svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="VIpgJd-yAWNEb-hvhgNd-THI6Vb NMm5M"><path d="M3 17h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 24s7.09-6.85 7.17-7h5V4H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2zM17 6h3v9h-3V6zM3 13l3-7h9v10l-4.34 4.34L12 15H3v-2z"></path></svg></span><span id="goog-gt-thumbDownIconFilled"><svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="VIpgJd-yAWNEb-hvhgNd-THI6Vb NMm5M"><path d="M3 17h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 24s7.09-6.85 7.17-7V4H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2zm16 0h4V4h-4v13z"></path></svg></span></button></div></div><div id="goog-gt-votingHiddenPane" class="VIpgJd-yAWNEb-hvhgNd-aXYTce"><form id="goog-gt-votingForm" action="//translate.googleapis.com/translate_voting?client=te_lib" method="post" target="votingFrame" class="VIpgJd-yAWNEb-hvhgNd-aXYTce"><input type="text" name="sl" id="goog-gt-votingInputSrcLang"><input type="text" name="tl" id="goog-gt-votingInputTrgLang"><input type="text" name="query" id="goog-gt-votingInputSrcText"><input type="text" name="gtrans" id="goog-gt-votingInputTrgText"><input type="text" name="vote" id="goog-gt-votingInputVote"></form><iframe name="votingFrame" frameborder="0"></iframe></div></div></div><div id="wtr-sy-panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #333;padding-bottom:6px;">
+        <strong><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">SYOSETU TO EPUB // CALIBER READY</font></font></strong>
+        <span id="wtr-close" style="cursor:pointer;color:#888;"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">✕</font></font></span>
+      </div>
+      <div class="wtr-storage">
+        <span id="wtr-cache-info"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">DB Cache: 0 chapters</font></font></span>
+        <span id="wtr-clear-db" style="cursor:pointer;color:#ff6b6b;text-decoration:underline;"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Clear DB</font></font></span>
+      </div>
+      <div class="wtr-row">
+        <span class="wtr-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Title</font></font></span>
+        <input type="text" id="wtr-title" class="wtr-input" value="凍心の竜">
+      </div>
+      <div class="wtr-grid">
+        <div class="wtr-row">
+          <span class="wtr-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Author (Display)</font></font></span>
+          <input type="text" id="wtr-author" class="wtr-input" value="Fin">
+        </div>
+        <div class="wtr-row">
+          <span class="wtr-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Author (Romaji / Sort)</font></font></span>
+          <input type="text" id="wtr-author-sort" class="wtr-input" value="Fin">
+        </div>
+      </div>
+      <label class="wtr-check">
+        <input type="checkbox" id="wtr-use-romaji" checked=""><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+        Set author display to Romaji (Fix Chinese / Caliber sort)
+      </font></font></label>
+      <div class="wtr-grid">
+        <div class="wtr-row">
+          <span class="wtr-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Range (Start - End)</font></font></span>
+          <div style="display:flex;gap:4px;">
+            <input type="number" id="wtr-start" class="wtr-input" value="1" min="1" style="width:50%;">
+            <input type="number" id="wtr-end" class="wtr-input" value="9999" min="1" style="width:50%;">
+          </div>
+        </div>
+        <div class="wtr-row">
+          <span class="wtr-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Delay (ms) [Safe: 1200+]</font></font></span>
+          <input type="number" id="wtr-delay" class="wtr-input" value="1200" min="500" step="100">
+        </div>
+      </div>
+      <div class="wtr-progress"><div class="wtr-progress-fill" id="wtr-bar"></div></div>
+      <div class="wtr-log" id="wtr-log"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Ready</font></font></div>
+      <div style="display:flex;gap:6px;">
+        <button class="wtr-btn-main" id="wtr-start-btn" style="flex:1;"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Download EPUB</font></font></button>
+        <button class="wtr-btn-sec" id="wtr-cancel-btn" style="display:none;color:#ff6b6b;"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">CANCEL</font></font></button>
+      </div>
+      <div class="wtr-grid">
+        <button class="wtr-btn-sec" id="wtr-continue-btn"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">CONTINUE LATEST</font></font></button>
+        <button class="wtr-btn-sec" id="wtr-saved-btn"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">DOWNLOAD SAVED</font></font></button>
+      </div>
+    </div><iframe scrolling="no" frameborder="0" allowtransparency="true" src="https://platform.twitter.com/widgets/widget_iframe.1227a5674072e080ffb1ba14ac0c1079.html?origin=https%3A%2F%2Fncode.syosetu.com" title="Twitter settings iframe" style="display: none;"></iframe><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none;" title="Twitter analytics iframe"></iframe></body></html>, sinopsis novel <div id="novel_ex" class="p-novel__summary"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">　Melting, melting, dissolving, the dissolved heart seeks light. The light of hope that it has grasped for itself. </font></font><br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+　No one yet knows that there is no light beyond that. </font></font><br>
+<br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+　The girl stands there on top of countless sacrifices, and everything she believed in is consumed by the flames of rage. </font></font><br>
+<br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+　All ties intersect, heading towards the end. </font></font><br>
+<br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+　A novel full of plot holes, second installment, </font></font><br>
+<br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+　with illustrations added. Please take a look if you like. There are currently three illustrations: Cyan, Lux, and Lee.</font></font></div>, link untuk ambil metadata:https://ncode.syosetu.com/novelview/infotop/ncode/n5005ev/?ref=ncodeheader, raw html information product:<div class="l-container">
+<h1 class="p-infotop-title">
+<a href="https://ncode.syosetu.com/n5005ev/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Frozen Heart Dragon</font></font></a>
+</h1>
+
+<div class="l-infotop">
+<article class="l-infotop__main">
+<div class="p-infotop-type">
+<div class="p-infotop-type__left">
+<span class="p-infotop-type__type p-infotop-type__type--serialized"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Currently serialized</font></font></span>
+<span class="p-infotop-type__allep"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">73 episodes in total</font></font></span>
+</div>
+</div>
+<dl class="p-infotop-data">
+<dt class="p-infotop-data__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Synopsis</font></font></dt>
+<dd class="p-infotop-data__value"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">　Melting, melting, dissolving, the dissolved heart seeks light. The light of hope that it has grasped for itself. </font></font><br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+　No one yet knows that there is no light beyond that. </font></font><br>
+<br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+　The girl stands there on top of countless sacrifices, and everything she believed in is consumed by the flames of rage. </font></font><br>
+<br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+　All ties intersect, heading towards the end. </font></font><br>
+<br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+　A novel full of plot holes, second installment, </font></font><br>
+<br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+　with illustrations added. Please take a look if you like. There are currently three illustrations: Cyan, Lux, and Lee.</font></font></dd>
+<dt class="p-infotop-data__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">N code</font></font></dt>
+<dd class="p-infotop-data__value"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">N5005EV</font></font></dd>
+<dt class="p-infotop-data__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Author name</font></font></dt>
+<dd class="p-infotop-data__value"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Fin
+</font></font></dd>
+<dt class="p-infotop-data__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">keyword</font></font></dt>
+<dd class="p-infotop-data__value"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+R15 Contains graphic violence Isekai Reincarnation Non-human Cheat Magic TS Friends Chuunibyou Author Magic Theory Magic Theory ESN Award
+</font></font></dd>
+<dt class="p-infotop-data__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Genre</font></font></dt>
+<dd class="p-infotop-data__value"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">High fantasy [fantasy]</font></font></dd>
+<dt class="p-infotop-data__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Publication date</font></font></dt>
+<dd class="p-infotop-data__value"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">June 24, 2018 00:20</font></font></dd>
+<dt class="p-infotop-data__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Latest publication date</font></font></dt>
+<dd class="p-infotop-data__value"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">July 28, 2019 16:16</font></font></dd>
+
+<dt class="p-infotop-data__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Feedback</font></font></dt>
+<dd class="p-infotop-data__value"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">accept</font></font></dd>
+<dt class="p-infotop-data__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Review Submission</font></font></dt>
+<dd class="p-infotop-data__value"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Accepting applications </font></font><br><span><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">*Login required</font></font></span></dd>
+<dt class="p-infotop-data__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Typo Report Acceptance</font></font></dt>
+<dd class="p-infotop-data__value"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Accepting applications </font></font><br><span><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">*Login required</font></font></span></dd>
+<dt class="p-infotop-data__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Disclosure settings</font></font></dt>
+<dd class="p-infotop-data__value"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Currently excluded from search results</font></font></dd>
+<dt class="p-infotop-data__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">character count</font></font></dt>
+<dd class="p-infotop-data__value"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">718,109 characters</font></font></dd>
+</dl>
+</article>
+<div class="p-infotop-towork">
+<a href="https://ncode.syosetu.com/n5005ev/" class="p-infotop-towork__button"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">table of contents</font></font></a>
+<a href="https://ncode.syosetu.com/n5005ev/1/" class="p-infotop-towork__button"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Read Episode 1</font></font></a>
+<a href="https://ncode.syosetu.com/n5005ev/73/" class="p-infotop-towork__button"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Read the latest episode</font></font></a>
+</div>
+<aside class="l-infotop__sub">
+<div class="p-infotop-kasasagi">
+<div class="p-infotop-kasasagi__analytics"><a href="https://kasasagi.hinaproject.com/access/top/ncode/n5005ev/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">View the access analytics for this work.</font></font></a></div>
+<div class="p-infotop-kasasagi__kasasagi"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">System by </font></font><a href="https://kasasagi.hinaproject.com/" target="_blank"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">KASASAGI</font></font></a></div>
+</div>
+</aside>
+</div>
+
+<div class="c-ad c-ad--rectangle">
+<div class="c-pr"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">PR</font></font></div><!-- /.c_pr -->
+
+<div data-cptid="1484261" style="display: block;">
+<script>
+window.gnshbrequest.cmd.push(function() {
+window.gnshbrequest.applyPassback("1484261", "[data-cptid='1484261']");
+});
+</script>
+</div>
+
+
+</div><!--c-ad c-ad--rectangle-->
+<div class="c-navigater c-navigater--totop upper"><a href="#"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">▲Back to top of page</font></font></a></div>
+<div class="p-infotop-novellist">
+<h2 class="p-infotop-novellist__head"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Works by the same author</font></font></h2>
+<div class="p-infotop-novellist__name">
+<a href="https://yomou.syosetu.com/search.php?word=Fin&amp;wname=1"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">&gt;&gt;Search for Fin Sensei's works on "Let's Read Novels!"</font></font></a>
+</div>
+<div class="p-infotop-novellist__title"><a href="https://ncode.syosetu.com/n3411he/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Fragments of Ideas: There's someone else in Leefe Aria's stream ~First Stream~</font></font></a></div>
+
+<div class="p-infotop-novellist__info"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+N3411HE |
+ </font></font><a href="https://ncode.syosetu.com/novelview/infotop/ncode/n3411he/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Work Information</font></font></a><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> | Short Story | Low Fantasy [Fantasy]
+</font></font></div>
+<div class="p-infotop-novellist__summary"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">　Let's take a peek at the activities of two people who came from another world. I'd be happy if you feel free to take the settings from the fragments of ideas I've written and write the rest. My purpose is just to let the ideas flow because I want to read them but can't write the rest myself.</font></font></div>
+<div class="p-infotop-novellist__title"><a href="https://ncode.syosetu.com/n8003gz/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Fragments of Ideas: The Mechanical God's Fingertips</font></font></a></div>
+
+<div class="p-infotop-novellist__info"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+N8003GZ |
+ </font></font><a href="https://ncode.syosetu.com/novelview/infotop/ncode/n8003gz/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Work Information</font></font></a><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> | Short Story | Science Fiction
+</font></font></div>
+<div class="p-infotop-novellist__summary"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">　The beginning of a story about dying in a world ruled by machines. This work is a fragment of an idea, and there will be no continuation.</font></font></div>
+<div class="p-infotop-novellist__title"><a href="https://ncode.syosetu.com/n2069fm/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Guam!</font></font></a></div>
+
+<div class="p-infotop-novellist__info"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+N2069FM |
+ </font></font><a href="https://ncode.syosetu.com/novelview/infotop/ncode/n2069fm/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Work Information</font></font></a><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> | Short Story | Low Fantasy [Fantasy]
+</font></font></div>
+<div class="p-infotop-novellist__summary"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Mmm, nom nom nom, nom nom nom nom...</font></font></div>
+<div class="p-infotop-novellist__title"><a href="https://ncode.syosetu.com/n7632fe/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">On that wall</font></font></a></div>
+
+<div class="p-infotop-novellist__info"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+N7632FE |
+ </font></font><a href="https://ncode.syosetu.com/novelview/infotop/ncode/n7632fe/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Work Information</font></font></a><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> | Short Story | Low Fantasy [Fantasy]
+</font></font></div>
+<div class="p-infotop-novellist__summary"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">　That day, the world was thrown into chaos by a colossal wall that suddenly emerged from the ground. It's still fresh in our memories, isn't it? I won't go into much detail, just a small turning point in my life as myself. No, let me ask a question. Suppose the world were even smaller than it is now...</font></font></div>
+<div class="p-infotop-novellist__title"><a href="https://ncode.syosetu.com/n9674ew/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">From a world of waste</font></font></a></div>
+
+<div class="p-infotop-novellist__info"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+N9674EW |
+ </font></font><a href="https://ncode.syosetu.com/novelview/infotop/ncode/n9674ew/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Work Information</font></font></a><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"> | Short Story | High Fantasy [Fantasy]
+</font></font></div>
+<div class="p-infotop-novellist__summary"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">　God discarded things he couldn't dispose of into a certain world. This was a world of the end, where all life had ceased to exist. This is the story of the strange relationship between a surviving girl and a machine created by her, from its end to the beginning of their journey.</font></font></div>
+</div>
+
+<div class="c-navigater c-navigater--totop upper"><a href="#"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">▲Back to top of page</font></font></a></div>
+<div class="c-under-nav c-under-nav--col-single">
+<a class="c-under-nav__item" href="https://mypage.syosetu.com/1330119/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Author's My Page</font></font></a>
+<form class="c-under-nav__item" action="https://ncode.syosetu.com/novelpdf/creatingpdf/ncode/n5005ev/" method="post">
+<font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;"><input type="submit" value="Vertical text PDF" class="c-under-nav__pdflink" data-nolock="true"></font></font></font></font>
+<input type="hidden" name="token" value="31babf09185e37516a58116c078f1c58">
+</form>
+<a class="c-under-nav__item" href="https://syosetu.com/ihantsuhou/input/ncode/1254880/"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Information provision</font></font></a>
+</div><!--/.c-under-nav-->
+<div class="c-sns">
+<div class="c-sns__item"><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="X Post Button" src="https://platform.twitter.com/widgets/tweet_button.1227a5674072e080ffb1ba14ac0c1079.ja.html#dnt=false&amp;hashtags=narou%2CnarouN5005EV&amp;id=twitter-widget-0&amp;lang=ja&amp;original_referer=https%3A%2F%2Fncode.syosetu.com%2Fnovelview%2Finfotop%2Fncode%2Fn5005ev%2F%3Fref%3Dncodeheader&amp;size=m&amp;text=%E3%80%8C%E5%87%8D%E5%BF%83%E3%81%AE%E7%AB%9C%E3%80%8D&amp;time=1794227454593&amp;type=share&amp;url=https%3A%2F%2Fncode.syosetu.com%2Fn5005ev%2F" style="position: static; visibility: visible; width: 77px; height: 20px;" data-url="https://ncode.syosetu.com/n5005ev/"></iframe><script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div><!-- /.c-up-sns__item -->
+<div class="c-sns__item">
+<a href="http://line.me/R/msg/text/?%E5%87%8D%E5%BF%83%E3%81%AE%E7%AB%9C%0Ahttps%3A%2F%2Fncode.syosetu.com%2Fn5005ev%2F" target="_blank" class="c-sns__button c-sns__button--line"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Send via LINE</font></font></a>
+</div><!-- /.c-sns__item -->
+<div class="c-sns__item"><button data-url="凍心の竜
+https://ncode.syosetu.com/n5005ev/" target="_blank" class="c-sns__button c-sns__button--linkcopy p-icon p-icon--file-copy js_copy_btn"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">copy</font></font></button></div><!-- /.c-sns__item -->
+<div class="c-toast c-toast--addend js_toaster_copy"></div>
+</div><!-- c-sns -->
+
+<script type="text/javascript"><!--
+$(function(){
+$('.js_copy_btn').click(function () {
+        // クリップボードにコピー
+        navigator.clipboard.writeText($(this).data('url'))
+
+// 表示するトーストのセレクタを設定
+let selector = $('.js_toaster_copy');
+
+// トースターに表示するメッセージをセット
+selector.html('<strong>タイトルとリンクを<br>コピーしました</strong>');
+
+// セレクターをフェードインする
+selector.fadeIn(1000);
+
+// 2000ミリ秒後にフェードアウトを実行する
+setTimeout(hidediley, 3000, selector);
+    });
+});
+
+// フェードアウトを実行する
+function hidediley(selector){
+selector.fadeOut(1000);
+}
+//--></script>
+<div class="c-ad c-ad--rectangle">
+
+<div data-cptid="1480006" style="display: block;">
+<script>
+window.gnshbrequest.cmd.push(function() {
+window.gnshbrequest.applyPassback("1480006", "[data-cptid='1480006']");
+});
+</script>
+</div>
+
+
+</div>
+
+
+<div class="c-novel-attention">
+<div class="c-novel-attention__title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">+Attention+</font></font></div>
+<p class="c-novel-attention__warning"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Unless otherwise stated, all works published are fiction and have no relation to any real people or organizations. </font></font><br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Unless otherwise stated, the copyright of the published works belongs to the author (with some exceptions). </font></font><br><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Unauthorized reproduction of works by anyone other than the author that goes beyond fair use is prohibited and constitutes a violation of copyright law.</font></font></p>
+</div><!--c-novel-attention-->
+
+<div class="c-navigater c-navigater--totop upper"><a href="#"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">▲Back to top of page</font></font></a></div>
+</div>, juga mungkin author bisa di romajikan dengan deteksi seperti tranlatoor /prompt
