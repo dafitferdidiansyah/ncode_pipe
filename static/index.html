@@ -129,7 +129,8 @@ button.btn:disabled{opacity:0.35;cursor:not-allowed;}
     <button data-tab="search" class="active">[1] SEARCH &amp; QUEUE</button>
     <button data-tab="bulk">[2] BULK TXT</button>
     <button data-tab="queue">[3] CRAWL QUEUE (<span id="q-count">0</span>)</button>
-    <button data-tab="settings">[4] SETTINGS</button>
+    <button data-tab="pipeline">[4] TL &amp; PUSH (<span id="tl-count">0</span>)</button>
+    <button data-tab="settings">[5] SETTINGS</button>
   </nav>
 </header>
 
@@ -366,7 +367,44 @@ n2267be
     </div>
   </section>
 
-  <!-- ======================= TAB 4: SETTINGS (TAMPERMONKEY-STYLE) ======================= -->
+  <!-- ======================= TAB 4: TRANSLATION & PUSH WORKFLOW ======================= -->
+  <section id="tab-pipeline" class="tab-page">
+    <div class="panel">
+      <div class="panel-h">
+        <h2>Translation &amp; MyNovels Push Pipeline</h2>
+        <span class="extra">Calibre Google(Free) &bull; MyNovels API</span>
+      </div>
+
+      <div style="overflow-x:auto">
+        <table class="q-table">
+          <thead>
+            <tr>
+              <th style="width:90px">Status</th>
+              <th style="width:90px">Ncode</th>
+              <th>Title</th>
+              <th style="width:200px">Workflow Progress / Step</th>
+              <th style="width:220px">Files (Raw &amp; TL)</th>
+              <th style="width:200px;text-align:right">Pipeline Actions</th>
+            </tr>
+          </thead>
+          <tbody id="pipeline-body">
+            <tr><td colspan="6" style="text-align:center;color:var(--dim);padding:24px">No crawled novels ready for translation or push yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Pipeline Live Activity Log -->
+    <div class="panel">
+      <div class="panel-h">
+        <h2>Translation &amp; Upload Detailed Logs</h2>
+        <span class="extra">Bookfere Calibre Engine Logs &bull; MyNovels Status</span>
+      </div>
+      <div id="pipeline-logbox" class="logbox"></div>
+    </div>
+  </section>
+
+  <!-- ======================= TAB 5: SETTINGS (TAMPERMONKEY-STYLE) ======================= -->
   <section id="tab-settings" class="tab-page">
     <div class="panel">
       <div class="panel-h">
@@ -865,7 +903,7 @@ $('#btn-queue-bulk').addEventListener('click', async () => {
 // Incremental rendering: rows are created once and only changed cells are touched.
 // Rebuilding innerHTML every tick made Google Translate re-translate the whole
 // table/log on every poll (visible flicker). Untouched nodes keep their translation.
-const qview = { rows: new Map(), lastLogId: 0, inflight: false };
+const qview = { rows: new Map(), tlRows: new Map(), lastLogId: 0, lastTlLogId: 0, inflight: false };
 
 // Set textContent only when the value actually changed (cache on the element,
 // never read back from DOM because translated DOM text differs from source).
@@ -955,6 +993,64 @@ function jobActionsHtml(j) {
           <button class="btn" onclick="jobAction('${j.id}','remove')">DEL</button>`;
 }
 
+function createPipelineRow() {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td translate="no"><span data-f="status"></span></td>
+    <td translate="no"><b data-f="ncode"></b></td>
+    <td>
+      <div style="font-weight:500" data-f="title"></div>
+      <div style="color:var(--muted);font-size:10px" data-f="message"></div>
+    </td>
+    <td translate="no">
+      <div class="pbar thin"><div class="pbar-fill" data-f="bar" style="width:0%"></div></div>
+      <div class="pbar-text"><span data-f="step"></span><span data-f="pct"></span></div>
+    </td>
+    <td style="font-size:10px" translate="no" data-f="files"></td>
+    <td style="text-align:right" translate="no" data-f="actions"></td>`;
+  tr._f = {};
+  tr.querySelectorAll('[data-f]').forEach(el => { tr._f[el.dataset.f] = el; });
+  return tr;
+}
+
+function updatePipelineRow(tr, j) {
+  const f = tr._f;
+  const isBusy = j.status === 'translating' || j.status === 'uploading';
+  tr.className = isBusy ? 'running' : '';
+  const badgeCls = `badge ${j.status}`;
+  if (f.status.className !== badgeCls) f.status.className = badgeCls;
+  upd(f.status, j.status);
+  upd(f.ncode, j.ncode);
+  upd(f.title, j.title || j.ncode);
+  upd(f.message, j.message || '');
+  updStyle(f.bar, 'width', `${j.percent}%`);
+  upd(f.step, j.message || (j.status === 'translating' ? `Translating ${j.done}/${j.total}` : j.status));
+  upd(f.pct, `${j.percent}%`);
+
+  const allFiles = [...(j.files || []), ...(j.tl_files || [])];
+  const filesHtml = allFiles.map(fp => {
+    const name = fp.split(/[\\/]/).pop();
+    const isTl = name.startsWith('[ID]') || name.startsWith('[EN]');
+    const color = isTl ? 'var(--accent)' : 'var(--text)';
+    const tag = isTl ? `<b style="color:var(--accent)">[TL]</b> ` : `<span style="color:var(--dim)">[JP]</span> `;
+    return `<div style="margin-bottom:2px">${tag}<a href="/files/${encodeURIComponent(name)}" download style="color:${color}">${escapeHtml(name)}</a></div>`;
+  }).join('');
+  updHtml(f.files, filesHtml || (j.error ? `<span style="color:#ff8888">${escapeHtml(j.error)}</span>` : '-'));
+
+  // Pipeline specific action buttons
+  let acts = '';
+  if (j.status === 'translating' || j.status === 'uploading') {
+    acts = `<span style="font-size:11px;color:var(--muted)">Processing in background...</span>`;
+  } else {
+    acts = `
+      <button class="btn primary" onclick="jobAction('${j.id}','translate_id')" title="Translate to Indonesian using Google Free Engine">TL (ID)</button>
+      <button class="btn" onclick="jobAction('${j.id}','translate_en')" title="Translate to English using Google Free Engine">TL (EN)</button>
+      <button class="btn" onclick="jobAction('${j.id}','upload_mynovels')" title="Push to MyNovels backend">PUSH</button>
+    `;
+  }
+  updHtml(f.actions, acts);
+}
+
 function updateQueueRow(tr, j) {
   const f = tr._f;
   const cls = j.status === 'running' ? 'running' : '';
@@ -1033,6 +1129,35 @@ function renderQueue(data) {
     }
   }
 
+  // Pipeline rendering: only show novels that are done, skipped, translating, translated, uploading, uploaded, or have tl_files
+  const pipelineJobs = jobs.filter(j => 
+    ['done', 'skipped', 'translating', 'translated', 'uploading', 'uploaded'].includes(j.status) || 
+    (j.tl_files && j.tl_files.length > 0)
+  );
+  upd($('#tl-count'), pipelineJobs.length);
+
+  const ptbody = $('#pipeline-body');
+  if (ptbody) {
+    if (!pipelineJobs.length) {
+      qview.tlRows.clear();
+      updHtml(ptbody, '<tr><td colspan="6" style="text-align:center;color:var(--dim);padding:24px">No crawled novels ready for translation or push yet.</td></tr>');
+    } else {
+      if (ptbody.__h !== undefined) { ptbody.__h = undefined; ptbody.innerHTML = ''; }
+      if (!qview.tlRows.size) ptbody.innerHTML = '';
+      const tlSeen = new Set();
+      pipelineJobs.forEach((j, i) => {
+        tlSeen.add(j.id);
+        let tr = qview.tlRows.get(j.id);
+        if (!tr) { tr = createPipelineRow(); qview.tlRows.set(j.id, tr); }
+        updatePipelineRow(tr, j);
+        if (ptbody.children[i] !== tr) ptbody.insertBefore(tr, ptbody.children[i] || null);
+      });
+      for (const [id, tr] of qview.tlRows) {
+        if (!tlSeen.has(id)) { tr.remove(); qview.tlRows.delete(id); }
+      }
+    }
+  }
+
   // Logs: append only entries newer than the last one shown
   const logs = data.logs || [];
   const logbox = $('#logbox');
@@ -1058,6 +1183,37 @@ function renderQueue(data) {
     qview.lastLogId = fresh[fresh.length - 1].id;
     while (logbox.children.length > 300) logbox.firstChild.remove();
     if (wasAtBottom) logbox.scrollTop = logbox.scrollHeight;
+  }
+
+  // Pipeline dedicated logs: filter translation / upload keywords
+  const plogbox = $('#pipeline-logbox');
+  if (plogbox && logs.length) {
+    if (logs[logs.length - 1].id < qview.lastTlLogId) {
+      qview.lastTlLogId = 0;
+      plogbox.innerHTML = '';
+    }
+    const freshTl = logs.filter(l => 
+      l.id > qview.lastTlLogId && 
+      (l.message.includes('Translat') || l.message.includes('TL ') || l.message.includes('Upload') || l.message.includes('MyNovels'))
+    );
+    if (freshTl.length) {
+      const wasAtBottomTl = plogbox.scrollHeight - plogbox.scrollTop <= plogbox.clientHeight + 20;
+      const fragTl = document.createDocumentFragment();
+      freshTl.forEach(l => {
+        const div = document.createElement('div');
+        if (l.level === 'warn') div.className = 'l-warn';
+        else if (l.level === 'error') div.className = 'l-error';
+        const time = new Date(l.t * 1000).toLocaleTimeString();
+        div.innerHTML = `<span class="l-time" translate="no">${time}</span>`
+          + (l.job ? `<span translate="no">[${escapeHtml(l.job)}] </span>` : '')
+          + `<span>${escapeHtml(l.message)}</span>`;
+        fragTl.appendChild(div);
+      });
+      plogbox.appendChild(fragTl);
+      while (plogbox.children.length > 300) plogbox.firstChild.remove();
+      if (wasAtBottomTl) plogbox.scrollTop = plogbox.scrollHeight;
+    }
+    qview.lastTlLogId = logs[logs.length - 1].id;
   }
 }
 

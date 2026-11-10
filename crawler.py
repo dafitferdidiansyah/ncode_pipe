@@ -299,6 +299,25 @@ def search_novels(keyword: str, exclude_genres: Optional[List[int]] = None, limi
     return search({"keywords": keyword, "not_genres": exclude_genres or [], "limit": limit})["items"]
 
 
+def fetch_meta(ncode: str, settings: Optional[Dict] = None) -> Dict:
+    """Fetch combined metadata for a single ncode (API + web fallback)."""
+    ncode = ncode.strip().lower()
+    api_meta = {}
+    try:
+        api_meta = lookup_ncodes([ncode]).get(ncode, {})
+    except Exception:
+        pass
+
+    try:
+        first_html = _fetch(f"{config.NOVEL_BASE_URL}/{ncode}/", settings or load_settings(), CrawlControl())
+        first = _soup(first_html)
+        web_meta = _parse_meta(first, ncode)
+    except Exception:
+        web_meta = {"ncode": ncode, "title": ncode, "writer": "Unknown", "url": f"{config.NOVEL_BASE_URL}/{ncode}/"}
+
+    return {**web_meta, **{k: v for k, v in api_meta.items() if v}}
+
+
 def lookup_ncodes(ncodes: Iterable[str]) -> Dict[str, Dict]:
     """Fetch API metadata for many ncodes (batched, 100 per request)."""
     codes = [c.lower() for c in ncodes]
