@@ -312,9 +312,12 @@ class JobManager:
                 if ev.get("type") == "progress_tl":
                     job.done = ev["done"]
                     job.total = ev["total"]
-                    job.message = f"TL Ch {ev['episode']}: {ev['title']}" + (" (cached)" if ev["cached"] else "")
+                    msg = f"TL Ch {ev['episode']}/{ev['total']}: {ev['title']}" + (" (cached)" if ev.get("cached") else "")
+                    job.message = msg
+                    self.log(msg, job=job)
                 elif ev.get("type") == "stage":
                     job.message = ev["message"]
+                    self.log(ev["message"], job=job)
                 self._save()
 
             tl_res = translator.translate_novel_cached(

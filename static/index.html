@@ -1029,9 +1029,10 @@ function updatePipelineRow(tr, j) {
   upd(f.ncode, j.ncode);
   upd(f.title, j.title || j.ncode);
   upd(f.message, j.message || '');
-  updStyle(f.bar, 'width', `${j.percent}%`);
+  const pct = j.total > 0 ? Math.floor((j.done / j.total) * 100) : (j.percent || 0);
+  updStyle(f.bar, 'width', `${pct}%`);
   upd(f.step, j.message || (j.status === 'translating' ? `Translating ${j.done}/${j.total}` : j.status));
-  upd(f.pct, `${j.percent}%`);
+  upd(f.pct, `${pct}%`);
 
   const allFiles = [...(j.files || []), ...(j.tl_files || [])];
   const filesHtml = allFiles.map(fp => {

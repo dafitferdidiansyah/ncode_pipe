@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ncode_pipe // syosetu pipeline</title>
+<style>
+:root{
+  --bg:#0f0f10;--panel:#18181b;--panel-2:#222227;--border:#32323a;--border-bright:#4a4a56;
+  --text:#ededed;--muted:#8b8b98;--dim:#585864;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --radius:3px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13px;line-height:1.45;-webkit-font-smoothing:antialiased;}
+header{border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;background:var(--panel);}
+header .brand{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:1px;display:flex;align-items:center;gap:10px;}
+header .brand .tag{font-size:10px;padding:2px 6px;border:1px solid var(--border-bright);border-radius:var(--radius);color:var(--muted);font-weight:normal;}
+nav{display:flex;gap:4px;}
+nav button{background:transparent;border:1px solid transparent;color:var(--muted);padding:6px 12px;font-family:var(--mono);font-size:12px;cursor:pointer;border-radius:var(--radius);}
+nav button:hover{color:var(--text);border-color:var(--border);}
+nav button.active{color:var(--text);background:var(--panel-2);border-color:var(--border-bright);}
+.wrap{max-width:1320px;margin:0 auto;padding:16px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:14px;}
+.panel-h{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:12px;}
+.panel-h h2{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;font-family:var(--mono);color:var(--muted);font-weight:600;}
+.panel-h .extra{font-size:11px;color:var(--dim);font-family:var(--mono);}
+.row{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
+.row.wrap{flex-wrap:wrap;padding:0;margin-bottom:8px;}
+input[type=text],input[type=number],select,textarea{
+  background:var(--bg);border:1px solid var(--border);color:var(--text);
+  font-family:var(--mono);font-size:12px;padding:6px 9px;border-radius:var(--radius);
+}
+input[type=text]:focus,input[type=number]:focus,select:focus,textarea:focus{
+  outline:none;border-color:var(--text);
+}
+textarea{width:100%;resize:vertical;font-size:11px;line-height:1.4;}
+button.btn{
+  background:var(--panel-2);border:1px solid var(--border-bright);color:var(--text);
+  font-family:var(--mono);font-size:11px;padding:6px 10px;cursor:pointer;
+  border-radius:var(--radius);display:inline-flex;align-items:center;gap:4px;
+}
+button.btn:hover{background:var(--text);color:var(--bg);border-color:var(--text);}
+button.btn.primary{background:var(--text);color:var(--bg);border-color:var(--text);font-weight:600;}
+button.btn.primary:hover{opacity:0.85;}
+button.btn.danger{border-color:#552222;color:#ff8888;}
+button.btn.danger:hover{background:#552222;color:#fff;}
+button.btn:disabled{opacity:0.35;cursor:not-allowed;}
+/* Chip styles */
+.tag-group{margin-bottom:8px;}
+.tag-group-title{font-size:10px;font-family:var(--mono);color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.chips{display:flex;flex-wrap:wrap;gap:4px;}
+.chip{
+  background:var(--bg);border:1px solid var(--border);color:var(--muted);
+  font-family:var(--mono);font-size:11px;padding:2px 7px;border-radius:var(--radius);
+  cursor:pointer;user-select:none;display:inline-flex;align-items:center;gap:4px;
+}
+.chip:hover{color:var(--text);border-color:var(--border-bright);}
+.chip.inc{background:var(--text);color:var(--bg);border-color:var(--text);font-weight:600;}
+.chip.exc{background:#2a1111;color:#ff8888;border-color:#662222;text-decoration:line-through;}
+.chip .x{font-size:9px;opacity:0.7;margin-left:2px;}
+/* Results list */
+.item-card{background:var(--bg);border:1px solid var(--border);padding:10px;margin-bottom:8px;border-radius:var(--radius);display:grid;grid-template-columns:26px 1fr auto;gap:10px;align-items:flex-start;}
+.item-card.selected{border-color:var(--border-bright);background:#131317;}
+.item-card h3{font-size:13px;line-height:1.3;margin-bottom:3px;}
+.item-card h3 a{color:var(--text);text-decoration:none;}
+.item-card h3 a:hover{text-decoration:underline;}
+.meta-line{font-size:11px;color:var(--muted);font-family:var(--mono);display:flex;gap:10px;flex-wrap:wrap;}
+.meta-line span b{color:var(--text);font-weight:500;}
+.item-card .story{color:#aaa;font-size:11px;margin-top:6px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.item-card .keywords{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px;}
+.item-card .kword{font-family:var(--mono);font-size:10px;padding:1px 5px;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);color:var(--muted);}
+.item-card .kword.hit{border-color:var(--border-bright);color:var(--text);}
+/* Queue table */
+.q-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11px;}
+.q-table th{text-align:left;color:var(--dim);font-weight:normal;padding:6px 8px;border-bottom:1px solid var(--border);text-transform:uppercase;font-size:10px;letter-spacing:1px;}
+.q-table td{padding:8px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.q-table tr.running td{background:#15151c;}
+.badge{padding:2px 6px;border:1px solid var(--border);border-radius:var(--radius);font-size:10px;text-transform:uppercase;letter-spacing:0.5px;}
+.badge.queued{color:var(--dim);}
+.badge.running{color:#fff;border-color:var(--text);background:var(--panel-2);}
+.badge.paused{color:#e0b040;border-color:#665522;}
+.badge.done{color:#88ff88;border-color:#225522;}
+.badge.translated{color:#70b0ff;border-color:#224466;}
+.badge.translating{color:#c080ff;border-color:#552266;background:#1e1428;}
+.badge.uploaded{color:#40e0d0;border-color:#115544;}
+.badge.uploading{color:#ffa060;border-color:#663311;background:#281810;}
+.badge.error{color:#ff8888;border-color:#552222;}
+.badge.skipped{color:var(--muted);}
+.badge.cancelled{color:var(--muted);border-style:dashed;}
+/* Progress bars */
+.pbar{height:6px;background:var(--panel-2);border-radius:2px;overflow:hidden;border:1px solid var(--border);position:relative;}
+.pbar-fill{height:100%;background:var(--text);transition:width 0.2s linear;}
+.pbar.thin{height:3px;}
+.pbar-text{font-size:10px;color:var(--muted);font-family:var(--mono);display:flex;justify-content:space-between;margin-top:3px;}
+/* Active banner */
+.active-banner{background:var(--panel-2);border:1px solid var(--border-bright);padding:12px;border-radius:var(--radius);margin-bottom:12px;}
+.active-banner .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.active-banner .novel-name{font-size:14px;font-weight:600;}
+.active-banner .stats{font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;gap:12px;}
+/* Dropzone */
+.dropzone{border:1px dashed var(--border-bright);padding:18px;text-align:center;border-radius:var(--radius);cursor:pointer;background:var(--bg);color:var(--muted);font-family:var(--mono);font-size:11px;}
+.dropzone:hover,.dropzone.dragover{border-color:var(--text);color:var(--text);background:var(--panel);}
+/* Log window */
+.logbox{background:#000;border:1px solid var(--border);padding:8px;font-family:var(--mono);font-size:10px;height:140px;overflow-y:auto;color:#bbb;line-height:1.45;}
+.logbox .l-warn{color:#ffcc66;}
+.logbox .l-error{color:#ff6666;}
+.logbox .l-time{color:var(--dim);margin-right:6px;}
+/* Form elements */
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;}
+.form-field{display:flex;flex-direction:column;gap:3px;}
+.form-field label{font-size:10px;font-family:var(--mono);color:var(--dim);text-transform:uppercase;letter-spacing:1px;}
+.chk-label{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-family:var(--mono);color:var(--text);cursor:pointer;}
+.tab-page{display:none;}
+.tab-page.active{display:block;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <span>NCODE_PIPE</span>
+    <span class="tag">syosetu bulk crawl</span>
+    <span id="queue-indicator" class="tag" style="display:none">0 active</span>
+  </div>
+  <nav id="nav">
+    <button data-tab="search" class="active">[1] SEARCH &amp; QUEUE</button>
+    <button data-tab="bulk">[2] BULK TXT</button>
+    <button data-tab="queue">[3] CRAWL QUEUE (<span id="q-count">0</span>)</button>
+    <button data-tab="pipeline">[4] TL &amp; PUSH (<span id="tl-count">0</span>)</button>
+    <button data-tab="settings">[5] SETTINGS</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- ======================= TAB 1: SEARCH ======================= -->
+  <section id="tab-search" class="tab-page active">
+    <div class="panel">
+      <div class="panel-h">
+        <h2>Multi-Keyword &amp; Filtered Search</h2>
+        <span class="extra">Narou Public API</span>
+      </div>
+
+      <!-- Keyword input + logic switch -->
+      <div class="row">
+        <input type="text" id="kw-input" placeholder="Enter keywords (space separated or comma)... e.g. 異世界 TS 魔法" style="flex:1"/>
+        <select id="kw-mode" title="Keyword logic" style="width:130px">
+          <option value="all">ALL (AND)</option>
+          <option value="any">ANY (OR merge)</option>
+        </select>
+        <button id="btn-search" class="btn primary">SEARCH</button>
+        <button id="btn-reset-search" class="btn">RESET</button>
+      </div>
+
+      <div class="row">
+        <input type="text" id="kw-exclude" placeholder="Exclude keywords (notword)... e.g. ハーレム 男主人公" style="flex:1"/>
+        <span style="font-size:11px;color:var(--dim);font-family:var(--mono)">MATCH IN:</span>
+        <label class="chk-label"><input type="checkbox" id="f-title" checked/> title</label>
+        <label class="chk-label"><input type="checkbox" id="f-keyword" checked/> tags</label>
+        <label class="chk-label"><input type="checkbox" id="f-ex" checked/> summary</label>
+      </div>
+
+      <!-- Keyword chips grouped -->
+      <div id="tag-groups-wrap" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-size:10px;font-family:var(--mono);color:var(--dim);text-transform:uppercase;letter-spacing:1px">
+            KEYWORD CHIPS (click: include [white] &rarr; exclude [red] &rarr; off)
+          </span>
+          <div class="row" style="margin:0">
+            <input type="text" id="custom-tag-input" placeholder="+ add chip" style="width:120px;padding:2px 6px;font-size:11px"/>
+            <button id="btn-add-tag" class="btn" style="padding:2px 8px">+</button>
+          </div>
+        </div>
+        <div id="tag-groups"></div>
+      </div>
+
+      <!-- Filter accordion -->
+      <details style="margin-top:8px" id="details-filters">
+        <summary style="font-family:var(--mono);font-size:11px;color:var(--muted);cursor:pointer;padding:4px 0">
+          + ADVANCED FILTERS (genre, flags, length, order, episodes)
+        </summary>
+        <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border)" class="form-grid">
+          <div class="form-field">
+            <label>Include Genre</label>
+            <select id="sel-genre"><option value="">-- any genre --</option></select>
+          </div>
+          <div class="form-field">
+            <label>Exclude Genre</label>
+            <select id="sel-notgenre"><option value="">-- none --</option></select>
+          </div>
+          <div class="form-field">
+            <label>Novel Type</label>
+            <select id="sel-type"></select>
+          </div>
+          <div class="form-field">
+            <label>Sort Order</label>
+            <select id="sel-order"></select>
+          </div>
+          <div class="form-field">
+            <label>Length (chars: min - max)</label>
+            <div class="row" style="margin:0">
+              <input type="number" id="f-min-len" placeholder="min" style="width:50%"/>
+              <input type="number" id="f-max-len" placeholder="max" style="width:50%"/>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Chapters (min - max)</label>
+            <div class="row" style="margin:0">
+              <input type="number" id="f-min-ch" placeholder="min" style="width:50%"/>
+              <input type="number" id="f-max-ch" placeholder="max" style="width:50%"/>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Results Limit</label>
+            <select id="sel-limit">
+              <option value="10">10</option>
+              <option value="20" selected>20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-top:8px">
+          <div style="font-size:10px;font-family:var(--mono);color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">
+            FLAGS (BOOLEAN)
+          </div>
+          <div id="flags-wrap" class="row wrap"></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- Search Results -->
+    <div class="panel">
+      <div class="panel-h">
+        <h2>Results <span id="res-count" style="color:var(--text)"></span></h2>
+        <div class="row" style="margin:0">
+          <button id="btn-select-all" class="btn">SELECT ALL</button>
+          <button id="btn-select-none" class="btn">NONE</button>
+          <button id="btn-queue-selected" class="btn primary" disabled>+ QUEUE SELECTED (<span id="sel-count">0</span>)</button>
+        </div>
+      </div>
+      <div id="results-list">
+        <div style="color:var(--dim);font-family:var(--mono);padding:20px;text-align:center">Run a search above to see novels.</div>
+      </div>
+      <div id="res-pagination" class="row" style="justify-content:center;margin-top:10px;display:none">
+        <button id="btn-prev-page" class="btn">&laquo; PREV</button>
+        <span id="page-indicator" style="font-family:var(--mono);font-size:11px;color:var(--muted);padding:0 8px">Page 1</span>
+        <button id="btn-next-page" class="btn">NEXT &raquo;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= TAB 2: BULK TXT ======================= -->
+  <section id="tab-bulk" class="tab-page">
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-h">
+          <h2>Bulk Ncode Input (.txt / Free Text)</h2>
+          <span class="extra">Single or multiple ncodes</span>
+        </div>
+        <p style="font-size:11px;color:var(--muted);margin-bottom:10px">
+          Paste ncodes, syosetu URLs, or drag &amp; drop a <code>.txt</code> file (one per line, comments starting with <code>#</code> ignored).
+        </p>
+
+        <div id="dropzone" class="dropzone">
+          DRAG &amp; DROP .txt FILE HERE &mdash; OR CLICK TO BROWSE
+          <input type="file" id="file-input" accept=".txt,.csv,.list" style="display:none"/>
+        </div>
+
+        <div style="margin-top:10px">
+          <textarea id="bulk-text" rows="10" placeholder="# Example list:
+n9669bk
+https://ncode.syosetu.com/n5606cq/
+n2267be
+# Comments are skipped"></textarea>
+        </div>
+
+        <div class="row" style="margin-top:10px;justify-content:space-between">
+          <button id="btn-parse-ncodes" class="btn primary">PARSE &amp; LOOKUP METADATA</button>
+          <button id="btn-clear-bulk" class="btn">CLEAR</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-h">
+          <h2>Resolved Novels (<span id="bulk-count">0</span>)</h2>
+          <div class="row" style="margin:0">
+            <button id="btn-queue-bulk" class="btn primary" disabled>+ QUEUE ALL TO CRAWLER</button>
+          </div>
+        </div>
+        <div id="bulk-list" style="max-height:460px;overflow-y:auto">
+          <div style="color:var(--dim);font-family:var(--mono);padding:20px;text-align:center">No ncodes parsed yet.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= TAB 3: QUEUE & PROGRESS ======================= -->
+  <section id="tab-queue" class="tab-page">
+
+    <!-- Active running novel banner -->
+    <div id="active-banner" class="active-banner" style="display:none">
+      <div class="top">
+        <div>
+          <span class="badge running">CRAWLING</span>
+          <span class="novel-name" id="ab-title" style="margin-left:8px"></span>
+          <span style="font-family:var(--mono);color:var(--muted);font-size:11px;margin-left:6px" id="ab-ncode"></span>
+        </div>
+        <div class="row" style="margin:0">
+          <button id="btn-ab-pause" class="btn">PAUSE</button>
+          <button id="btn-ab-cancel" class="btn danger">CANCEL</button>
+        </div>
+      </div>
+      <div class="pbar" style="margin:10px 0 6px 0">
+        <div id="ab-bar" class="pbar-fill" style="width:0%"></div>
+      </div>
+      <div class="pbar-text">
+        <span id="ab-step">Scanning TOC...</span>
+        <span id="ab-counts">0 / 0 ch</span>
+        <span id="ab-speed">0 ch/min</span>
+        <span id="ab-eta">ETA --:--</span>
+      </div>
+    </div>
+
+    <!-- Queue controls + table -->
+    <div class="panel">
+      <div class="panel-h">
+        <h2>Crawl Queue &amp; History</h2>
+        <div class="row" style="margin:0">
+          <button id="btn-queue-toggle" class="btn">PAUSE WORKER</button>
+          <button id="btn-retry-failed" class="btn">RETRY FAILED</button>
+          <button id="btn-clear-done" class="btn">CLEAR COMPLETED</button>
+          <button id="btn-cancel-all" class="btn danger">CANCEL ALL</button>
+        </div>
+      </div>
+
+      <div style="overflow-x:auto">
+        <table class="q-table">
+          <thead>
+            <tr>
+              <th style="width:80px">Status</th>
+              <th style="width:90px">Ncode</th>
+              <th>Title</th>
+              <th style="width:160px">Progress</th>
+              <th style="width:90px">Time</th>
+              <th style="width:180px">Output</th>
+              <th style="width:140px;text-align:right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="queue-body">
+            <tr><td colspan="7" style="text-align:center;color:var(--dim);padding:24px">Queue is empty. Search novels or paste ncodes to start.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Live log -->
+    <div class="panel">
+      <div class="panel-h">
+        <h2>Live Crawler Logs</h2>
+        <button id="btn-clear-log" class="btn">CLEAR VIEW</button>
+      </div>
+      <div id="logbox" class="logbox"></div>
+    </div>
+  </section>
+
+  <!-- ======================= TAB 4: TRANSLATION & PUSH WORKFLOW ======================= -->
+  <section id="tab-pipeline" class="tab-page">
+    <div class="panel">
+      <div class="panel-h">
+        <h2>Translation &amp; MyNovels Push Pipeline</h2>
+        <span class="extra">Calibre Google(Free) &bull; MyNovels API</span>
+      </div>
+
+      <div style="overflow-x:auto">
+        <table class="q-table">
+          <thead>
+            <tr>
+              <th style="width:90px">Status</th>
+              <th style="width:90px">Ncode</th>
+              <th>Title</th>
+              <th style="width:200px">Workflow Progress / Step</th>
+              <th style="width:220px">Files (Raw &amp; TL)</th>
+              <th style="width:200px;text-align:right">Pipeline Actions</th>
+            </tr>
+          </thead>
+          <tbody id="pipeline-body">
+            <tr><td colspan="6" style="text-align:center;color:var(--dim);padding:24px">No crawled novels ready for translation or push yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Pipeline Live Activity Log -->
+    <div class="panel">
+      <div class="panel-h">
+        <h2>Translation &amp; Upload Detailed Logs</h2>
+        <span class="extra">Bookfere Calibre Engine Logs &bull; MyNovels Status</span>
+      </div>
+      <div id="pipeline-logbox" class="logbox"></div>
+    </div>
+  </section>
+
+  <!-- ======================= TAB 5: SETTINGS (TAMPERMONKEY-STYLE) ======================= -->
+  <section id="tab-settings" class="tab-page">
+    <div class="panel">
+      <div class="panel-h">
+        <h2>Crawler Settings</h2>
+        <span class="extra">Mirrors Syosetu Downloader userscript</span>
+      </div>
+      <p style="font-size:11px;color:var(--muted);margin-bottom:14px">
+        Safe crawling defaults prevent IP bans from Syosetu. Interrupted downloads resume from cache automatically.
+      </p>
+
+      <form id="settings-form">
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Base Chapter Delay (ms)</label>
+            <input type="number" name="delay_ms" min="300" step="50"/>
+            <span style="font-size:10px;color:var(--dim)">Syosetu recommends &ge; 1000ms</span>
+          </div>
+          <div class="form-field">
+            <label>Random Jitter (ms)</label>
+            <input type="number" name="jitter_ms" min="0" step="50"/>
+            <span style="font-size:10px;color:var(--dim)">Added randomly (0..jitter) per chapter</span>
+          </div>
+          <div class="form-field">
+            <label>TOC Page Delay (ms)</label>
+            <input type="number" name="toc_delay_ms" min="0" step="50"/>
+            <span style="font-size:10px;color:var(--dim)">Between TOC pagination fetches</span>
+          </div>
+          <div class="form-field">
+            <label>Novel Delay in Bulk (s)</label>
+            <input type="number" name="novel_delay_s" min="0" step="1"/>
+            <span style="font-size:10px;color:var(--dim)">Pause between novels in a queue</span>
+          </div>
+          <div class="form-field">
+            <label>Max Retries</label>
+            <input type="number" name="max_retries" min="1" max="10"/>
+            <span style="font-size:10px;color:var(--dim)">Per request attempts</span>
+          </div>
+          <div class="form-field">
+            <label>Cooldown Multiplier (s)</label>
+            <input type="number" name="cooldown_s" min="1"/>
+            <span style="font-size:10px;color:var(--dim)">Wait = attempt &times; cooldown on 403/429/5xx</span>
+          </div>
+          <div class="form-field">
+            <label>HTTP Timeout (s)</label>
+            <input type="number" name="timeout_s" min="5"/>
+          </div>
+          <div class="form-field">
+            <label>Default Chapter Range</label>
+            <div class="row" style="margin:0">
+              <input type="number" name="range_start" min="1" placeholder="start" style="width:50%"/>
+              <input type="number" name="range_end" min="0" placeholder="end (0=all)" style="width:50%"/>
+            </div>
+            <span style="font-size:10px;color:var(--dim)">0 in end means "until the latest"</span>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+          <div style="font-weight:600;font-size:12px;margin-bottom:8px">Translation &amp; MyNovels Pipeline (Bookfere Calibre Engine)</div>
+          <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom:12px">
+            <div class="form-field">
+              <label>Target Translation Language</label>
+              <select name="target_lang" style="width:100%;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:6px">
+                <option value="id">Indonesian (Bahasa Indonesia)</option>
+                <option value="en">English</option>
+              </select>
+            </div>
+          </div>
+          <div class="row wrap" style="gap:16px">
+            <label class="chk-label"><input type="checkbox" name="auto_translate"/> Auto-translate after crawl completes (Google Free Engine)</label>
+            <label class="chk-label"><input type="checkbox" name="auto_upload"/> Auto-upload translated EPUB to MyNovels backend</label>
+          </div>
+          <div class="row wrap" style="gap:16px;margin-top:10px">
+            <div style="flex:1;min-width:260px">
+              <label>MYNOVELS BACKEND URL</label>
+              <input type="text" name="mynovels_url" placeholder="http://localhost:8000 (or Proxmox IP / ngrok URL)" style="width:100%"/>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+          <div class="row wrap" style="gap:16px">
+            <label class="chk-label"><input type="checkbox" name="fmt_epub"/> Output EPUB</label>
+            <label class="chk-label"><input type="checkbox" name="fmt_txt"/> Output TXT</label>
+            <label class="chk-label"><input type="checkbox" name="include_preface"/> Include Preface (前書き)</label>
+            <label class="chk-label"><input type="checkbox" name="include_afterword"/> Include Afterword (後書き)</label>
+            <label class="chk-label"><input type="checkbox" name="resume"/> Resume from cache (Skip fetched chapters)</label>
+            <label class="chk-label"><input type="checkbox" name="skip_existing"/> Skip novel if output file already exists</label>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:16px">
+          <button type="submit" class="btn primary">SAVE SETTINGS</button>
+          <button type="button" id="btn-reset-settings" class="btn">RESTORE DEFAULTS</button>
+          <span id="settings-status" style="font-family:var(--mono);font-size:11px;color:var(--muted)"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</div>
+
+<script>
+// State
+const state = {
+  options: {},
+  chips: {}, // tag -> 'inc' | 'exc' | undefined
+  search: { items: [], page: 1, limit: 20, allcount: 0, query: null },
+  selected: new Set(),
+  bulk: [],
+  pollTimer: null,
+};
+
+// Elements
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+
+// API helpers
+async function api(path, opts = {}) {
+  const res = await fetch(path, {
+    headers: { 'Content-Type': 'application/json', ...(opts.headers || {}) },
+    ...opts,
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ error: res.statusText }));
+    throw new Error(err.error || res.statusText);
+  }
+  return res.json();
+}
+
+// Tabs
+$$('#nav button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    $$('#nav button').forEach(b => b.classList.remove('active'));
+    $$('.tab-page').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    $(`#tab-${btn.dataset.tab}`).classList.add('active');
+  });
+});
+
+// Boot: load options + settings
+async function init() {
+  state.options = await api('/api/options');
+  renderOptions();
+  renderChips();
+  applySettingsToForm(state.options.settings);
+  startPolling();
+}
+
+function renderOptions() {
+  const o = state.options;
+  const fill = (el, map, anyLabel) => {
+    el.innerHTML = anyLabel ? `<option value="">${anyLabel}</option>` : '';
+    Object.entries(map).forEach(([k, v]) => {
+      const opt = document.createElement('option');
+      opt.value = k; opt.textContent = `${k ? k + ' - ' : ''}${v}`;
+      el.appendChild(opt);
+    });
+  };
+  fill($('#sel-genre'), o.genres, '-- any genre --');
+  fill($('#sel-notgenre'), o.genres, '-- none --');
+  fill($('#sel-type'), o.types);
+  fill($('#sel-order'), o.orders);
+  $('#sel-order').value = 'hyoka';
+
+  // Flags
+  const wrap = $('#flags-wrap');
+  wrap.innerHTML = '';
+  Object.entries(o.flags).forEach(([k, label]) => {
+    const l = document.createElement('label');
+    l.className = 'chk-label';
+    l.innerHTML = `<input type="checkbox" data-flag="${k}"/> ${label}`;
+    wrap.appendChild(l);
+  });
+}
+
+function renderChips() {
+  const groups = state.options.tag_groups || {};
+  const custom = (state.options.settings && state.options.settings.custom_tags) || [];
+  const allGroups = { ...groups };
+  if (custom.length) allGroups['Custom'] = custom;
+
+  const host = $('#tag-groups');
+  host.innerHTML = '';
+  Object.entries(allGroups).forEach(([title, tags]) => {
+    const g = document.createElement('div');
+    g.className = 'tag-group';
+    g.innerHTML = `<div class="tag-group-title">${title}</div><div class="chips"></div>`;
+    const cWrap = g.querySelector('.chips');
+    tags.forEach(tag => {
+      const c = document.createElement('span');
+      c.className = 'chip' + (state.chips[tag] ? ' ' + state.chips[tag] : '');
+      c.textContent = tag;
+      c.addEventListener('click', () => toggleChip(tag, c));
+      cWrap.appendChild(c);
+    });
+    host.appendChild(g);
+  });
+}
+
+function toggleChip(tag, el) {
+  const cur = state.chips[tag];
+  if (!cur) {
+    state.chips[tag] = 'inc';
+  } else if (cur === 'inc') {
+    state.chips[tag] = 'exc';
+  } else {
+    delete state.chips[tag];
+  }
+  el.className = 'chip' + (state.chips[tag] ? ' ' + state.chips[tag] : '');
+}
+
+// Add custom tag chip
+$('#btn-add-tag').addEventListener('click', async () => {
+  const val = $('#custom-tag-input').value.trim();
+  if (!val) return;
+  const cur = (state.options.settings && state.options.settings.custom_tags) || [];
+  if (!cur.includes(val)) {
+    cur.push(val);
+    await api('/api/settings', { method: 'POST', body: JSON.stringify({ custom_tags: cur }) });
+    state.options.settings.custom_tags = cur;
+    renderChips();
+  }
+  state.chips[val] = 'inc';
+  renderChips();
+  $('#custom-tag-input').value = '';
+});
+
+// Search
+async function doSearch(page = 1) {
+  const kwRaw = $('#kw-input').value.trim();
+  const kwList = kwRaw ? kwRaw.split(/[\s,]+/) : [];
+  // Merge chip includes
+  Object.entries(state.chips).forEach(([k, v]) => {
+    if (v === 'inc' && !kwList.includes(k)) kwList.push(k);
+  });
+  const excRaw = $('#kw-exclude').value.trim();
+  const excList = excRaw ? excRaw.split(/[\s,]+/) : [];
+  Object.entries(state.chips).forEach(([k, v]) => {
+    if (v === 'exc' && !excList.includes(k)) excList.push(k);
+  });
+
+  const fields = [];
+  if ($('#f-title').checked) fields.push('title');
+  if ($('#f-keyword').checked) fields.push('keyword');
+  if ($('#f-ex').checked) fields.push('ex');
+
+  const flags = [];
+  $$('#flags-wrap input:checked').forEach(c => flags.push(c.dataset.flag));
+
+  const query = {
+    keywords: kwList,
+    mode: $('#kw-mode').value,
+    exclude: excList,
+    fields,
+    genres: $('#sel-genre').value ? [$('#sel-genre').value] : [],
+    not_genres: $('#sel-notgenre').value ? [$('#sel-notgenre').value] : [],
+    type: $('#sel-type').value,
+    order: $('#sel-order').value,
+    min_len: $('#f-min-len').value,
+    max_len: $('#f-max-len').value,
+    min_chapters: $('#f-min-ch').value,
+    max_chapters: $('#f-max-ch').value,
+    flags,
+    limit: parseInt($('#sel-limit').value, 10),
+    page,
+  };
+
+  $('#btn-search').disabled = true;
+  $('#btn-search').textContent = 'SEARCHING...';
+  try {
+    const res = await api('/api/search', { method: 'POST', body: JSON.stringify(query) });
+    state.search = { items: res.items, page, limit: query.limit, allcount: res.allcount, query };
+    renderResults();
+  } catch (err) {
+    alert('Search error: ' + err.message);
+  } finally {
+    $('#btn-search').disabled = false;
+    $('#btn-search').textContent = 'SEARCH';
+  }
+}
+
+$('#btn-search').addEventListener('click', () => doSearch(1));
+$('#kw-input').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(1); });
+$('#btn-prev-page').addEventListener('click', () => doSearch(Math.max(1, state.search.page - 1)));
+$('#btn-next-page').addEventListener('click', () => doSearch(state.search.page + 1));
+$('#btn-reset-search').addEventListener('click', () => {
+  $('#kw-input').value = '';
+  $('#kw-exclude').value = '';
+  state.chips = {};
+  renderChips();
+  $$('#flags-wrap input').forEach(c => c.checked = false);
+  $('#sel-genre').value = '';
+  $('#sel-notgenre').value = '';
+  $('#sel-type').value = '';
+  $('#sel-order').value = 'hyoka';
+  $('#f-min-len').value = '';
+  $('#f-max-len').value = '';
+  $('#f-min-ch').value = '';
+  $('#f-max-ch').value = '';
+});
+
+function renderResults() {
+  const host = $('#results-list');
+  const items = state.search.items || [];
+  $('#res-count').textContent = `(${state.search.allcount.toLocaleString()} hits, showing ${items.length})`;
+  state.selected.clear();
+  updateSelectedCount();
+
+  if (!items.length) {
+    host.innerHTML = '<div style="color:var(--dim);font-family:var(--mono);padding:20px;text-align:center">No novels matched this query.</div>';
+    $('#res-pagination').style.display = 'none';
+    return;
+  }
+
+  const queryKws = (state.search.query && state.search.query.keywords) || [];
+  host.innerHTML = '';
+  items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'item-card';
+    card.dataset.ncode = item.ncode;
+
+    const kwordsHtml = (item.keywords || []).map(k => {
+      const hit = queryKws.some(q => k.includes(q));
+      return `<span class="kword${hit ? ' hit' : ''}">${escapeHtml(k)}</span>`;
+    }).join('');
+
+    card.innerHTML = `
+      <input type="checkbox" class="card-chk" data-ncode="${item.ncode}"/>
+      <div>
+        <h3>
+          <a href="${item.url}" target="_blank" rel="noopener">${escapeHtml(item.title)}</a>
+        </h3>
+        <div class="meta-line">
+          <span>NCODE: <b>${item.ncode}</b></span>
+          <span>AUTHOR: <b>${escapeHtml(item.writer)}</b></span>
+          <span>GENRE: <b>${escapeHtml(item.genre_name || '')}</b></span>
+          <span>EPISODES: <b>${(item.chapters || 0).toLocaleString()}</b></span>
+          <span>LENGTH: <b>${(item.length || 0).toLocaleString()} chars</b></span>
+          <span>POINTS: <b>${(item.points || 0).toLocaleString()}</b></span>
+        </div>
+        <div class="story">${escapeHtml(item.story || '')}</div>
+        <div class="keywords">${kwordsHtml}</div>
+      </div>
+      <div>
+        <button class="btn btn-q-one" data-ncode="${item.ncode}">+ QUEUE</button>
+      </div>
+    `;
+
+    const chk = card.querySelector('.card-chk');
+    chk.addEventListener('change', () => {
+      if (chk.checked) {
+        state.selected.add(item.ncode);
+        card.classList.add('selected');
+      } else {
+        state.selected.delete(item.ncode);
+        card.classList.remove('selected');
+      }
+      updateSelectedCount();
+    });
+
+    card.querySelector('.btn-q-one').addEventListener('click', async () => {
+      await api('/api/jobs', { method: 'POST', body: JSON.stringify({ items: [{ ncode: item.ncode, title: item.title }] }) });
+      card.querySelector('.btn-q-one').textContent = 'QUEUED';
+      card.querySelector('.btn-q-one').disabled = true;
+    });
+
+    host.appendChild(card);
+  });
+
+  // Pagination
+  $('#res-pagination').style.display = 'flex';
+  $('#page-indicator').textContent = `Page ${state.search.page}`;
+  $('#btn-prev-page').disabled = state.search.page <= 1;
+  $('#btn-next-page').disabled = state.search.page * state.search.limit >= state.search.allcount;
+}
+
+$('#btn-select-all').addEventListener('click', () => {
+  $$('.item-card').forEach(c => {
+    const chk = c.querySelector('.card-chk');
+    chk.checked = true;
+    c.classList.add('selected');
+    state.selected.add(c.dataset.ncode);
+  });
+  updateSelectedCount();
+});
+$('#btn-select-none').addEventListener('click', () => {
+  $$('.item-card').forEach(c => {
+    const chk = c.querySelector('.card-chk');
+    chk.checked = false;
+    c.classList.remove('selected');
+  });
+  state.selected.clear();
+  updateSelectedCount();
+});
+
+function updateSelectedCount() {
+  const n = state.selected.size;
+  $('#sel-count').textContent = n;
+  $('#btn-queue-selected').disabled = n === 0;
+}
+
+$('#btn-queue-selected').addEventListener('click', async () => {
+  const items = [];
+  state.selected.forEach(code => {
+    const found = (state.search.items || []).find(i => i.ncode === code);
+    items.push({ ncode: code, title: found ? found.title : '' });
+  });
+  const res = await api('/api/jobs', { method: 'POST', body: JSON.stringify({ items }) });
+  alert(`Queued ${res.added.length} novel(s)${res.skipped ? ` (${res.skipped} already in queue)` : ''}`);
+  state.selected.clear();
+  updateSelectedCount();
+  $$('.item-card.selected').forEach(c => c.classList.remove('selected'));
+  $$('.card-chk:checked').forEach(c => c.checked = false);
+});
+
+// ======================= TAB 2: BULK TXT =======================
+const drop = $('#dropzone');
+const fileInput = $('#file-input');
+drop.addEventListener('click', () => fileInput.click());
+drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('dragover'); });
+drop.addEventListener('dragleave', () => drop.classList.remove('dragover'));
+drop.addEventListener('drop', e => {
+  e.preventDefault();
+  drop.classList.remove('dragover');
+  if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener('change', () => {
+  if (fileInput.files.length) handleFile(fileInput.files[0]);
+});
+
+function handleFile(file) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    $('#bulk-text').value = e.target.result;
+    drop.textContent = `LOADED: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+    parseBulkText();
+  };
+  reader.readAsText(file);
+}
+
+async function parseBulkText() {
+  const text = $('#bulk-text').value;
+  if (!text.trim()) return;
+  $('#btn-parse-ncodes').disabled = true;
+  $('#btn-parse-ncodes').textContent = 'LOOKING UP...';
+  try {
+    const res = await api('/api/ncodes/parse', { method: 'POST', body: JSON.stringify({ text }) });
+    state.bulk = res.items || [];
+    renderBulkList();
+  } catch (err) {
+    alert('Lookup failed: ' + err.message);
+  } finally {
+    $('#btn-parse-ncodes').disabled = false;
+    $('#btn-parse-ncodes').textContent = 'PARSE & LOOKUP METADATA';
+  }
+}
+
+$('#btn-parse-ncodes').addEventListener('click', parseBulkText);
+$('#btn-clear-bulk').addEventListener('click', () => {
+  $('#bulk-text').value = '';
+  state.bulk = [];
+  renderBulkList();
+  drop.textContent = 'DRAG & DROP .txt FILE HERE — OR CLICK TO BROWSE';
+});
+
+function renderBulkList() {
+  const host = $('#bulk-list');
+  const items = state.bulk;
+  $('#bulk-count').textContent = items.length;
+  $('#btn-queue-bulk').disabled = items.length === 0;
+
+  if (!items.length) {
+    host.innerHTML = '<div style="color:var(--dim);font-family:var(--mono);padding:20px;text-align:center">No ncodes parsed yet.</div>';
+    return;
+  }
+
+  host.innerHTML = items.map((it, idx) => `
+    <div style="background:var(--bg);border:1px solid var(--border);padding:8px;margin-bottom:6px;border-radius:var(--radius);font-family:var(--mono);font-size:11px;display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <span style="color:var(--dim);margin-right:6px">#${idx + 1}</span>
+        <b>${it.ncode}</b> &mdash;
+        <span style="color:var(--text)">${escapeHtml(it.title || '(no title)')}</span>
+        <span style="color:var(--muted);font-size:10px">by ${escapeHtml(it.writer || '?')} (${it.chapters || 0} ch)</span>
+      </div>
+      <div>
+        ${it.cached ? `<span class="badge done" style="font-size:9px">${it.cached} cached</span>` : ''}
+        ${!it.found ? `<span class="badge error" style="font-size:9px">not found</span>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+$('#btn-queue-bulk').addEventListener('click', async () => {
+  const items = state.bulk.map(i => ({ ncode: i.ncode, title: i.title }));
+  const res = await api('/api/jobs', { method: 'POST', body: JSON.stringify({ items }) });
+  alert(`Queued ${res.added.length} novel(s)${res.skipped ? ` (${res.skipped} already in queue)` : ''}`);
+  // Switch to queue tab
+  $(`button[data-tab="queue"]`).click();
+});
+
+// ======================= TAB 3: QUEUE & POLLING =======================
+// Incremental rendering: rows are created once and only changed cells are touched.
+// Rebuilding innerHTML every tick made Google Translate re-translate the whole
+// table/log on every poll (visible flicker). Untouched nodes keep their translation.
+const qview = { rows: new Map(), tlRows: new Map(), lastLogId: 0, lastTlLogId: 0, inflight: false };
+
+// Set textContent only when the value actually changed (cache on the element,
+// never read back from DOM because translated DOM text differs from source).
+function upd(el, val) {
+  val = String(val ?? '');
+  if (el.__v !== val) { el.__v = val; el.textContent = val; }
+}
+function updHtml(el, html) {
+  if (el.__h !== html) { el.__h = html; el.innerHTML = html; }
+}
+function updStyle(el, prop, val) {
+  if (el.style[prop] !== val) el.style[prop] = val;
+}
+
+function schedulePoll(ms) {
+  clearTimeout(state.pollTimer);
+  state.pollTimer = setTimeout(pollTick, ms);
+}
+async function pollTick() {
+  if (document.hidden) { schedulePoll(3000); return; }   // background tab: slow down
+  const active = await pollQueue();
+  schedulePoll(active ? 1000 : 4000);                    // fast while crawling, slow when idle
+}
+function startPolling() { schedulePoll(0); }
+document.addEventListener('visibilitychange', () => { if (!document.hidden) schedulePoll(0); });
+
+async function pollQueue() {
+  if (qview.inflight) return true;
+  qview.inflight = true;
+  try {
+    const data = await api('/api/jobs');
+    renderQueue(data);
+    const c = data.counts || {};
+    return (c.running || 0) + (c.queued || 0) + (c.paused || 0) > 0;
+  } catch (e) {
+    return false; // transient offline ok
+  } finally {
+    qview.inflight = false;
+  }
+}
+
+function createQueueRow() {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td translate="no"><span data-f="status"></span></td>
+    <td translate="no"><b data-f="ncode"></b></td>
+    <td>
+      <div style="font-weight:500" data-f="title"></div>
+      <div style="color:var(--muted);font-size:10px" data-f="message"></div>
+    </td>
+    <td translate="no">
+      <div class="pbar thin"><div class="pbar-fill" data-f="bar" style="width:0%"></div></div>
+      <div class="pbar-text"><span data-f="counts"></span><span data-f="pct"></span></div>
+    </td>
+    <td style="color:var(--muted)" translate="no" data-f="elapsed"></td>
+    <td style="font-size:10px" translate="no" data-f="output"></td>
+    <td style="text-align:right" translate="no" data-f="actions"></td>`;
+  tr._f = {};
+  tr.querySelectorAll('[data-f]').forEach(el => { tr._f[el.dataset.f] = el; });
+  return tr;
+}
+
+function jobActionsHtml(j) {
+  if (j.status === 'running' || j.status === 'translating' || j.status === 'uploading') {
+    return `<button class="btn" onclick="jobAction('${j.id}','pause')">PAUSE</button>
+            <button class="btn danger" onclick="jobAction('${j.id}','cancel')">CANCEL</button>`;
+  }
+  if (j.status === 'paused') {
+    return `<button class="btn" onclick="jobAction('${j.id}','resume')">RESUME</button>
+            <button class="btn danger" onclick="jobAction('${j.id}','cancel')">CANCEL</button>`;
+  }
+  if (j.status === 'queued') {
+    return `<button class="btn" onclick="jobAction('${j.id}','up')">&uarr;</button>
+            <button class="btn danger" onclick="jobAction('${j.id}','cancel')">&times;</button>`;
+  }
+  // For done / skipped / translated / uploaded
+  let extra = '';
+  if (j.status === 'done' || j.status === 'skipped') {
+    extra = `<button class="btn" onclick="jobAction('${j.id}','translate_id')" title="Translate to Indonesian via Google(Free)">TL (ID)</button>
+             <button class="btn" onclick="jobAction('${j.id}','translate_en')" title="Translate to English via Google(Free)">TL (EN)</button>
+             <button class="btn" onclick="jobAction('${j.id}','upload_mynovels')" title="Push to MyNovels backend">PUSH</button>`;
+  } else if (j.status === 'translated') {
+    extra = `<button class="btn" onclick="jobAction('${j.id}','upload_mynovels')" title="Push translated EPUB to MyNovels">PUSH</button>`;
+  }
+  return `${extra}
+          <button class="btn" onclick="jobAction('${j.id}','retry')">RETRY</button>
+          <button class="btn" onclick="jobAction('${j.id}','remove')">DEL</button>`;
+}
+
+function createPipelineRow() {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td translate="no"><span data-f="status"></span></td>
+    <td translate="no"><b data-f="ncode"></b></td>
+    <td>
+      <div style="font-weight:500" data-f="title"></div>
+      <div style="color:var(--muted);font-size:10px" data-f="message"></div>
+    </td>
+    <td translate="no">
+      <div class="pbar thin"><div class="pbar-fill" data-f="bar" style="width:0%"></div></div>
+      <div class="pbar-text"><span data-f="step"></span><span data-f="pct"></span></div>
+    </td>
+    <td style="font-size:10px" translate="no" data-f="files"></td>
+    <td style="text-align:right" translate="no" data-f="actions"></td>`;
+  tr._f = {};
+  tr.querySelectorAll('[data-f]').forEach(el => { tr._f[el.dataset.f] = el; });
+  return tr;
+}
+
+function updatePipelineRow(tr, j) {
+  const f = tr._f;
+  const isBusy = j.status === 'translating' || j.status === 'uploading';
+  tr.className = isBusy ? 'running' : '';
+  const badgeCls = `badge ${j.status}`;
+  if (f.status.className !== badgeCls) f.status.className = badgeCls;
+  upd(f.status, j.status);
+  upd(f.ncode, j.ncode);
+  upd(f.title, j.title || j.ncode);
+  upd(f.message, j.message || '');
+  const pct = j.total > 0 ? Math.floor((j.done / j.total) * 100) : (j.percent || 0);
+  updStyle(f.bar, 'width', `${pct}%`);
+  upd(f.step, j.message || (j.status === 'translating' ? `Translating ${j.done}/${j.total}` : j.status));
+  upd(f.pct, `${pct}%`);
+
+  const allFiles = [...(j.files || []), ...(j.tl_files || [])];
+  const filesHtml = allFiles.map(fp => {
+    const name = fp.split(/[\\/]/).pop();
+    const isTl = name.startsWith('[ID]') || name.startsWith('[EN]');
+    const color = isTl ? 'var(--accent)' : 'var(--text)';
+    const tag = isTl ? `<b style="color:var(--accent)">[TL]</b> ` : `<span style="color:var(--dim)">[JP]</span> `;
+    return `<div style="margin-bottom:2px">${tag}<a href="/files/${encodeURIComponent(name)}" download style="color:${color}">${escapeHtml(name)}</a></div>`;
+  }).join('');
+  updHtml(f.files, filesHtml || (j.error ? `<span style="color:#ff8888">${escapeHtml(j.error)}</span>` : '-'));
+
+  // Pipeline specific action buttons
+  let acts = '';
+  if (j.status === 'translating' || j.status === 'uploading') {
+    acts = `<span style="font-size:11px;color:var(--muted)">Processing in background...</span>`;
+  } else {
+    acts = `
+      <button class="btn primary" onclick="jobAction('${j.id}','translate_id')" title="Translate to Indonesian using Google Free Engine">TL (ID)</button>
+      <button class="btn" onclick="jobAction('${j.id}','translate_en')" title="Translate to English using Google Free Engine">TL (EN)</button>
+      <button class="btn" onclick="jobAction('${j.id}','upload_mynovels')" title="Push to MyNovels backend">PUSH</button>
+    `;
+  }
+  updHtml(f.actions, acts);
+}
+
+function updateQueueRow(tr, j) {
+  const f = tr._f;
+  const cls = j.status === 'running' ? 'running' : '';
+  if (tr.className !== cls) tr.className = cls;
+  const badgeCls = `badge ${j.status}`;
+  if (f.status.className !== badgeCls) f.status.className = badgeCls;
+  upd(f.status, j.status);
+  upd(f.ncode, j.ncode);
+  upd(f.title, j.title || j.ncode);
+  upd(f.message, j.message || '');
+  updStyle(f.bar, 'width', `${j.percent}%`);
+  upd(f.counts, `${j.done}/${j.total}`);
+  upd(f.pct, `${j.percent}%`);
+  upd(f.elapsed, j.elapsed ? formatSecs(j.elapsed) : '-');
+  const allFiles = [...(j.files || []), ...(j.tl_files || [])];
+  const filesHtml = allFiles.map(fp => {
+    const name = fp.split(/[\\/]/).pop();
+    const isTl = name.startsWith('[ID]') || name.startsWith('[EN]');
+    const color = isTl ? 'var(--accent)' : 'var(--text)';
+    return `<a href="/files/${encodeURIComponent(name)}" download style="color:${color};display:block">${escapeHtml(name)}</a>`;
+  }).join('');
+  updHtml(f.output, filesHtml || (j.error ? `<span style="color:#ff8888">${escapeHtml(j.error)}</span>` : '-'));
+  updHtml(f.actions, jobActionsHtml(j));
+}
+
+function renderQueue(data) {
+  const jobs = data.jobs || [];
+  const running = jobs.find(j => j.status === 'running');
+  const counts = data.counts || {};
+  const activeCount = (counts.running || 0) + (counts.queued || 0) + (counts.paused || 0);
+
+  // Header badges
+  upd($('#q-count'), jobs.length);
+  const qInd = $('#queue-indicator');
+  updStyle(qInd, 'display', activeCount > 0 ? 'inline-block' : 'none');
+  if (activeCount > 0) upd(qInd, `${activeCount} in queue`);
+
+  upd($('#btn-queue-toggle'), data.queue_paused ? 'RESUME WORKER' : 'PAUSE WORKER');
+
+  // Active banner
+  const ab = $('#active-banner');
+  if (running) {
+    updStyle(ab, 'display', 'block');
+    upd($('#ab-title'), running.title || running.ncode);
+    upd($('#ab-ncode'), running.ncode);
+    updStyle($('#ab-bar'), 'width', `${running.percent}%`);
+    upd($('#ab-step'), running.message || running.stage);
+    upd($('#ab-counts'), `${running.done} / ${running.total} ch (${running.percent}%)`);
+    upd($('#ab-speed'), `${running.rate} ch/min`);
+    upd($('#ab-eta'), running.eta !== null ? `ETA ${formatSecs(running.eta)}` : 'ETA --:--');
+    upd($('#btn-ab-pause'), running.status === 'paused' ? 'RESUME' : 'PAUSE');
+    $('#btn-ab-pause').onclick = () => jobAction(running.id, running.status === 'paused' ? 'resume' : 'pause');
+    $('#btn-ab-cancel').onclick = () => jobAction(running.id, 'cancel');
+  } else {
+    updStyle(ab, 'display', 'none');
+  }
+
+  // Table: keyed by job id, reuse rows, keep order, drop stale ones
+  const tbody = $('#queue-body');
+  if (!jobs.length) {
+    qview.rows.clear();
+    updHtml(tbody, '<tr><td colspan="7" style="text-align:center;color:var(--dim);padding:24px">Queue is empty.</td></tr>');
+  } else {
+    if (tbody.__h !== undefined) { tbody.__h = undefined; tbody.innerHTML = ''; }  // drop empty-state row
+    if (!qview.rows.size) tbody.innerHTML = '';                                    // drop initial placeholder
+    const seen = new Set();
+    jobs.forEach((j, i) => {
+      seen.add(j.id);
+      let tr = qview.rows.get(j.id);
+      if (!tr) { tr = createQueueRow(); qview.rows.set(j.id, tr); }
+      updateQueueRow(tr, j);
+      if (tbody.children[i] !== tr) tbody.insertBefore(tr, tbody.children[i] || null);
+    });
+    for (const [id, tr] of qview.rows) {
+      if (!seen.has(id)) { tr.remove(); qview.rows.delete(id); }
+    }
+  }
+
+  // Pipeline rendering: only show novels that are done, skipped, translating, translated, uploading, uploaded, or have tl_files
+  const pipelineJobs = jobs.filter(j => 
+    ['done', 'skipped', 'translating', 'translated', 'uploading', 'uploaded'].includes(j.status) || 
+    (j.tl_files && j.tl_files.length > 0)
+  );
+  upd($('#tl-count'), pipelineJobs.length);
+
+  const ptbody = $('#pipeline-body');
+  if (ptbody) {
+    if (!pipelineJobs.length) {
+      qview.tlRows.clear();
+      updHtml(ptbody, '<tr><td colspan="6" style="text-align:center;color:var(--dim);padding:24px">No crawled novels ready for translation or push yet.</td></tr>');
+    } else {
+      if (ptbody.__h !== undefined) { ptbody.__h = undefined; ptbody.innerHTML = ''; }
+      if (!qview.tlRows.size) ptbody.innerHTML = '';
+      const tlSeen = new Set();
+      pipelineJobs.forEach((j, i) => {
+        tlSeen.add(j.id);
+        let tr = qview.tlRows.get(j.id);
+        if (!tr) { tr = createPipelineRow(); qview.tlRows.set(j.id, tr); }
+        updatePipelineRow(tr, j);
+        if (ptbody.children[i] !== tr) ptbody.insertBefore(tr, ptbody.children[i] || null);
+      });
+      for (const [id, tr] of qview.tlRows) {
+        if (!tlSeen.has(id)) { tr.remove(); qview.tlRows.delete(id); }
+      }
+    }
+  }
+
+  // Logs: append only entries newer than the last one shown
+  const logs = data.logs || [];
+  const logbox = $('#logbox');
+  if (logs.length && logs[logs.length - 1].id < qview.lastLogId) {
+    qview.lastLogId = 0;           // server restarted, ids reset
+    logbox.innerHTML = '';
+  }
+  const fresh = logs.filter(l => l.id > qview.lastLogId);
+  if (fresh.length) {
+    const wasAtBottom = logbox.scrollHeight - logbox.scrollTop <= logbox.clientHeight + 20;
+    const frag = document.createDocumentFragment();
+    fresh.forEach(l => {
+      const div = document.createElement('div');
+      if (l.level === 'warn') div.className = 'l-warn';
+      else if (l.level === 'error') div.className = 'l-error';
+      const time = new Date(l.t * 1000).toLocaleTimeString();
+      div.innerHTML = `<span class="l-time" translate="no">${time}</span>`
+        + (l.job ? `<span translate="no">[${escapeHtml(l.job)}] </span>` : '')
+        + `<span>${escapeHtml(l.message)}</span>`;
+      frag.appendChild(div);
+    });
+    logbox.appendChild(frag);
+    qview.lastLogId = fresh[fresh.length - 1].id;
+    while (logbox.children.length > 300) logbox.firstChild.remove();
+    if (wasAtBottom) logbox.scrollTop = logbox.scrollHeight;
+  }
+
+  // Pipeline dedicated logs: filter translation / upload keywords
+  const plogbox = $('#pipeline-logbox');
+  if (plogbox && logs.length) {
+    if (logs[logs.length - 1].id < qview.lastTlLogId) {
+      qview.lastTlLogId = 0;
+      plogbox.innerHTML = '';
+    }
+    const freshTl = logs.filter(l => 
+      l.id > qview.lastTlLogId && 
+      (l.message.includes('Translat') || l.message.includes('TL ') || l.message.includes('Upload') || l.message.includes('MyNovels'))
+    );
+    if (freshTl.length) {
+      const wasAtBottomTl = plogbox.scrollHeight - plogbox.scrollTop <= plogbox.clientHeight + 20;
+      const fragTl = document.createDocumentFragment();
+      freshTl.forEach(l => {
+        const div = document.createElement('div');
+        if (l.level === 'warn') div.className = 'l-warn';
+        else if (l.level === 'error') div.className = 'l-error';
+        const time = new Date(l.t * 1000).toLocaleTimeString();
+        div.innerHTML = `<span class="l-time" translate="no">${time}</span>`
+          + (l.job ? `<span translate="no">[${escapeHtml(l.job)}] </span>` : '')
+          + `<span>${escapeHtml(l.message)}</span>`;
+        fragTl.appendChild(div);
+      });
+      plogbox.appendChild(fragTl);
+      while (plogbox.children.length > 300) plogbox.firstChild.remove();
+      if (wasAtBottomTl) plogbox.scrollTop = plogbox.scrollHeight;
+    }
+    qview.lastTlLogId = logs[logs.length - 1].id;
+  }
+}
+
+async function jobAction(id, act) {
+  await api(`/api/jobs/${id}/${act}`, { method: 'POST' });
+  pollQueue();
+}
+window.jobAction = jobAction;
+
+$('#btn-queue-toggle').addEventListener('click', async () => {
+  const isPause = $('#btn-queue-toggle').textContent.includes('PAUSE');
+  await api(`/api/queue/${isPause ? 'pause_queue' : 'resume_queue'}`, { method: 'POST' });
+  pollQueue();
+});
+$('#btn-retry-failed').addEventListener('click', async () => {
+  await api('/api/queue/retry_failed', { method: 'POST' });
+  pollQueue();
+});
+$('#btn-clear-done').addEventListener('click', async () => {
+  await api('/api/queue/clear_finished', { method: 'POST' });
+  pollQueue();
+});
+$('#btn-cancel-all').addEventListener('click', async () => {
+  if (confirm('Cancel all pending/running jobs?')) {
+    await api('/api/queue/cancel_all', { method: 'POST' });
+    pollQueue();
+  }
+});
+$('#btn-clear-log').addEventListener('click', () => { $('#logbox').innerHTML = ''; });
+
+// ======================= TAB 4: SETTINGS =======================
+function applySettingsToForm(s) {
+  if (!s) return;
+  const f = $('#settings-form');
+  ['delay_ms','jitter_ms','toc_delay_ms','novel_delay_s','max_retries','cooldown_s','timeout_s','range_start','range_end','target_lang'].forEach(k => {
+    if (f.elements[k] && s[k] !== undefined) f.elements[k].value = s[k];
+  });
+  f.elements['fmt_epub'].checked = (s.formats || []).includes('epub');
+  f.elements['fmt_txt'].checked = (s.formats || []).includes('txt');
+  f.elements['include_preface'].checked = !!s.include_preface;
+  f.elements['include_afterword'].checked = !!s.include_afterword;
+  f.elements['resume'].checked = !!s.resume;
+  f.elements['skip_existing'].checked = !!s.skip_existing;
+  if (f.elements['auto_translate']) f.elements['auto_translate'].checked = !!s.auto_translate;
+  if (f.elements['auto_upload']) f.elements['auto_upload'].checked = !!s.auto_upload;
+  if (f.elements['mynovels_url']) f.elements['mynovels_url'].value = s.mynovels_url || '';
+}
+
+$('#settings-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = e.target;
+  const fmts = [];
+  if (f.elements['fmt_epub'].checked) fmts.push('epub');
+  if (f.elements['fmt_txt'].checked) fmts.push('txt');
+
+  const payload = {
+    delay_ms: parseInt(f.elements['delay_ms'].value, 10),
+    jitter_ms: parseInt(f.elements['jitter_ms'].value, 10),
+    toc_delay_ms: parseInt(f.elements['toc_delay_ms'].value, 10),
+    novel_delay_s: parseInt(f.elements['novel_delay_s'].value, 10),
+    max_retries: parseInt(f.elements['max_retries'].value, 10),
+    cooldown_s: parseInt(f.elements['cooldown_s'].value, 10),
+    timeout_s: parseInt(f.elements['timeout_s'].value, 10),
+    range_start: parseInt(f.elements['range_start'].value, 10),
+    range_end: parseInt(f.elements['range_end'].value, 10),
+    formats: fmts.length ? fmts : ['epub'],
+    include_preface: f.elements['include_preface'].checked,
+    include_afterword: f.elements['include_afterword'].checked,
+    resume: f.elements['resume'].checked,
+    skip_existing: f.elements['skip_existing'].checked,
+    target_lang: f.elements['target_lang'].value,
+    auto_translate: f.elements['auto_translate'].checked,
+    auto_upload: f.elements['auto_upload'].checked,
+    mynovels_url: (f.elements['mynovels_url'].value || '').trim(),
+  };
+
+  const stat = $('#settings-status');
+  stat.textContent = 'Saving...';
+  try {
+    const saved = await api('/api/settings', { method: 'POST', body: JSON.stringify(payload) });
+    state.options.settings = saved;
+    stat.textContent = 'Saved.';
+    setTimeout(() => { stat.textContent = ''; }, 2500);
+  } catch (err) {
+    stat.textContent = 'Error: ' + err.message;
+  }
+});
+
+$('#btn-reset-settings').addEventListener('click', async () => {
+  if (confirm('Restore default crawler settings?')) {
+    const def = await api('/api/settings', { method: 'POST', body: JSON.stringify({
+      delay_ms: 1200, jitter_ms: 300, toc_delay_ms: 500, novel_delay_s: 5,
+      max_retries: 3, cooldown_s: 12, timeout_s: 30, range_start: 1, range_end: 0,
+      formats: ['epub', 'txt'], include_preface: true, include_afterword: true,
+      resume: true, skip_existing: false,
+    }) });
+    applySettingsToForm(def);
+  }
+});
+
+// Utilities
+function escapeHtml(str) {
+  return String(str || '').replace(/[&<>"']/g, s => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[s]));
+}
+function formatSecs(s) {
+  s = Math.max(0, Math.floor(s));
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return `${m}:${sec.toString().padStart(2, '0')}`;
+}
+
+// Start
+init();
+</script>
+</body>
+</html>

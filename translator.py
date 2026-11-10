@@ -74,7 +74,11 @@ class BookfereTranslator:
         self.delay_s = delay_s
         self.calibre_debug = get_calibre_debug()
 
-    def translate_batch(self, items: List[Dict[str, str]]) -> List[Dict[str, str]]:
+    def translate_batch(
+        self,
+        items: List[Dict[str, str]],
+        log_callback: Optional[Callable[[str], None]] = None,
+    ) -> List[Dict[str, str]]:
         """items: [{"id": ..., "text": "..."}] -> [{"id": ..., "text": "..."}]"""
         if not items:
             return []
@@ -89,6 +93,14 @@ class BookfereTranslator:
             encoding="utf-8",
         )
         stdout, stderr = proc.communicate(input=json.dumps(items, ensure_ascii=False))
+
+        # Forward any engine diagnostics / stderr to logger
+        if stderr and log_callback:
+            for sline in stderr.strip().splitlines():
+                sline = sline.strip()
+                if sline and not sline.startswith("DEBUG:"):
+                    log_callback(f"[Bookfere] {sline}")
+
         if proc.returncode != 0:
             raise RuntimeError(f"Calibre translate error: {stderr.strip() or stdout.strip()}")
 
@@ -96,7 +108,13 @@ class BookfereTranslator:
         for line in stdout.splitlines():
             line = line.strip()
             if line.startswith("[") and line.endswith("]"):
-                return json.loads(line)
+                parsed = json.loads(line)
+                # Check for individual item errors returned by engine
+                if log_callback:
+                    err_items = [it for it in parsed if it.get("error")]
+                    if err_items:
+                        log_callback(f"[Bookfere Warn] {len(err_items)} item(s) had translation fallback: {err_items[0].get('error')}")
+                return parsed
 
         # Fallback regex parse
         m = re.search(r"(\[.*\])", stdout, re.DOTALL)
@@ -188,9 +206,15 @@ def translate_novel_cached(
         # Process in sub-chunks to avoid huge payloads (max 25 items per sub-batch)
         res_map = {}
         chunk_size = 25
-        for cstart in range(0, len(batch), chunk_size):
+        sub_batches = (len(batch) + chunk_size - 1) // chunk_size
+        emit({"type": "stage", "stage": "tl_chunk", "message": f"Ch {ep}: translating {len(batch)} lines ({sub_batches} batches via Bookfere)..."})
+
+        for cidx, cstart in enumerate(range(0, len(batch), chunk_size), 1):
             sub_batch = batch[cstart:cstart + chunk_size]
-            sub_res = translator.translate_batch(sub_batch)
+            sub_res = translator.translate_batch(
+                sub_batch,
+                log_callback=lambda msg: emit({"type": "stage", "stage": "tl_engine_log", "message": msg}),
+            )
             for r in sub_res:
                 res_map[r["id"]] = r.get("text", "")
             time.sleep(translator.delay_s)
