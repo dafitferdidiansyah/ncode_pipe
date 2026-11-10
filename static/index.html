@@ -476,6 +476,12 @@ n2267be
             <label class="chk-label"><input type="checkbox" name="auto_translate"/> Auto-translate after crawl completes (Google Free Engine)</label>
             <label class="chk-label"><input type="checkbox" name="auto_upload"/> Auto-upload translated EPUB to MyNovels backend</label>
           </div>
+          <div class="row wrap" style="gap:16px;margin-top:10px">
+            <div style="flex:1;min-width:260px">
+              <label>MYNOVELS BACKEND URL</label>
+              <input type="text" name="mynovels_url" placeholder="http://localhost:8000 (or Proxmox IP / ngrok URL)" style="width:100%"/>
+            </div>
+          </div>
         </div>
 
         <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
@@ -1259,6 +1265,7 @@ function applySettingsToForm(s) {
   f.elements['skip_existing'].checked = !!s.skip_existing;
   if (f.elements['auto_translate']) f.elements['auto_translate'].checked = !!s.auto_translate;
   if (f.elements['auto_upload']) f.elements['auto_upload'].checked = !!s.auto_upload;
+  if (f.elements['mynovels_url']) f.elements['mynovels_url'].value = s.mynovels_url || '';
 }
 
 $('#settings-form').addEventListener('submit', async e => {
@@ -1286,6 +1293,7 @@ $('#settings-form').addEventListener('submit', async e => {
     target_lang: f.elements['target_lang'].value,
     auto_translate: f.elements['auto_translate'].checked,
     auto_upload: f.elements['auto_upload'].checked,
+    mynovels_url: (f.elements['mynovels_url'].value || '').trim(),
   };
 
   const stat = $('#settings-status');

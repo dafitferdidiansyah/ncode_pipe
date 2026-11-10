@@ -374,10 +374,13 @@ class JobManager:
             if " - " in stem:
                 title = stem.rsplit(" - ", 1)[0].strip()
 
+            settings = crawler.load_settings()
+            backend_url = settings.get("mynovels_url") or config.BACKEND_URL
             resp = uploader.upload_to_mynovels(
                 epub_path=target_file,
                 title=title,
                 original_title=job.title or job.ncode,
+                backend_url=backend_url,
             )
             job.status = "uploaded"
             job.message = f"Uploaded to MyNovels! (Book ID: {resp.get('id', '-')})"
