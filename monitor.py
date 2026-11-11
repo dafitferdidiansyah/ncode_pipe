@@ -20,8 +20,12 @@ import pathlib
 
 from flask import Flask, abort, jsonify, request, send_from_directory
 
-from . import config, crawler, jobs, translator, qc
-from .jobs import get_manager
+try:
+    from . import config, crawler, jobs, translator, qc
+    from .jobs import get_manager
+except ImportError:
+    import config, crawler, jobs, translator, qc
+    from jobs import get_manager
 
 STATIC_DIR = pathlib.Path(__file__).resolve().parent / "static"
 app = Flask(__name__, static_folder=str(STATIC_DIR), static_url_path="/static")
