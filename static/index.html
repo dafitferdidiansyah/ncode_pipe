@@ -131,6 +131,7 @@ button.btn:disabled{opacity:0.35;cursor:not-allowed;}
     <button data-tab="queue">[3] CRAWL QUEUE (<span id="q-count">0</span>)</button>
     <button data-tab="pipeline">[4] TL &amp; PUSH (<span id="tl-count">0</span>)</button>
     <button data-tab="settings">[5] SETTINGS</button>
+    <a href="/admin/" target="_blank" class="nav-btn" style="text-decoration:none;color:inherit;font-family:inherit;font-size:inherit;padding:8px 12px;display:inline-block;border:none;background:transparent;cursor:pointer" title="Open Django MyNovels Admin">[6] DJANGO ADMIN ↗</a>
   </nav>
 </header>
 
@@ -467,8 +468,8 @@ n2267be
             <div class="form-field">
               <label>Target Translation Language</label>
               <select name="target_lang" style="width:100%;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:6px">
+                <option value="en" selected>English (Default)</option>
                 <option value="id">Indonesian (Bahasa Indonesia)</option>
-                <option value="en">English</option>
               </select>
             </div>
           </div>
@@ -488,6 +489,8 @@ n2267be
           <div class="row wrap" style="gap:16px">
             <label class="chk-label"><input type="checkbox" name="fmt_epub"/> Output EPUB</label>
             <label class="chk-label"><input type="checkbox" name="fmt_txt"/> Output TXT</label>
+            <label class="chk-label"><input type="checkbox" name="clean_blank_lines" checked/> EPUB QC: Clean blank spaces &amp; empty &lt;p&gt;</label>
+            <label class="chk-label"><input type="checkbox" name="standardize_epub" checked/> Standardize 1-Page Synopsis (Tampermonkey style)</label>
             <label class="chk-label"><input type="checkbox" name="include_preface"/> Include Preface (前書き)</label>
             <label class="chk-label"><input type="checkbox" name="include_afterword"/> Include Afterword (後書き)</label>
             <label class="chk-label"><input type="checkbox" name="resume"/> Resume from cache (Skip fetched chapters)</label>
@@ -501,6 +504,105 @@ n2267be
           <span id="settings-status" style="font-family:var(--mono);font-size:11px;color:var(--muted)"></span>
         </div>
       </form>
+    </div>
+
+    <!-- BOOKFERE CALIBRE TRANSLATOR PANEL -->
+    <div class="panel" style="margin-top:16px">
+      <div class="panel-h">
+        <h2>Bookfere Ebook Translator Engine (Calibre &amp; Standalone/Proxmox)</h2>
+        <span class="extra" id="bookfere-status">Checking Bookfere config...</span>
+      </div>
+      <p style="font-size:11px;color:var(--muted);margin-bottom:12px">
+        Full integration with Calibre's Ebook Translator plugin. Settings are stored locally in <code>ncode_pipe/bookfere_config.json</code>, enabling standalone translation on servers (Proxmox/Docker) without requiring Calibre GUI.
+      </p>
+
+      <!-- Action Toolbar -->
+      <div class="row wrap" style="gap:8px;margin-bottom:14px;padding:8px;background:var(--bg-card);border:1px solid var(--border)">
+        <button type="button" id="btn-import-calibre" class="btn" title="Load live settings from Calibre's %APPDATA%/calibre/plugins/ebook_translator.json">&#x21e9; IMPORT FROM CALIBRE</button>
+        <button type="button" id="btn-sync-calibre" class="btn" title="Push current settings back into Calibre's plugin file">&#x21e7; SYNC TO CALIBRE</button>
+        <button type="button" id="btn-export-bf" class="btn" title="Download bookfere_config.json">&#x1f4be; EXPORT JSON</button>
+        <label class="btn" style="cursor:pointer;margin:0" title="Upload an existing ebook_translator.json from another machine">
+          &#x1f4c2; IMPORT JSON <input type="file" id="file-import-bf" accept=".json" style="display:none"/>
+        </label>
+        <span id="bf-toolbar-status" style="font-family:var(--mono);font-size:11px;color:var(--muted);align-self:center;margin-left:auto"></span>
+      </div>
+
+      <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))">
+        <div class="form-field">
+          <label>Active Engine</label>
+          <select id="bf-engine" style="width:100%;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:6px">
+            <option value="SmartAuto">SmartAuto (Google + Edge Fallback)</option>
+            <option value="Google(Free)New">Google(Free)New (High Speed)</option>
+            <option value="Google(Free)Html">Google(Free)Html (Tag Preserving)</option>
+            <option value="MicrosoftEdge(Free)">MicrosoftEdge(Free) (Unlimited)</option>
+            <option value="DeepL(Free)">DeepL(Free)</option>
+            <option value="Gemini">Gemini</option>
+            <option value="ChatGPT">ChatGPT</option>
+          </select>
+          <span style="font-size:10px;color:var(--dim)">Supports built-in and custom API engines</span>
+        </div>
+
+        <div class="form-field">
+          <label>Translation Layout / Position</label>
+          <select id="bf-position" style="width:100%;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:6px">
+            <option value="only">Translation Only (Standard EPUB)</option>
+            <option value="above">Bilingual: Translation Above Original</option>
+            <option value="below">Bilingual: Translation Below Original</option>
+          </select>
+          <span style="font-size:10px;color:var(--dim)">Bookfere bilingual layout option</span>
+        </div>
+
+        <div class="form-field">
+          <label>Request Interval (Seconds)</label>
+          <input type="number" id="bf-interval" min="0" max="30" step="0.2" value="1.0"/>
+          <span style="font-size:10px;color:var(--dim)">Delay between requests / chunks</span>
+        </div>
+
+        <div class="form-field">
+          <label>Concurrency (Workers)</label>
+          <input type="number" id="bf-concurrency" min="1" max="8" step="1" value="1"/>
+          <span style="font-size:10px;color:var(--dim)">Parallel worker threads</span>
+        </div>
+
+        <div class="form-field">
+          <label>Chunk Merge Length (Characters)</label>
+          <input type="number" id="bf-merge-length" min="500" max="4000" step="100" value="1800"/>
+          <span style="font-size:10px;color:var(--dim)">Bookfere standard: 1800</span>
+        </div>
+
+        <div class="form-field">
+          <label>Request Timeout (Seconds)</label>
+          <input type="number" id="bf-timeout" min="10" max="300" step="5" value="90"/>
+          <span style="font-size:10px;color:var(--dim)">Engine network timeout</span>
+        </div>
+
+        <div class="form-field">
+          <label>Max Retries / Attempts</label>
+          <input type="number" id="bf-attempts" min="1" max="20" step="1" value="8"/>
+          <span style="font-size:10px;color:var(--dim)">Retry attempts on network error</span>
+        </div>
+
+        <div class="form-field">
+          <label>LLM Model Name (Optional)</label>
+          <input type="text" id="bf-model" placeholder="e.g. gemini-2.5-flash or gpt-4o-mini"/>
+          <span style="font-size:10px;color:var(--dim)">Only used for Gemini/ChatGPT engines</span>
+        </div>
+      </div>
+
+      <div class="form-field" style="margin-top:12px">
+        <label>System Prompt / Translation Rules (LLM Engines)</label>
+        <textarea id="bf-prompt" rows="3" style="width:100%;font-family:var(--mono);font-size:11px;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:8px" placeholder="Custom translation prompt (preserve proper names, style guidelines, etc.)"></textarea>
+      </div>
+
+      <div class="row wrap" style="gap:16px;margin-top:12px">
+        <label class="chk-label"><input type="checkbox" id="bf-merge-enabled" checked/> Enable Paragraph Chunk Merging (Ultra-fast "sat-set" translation)</label>
+        <label class="chk-label"><input type="checkbox" id="bf-sync-calibre" checked/> Also sync changes to Calibre desktop (ebook_translator.json)</label>
+      </div>
+
+      <div class="row" style="margin-top:14px">
+        <button type="button" id="btn-save-bookfere" class="btn primary">SAVE BOOKFERE SETTINGS</button>
+        <span id="bookfere-save-status" style="font-family:var(--mono);font-size:11px;color:var(--muted);align-self:center"></span>
+      </div>
     </div>
   </section>
 
@@ -550,6 +652,7 @@ async function init() {
   renderOptions();
   renderChips();
   applySettingsToForm(state.options.settings);
+  loadBookfereSettings();
   startPolling();
 }
 
@@ -990,9 +1093,11 @@ function jobActionsHtml(j) {
   if (j.status === 'done' || j.status === 'skipped') {
     extra = `<button class="btn" onclick="jobAction('${j.id}','translate_id')" title="Translate to Indonesian via Google(Free)">TL (ID)</button>
              <button class="btn" onclick="jobAction('${j.id}','translate_en')" title="Translate to English via Google(Free)">TL (EN)</button>
+             <button class="btn" onclick="jobAction('${j.id}','qc')" title="Run EPUB Quality Control & Standardization">QC</button>
              <button class="btn" onclick="jobAction('${j.id}','upload_mynovels')" title="Push to MyNovels backend">PUSH</button>`;
   } else if (j.status === 'translated') {
-    extra = `<button class="btn" onclick="jobAction('${j.id}','upload_mynovels')" title="Push translated EPUB to MyNovels">PUSH</button>`;
+    extra = `<button class="btn" onclick="jobAction('${j.id}','qc')" title="Run EPUB Quality Control & Standardization">QC</button>
+             <button class="btn" onclick="jobAction('${j.id}','upload_mynovels')" title="Push translated EPUB to MyNovels">PUSH</button>`;
   }
   return `${extra}
           <button class="btn" onclick="jobAction('${j.id}','retry')">RETRY</button>
@@ -1052,6 +1157,7 @@ function updatePipelineRow(tr, j) {
     acts = `
       <button class="btn primary" onclick="jobAction('${j.id}','translate_id')" title="Translate to Indonesian using Google Free Engine">TL (ID)</button>
       <button class="btn" onclick="jobAction('${j.id}','translate_en')" title="Translate to English using Google Free Engine">TL (EN)</button>
+      <button class="btn" onclick="jobAction('${j.id}','qc')" title="Run EPUB Quality Control & Standardization">QC</button>
       <button class="btn" onclick="jobAction('${j.id}','upload_mynovels')" title="Push to MyNovels backend">PUSH</button>
     `;
   }
@@ -1260,6 +1366,8 @@ function applySettingsToForm(s) {
   });
   f.elements['fmt_epub'].checked = (s.formats || []).includes('epub');
   f.elements['fmt_txt'].checked = (s.formats || []).includes('txt');
+  if (f.elements['clean_blank_lines']) f.elements['clean_blank_lines'].checked = s.clean_blank_lines !== false;
+  if (f.elements['standardize_epub']) f.elements['standardize_epub'].checked = s.standardize_epub !== false;
   f.elements['include_preface'].checked = !!s.include_preface;
   f.elements['include_afterword'].checked = !!s.include_afterword;
   f.elements['resume'].checked = !!s.resume;
@@ -1268,6 +1376,155 @@ function applySettingsToForm(s) {
   if (f.elements['auto_upload']) f.elements['auto_upload'].checked = !!s.auto_upload;
   if (f.elements['mynovels_url']) f.elements['mynovels_url'].value = s.mynovels_url || '';
 }
+
+async function loadBookfereSettings() {
+  const stat = $('#bookfere-status');
+  try {
+    const res = await api('/api/bookfere');
+    if (!res.ok) {
+      stat.textContent = 'Failed to load';
+      return;
+    }
+
+    if (res.calibre_installed) {
+      stat.textContent = 'Calibre Connected · ' + (res.active_engine || 'Default');
+      stat.style.color = '#4ade80';
+    } else {
+      stat.textContent = 'Standalone Mode · ' + (res.active_engine || 'Default');
+      stat.style.color = '#60a5fa';
+    }
+
+    // Populate engine dropdown with all available engines (built-ins + custom engines)
+    const engSelect = $('#bf-engine');
+    if (res.available_engines && res.available_engines.length) {
+      const currVal = res.active_engine || engSelect.value;
+      engSelect.innerHTML = '';
+      res.available_engines.forEach(eng => {
+        const opt = document.createElement('option');
+        opt.value = eng;
+        opt.textContent = eng;
+        if (eng === currVal) opt.selected = true;
+        engSelect.appendChild(opt);
+      });
+    }
+
+    if (res.translation_position) $('#bf-position').value = res.translation_position;
+    if (res.merge_length) $('#bf-merge-length').value = res.merge_length;
+    if (res.request_interval !== undefined) $('#bf-interval').value = res.request_interval;
+    if (res.concurrency_limit !== undefined) $('#bf-concurrency').value = res.concurrency_limit;
+    if (res.request_timeout !== undefined) $('#bf-timeout').value = res.request_timeout;
+    if (res.request_attempt !== undefined) $('#bf-attempts').value = res.request_attempt;
+    if (res.model !== undefined) $('#bf-model').value = res.model || '';
+    if (res.prompt !== undefined) $('#bf-prompt').value = res.prompt || '';
+    $('#bf-merge-enabled').checked = res.merge_enabled !== false;
+  } catch (err) {
+    stat.textContent = 'Error: ' + err.message;
+  }
+}
+
+$('#btn-save-bookfere').addEventListener('click', async () => {
+  const stat = $('#bookfere-save-status');
+  stat.textContent = 'Saving...';
+  try {
+    const payload = {
+      translate_engine: $('#bf-engine').value,
+      translation_position: $('#bf-position').value,
+      merge_length: parseInt($('#bf-merge-length').value, 10) || 1800,
+      merge_enabled: $('#bf-merge-enabled').checked,
+      request_interval: parseFloat($('#bf-interval').value) || 1.0,
+      concurrency_limit: parseInt($('#bf-concurrency').value, 10) || 1,
+      request_timeout: parseFloat($('#bf-timeout').value) || 90.0,
+      request_attempt: parseInt($('#bf-attempts').value, 10) || 8,
+      model: $('#bf-model').value.trim(),
+      prompt: $('#bf-prompt').value.trim(),
+      sync_calibre: $('#bf-sync-calibre').checked,
+    };
+    const res = await api('/api/bookfere', { method: 'POST', body: JSON.stringify(payload) });
+    if (res.ok) {
+      stat.textContent = 'Saved! ' + (res.calibre_synced ? '(Synced to Calibre)' : '(Saved to bookfere_config.json)');
+      stat.style.color = '#4ade80';
+      loadBookfereSettings();
+      setTimeout(() => { stat.textContent = ''; }, 3000);
+    } else {
+      stat.textContent = 'Error: ' + (res.error || 'Failed');
+      stat.style.color = '#f87171';
+    }
+  } catch (err) {
+    stat.textContent = 'Error: ' + err.message;
+    stat.style.color = '#f87171';
+  }
+});
+
+// Import from Calibre
+$('#btn-import-calibre').addEventListener('click', async () => {
+  const stat = $('#bf-toolbar-status');
+  stat.textContent = 'Importing from Calibre...';
+  try {
+    const res = await api('/api/bookfere/import_calibre', { method: 'POST' });
+    if (res.ok) {
+      stat.textContent = 'Successfully imported settings from Calibre!';
+      stat.style.color = '#4ade80';
+      loadBookfereSettings();
+      setTimeout(() => { stat.textContent = ''; }, 3000);
+    } else {
+      stat.textContent = 'Import failed: ' + (res.error || 'Unknown error');
+      stat.style.color = '#f87171';
+    }
+  } catch (err) {
+    stat.textContent = 'Error: ' + err.message;
+    stat.style.color = '#f87171';
+  }
+});
+
+// Sync to Calibre
+$('#btn-sync-calibre').addEventListener('click', async () => {
+  const stat = $('#bf-toolbar-status');
+  stat.textContent = 'Syncing to Calibre...';
+  try {
+    const res = await api('/api/bookfere/sync_calibre', { method: 'POST' });
+    if (res.ok) {
+      stat.textContent = 'Synchronized to Calibre ebook_translator.json!';
+      stat.style.color = '#4ade80';
+      setTimeout(() => { stat.textContent = ''; }, 3000);
+    } else {
+      stat.textContent = 'Sync failed: ' + (res.error || 'Unknown error');
+      stat.style.color = '#f87171';
+    }
+  } catch (err) {
+    stat.textContent = 'Error: ' + err.message;
+    stat.style.color = '#f87171';
+  }
+});
+
+// Export JSON
+$('#btn-export-bf').addEventListener('click', () => {
+  window.open('/api/bookfere/export', '_blank');
+});
+
+// Import JSON file
+$('#file-import-bf').addEventListener('change', async (e) => {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  const stat = $('#bf-toolbar-status');
+  stat.textContent = 'Uploading config...';
+  try {
+    const text = await file.text();
+    const parsed = JSON.parse(text);
+    const res = await api('/api/bookfere/raw', { method: 'POST', body: JSON.stringify(parsed) });
+    if (res.ok) {
+      stat.textContent = 'Config uploaded & applied successfully!';
+      stat.style.color = '#4ade80';
+      loadBookfereSettings();
+      setTimeout(() => { stat.textContent = ''; }, 3000);
+    } else {
+      stat.textContent = 'Upload failed: ' + (res.error || 'Invalid config');
+      stat.style.color = '#f87171';
+    }
+  } catch (err) {
+    stat.textContent = 'Invalid JSON file: ' + err.message;
+    stat.style.color = '#f87171';
+  }
+});
 
 $('#settings-form').addEventListener('submit', async e => {
   e.preventDefault();
@@ -1287,6 +1544,8 @@ $('#settings-form').addEventListener('submit', async e => {
     range_start: parseInt(f.elements['range_start'].value, 10),
     range_end: parseInt(f.elements['range_end'].value, 10),
     formats: fmts.length ? fmts : ['epub'],
+    clean_blank_lines: f.elements['clean_blank_lines'] ? f.elements['clean_blank_lines'].checked : true,
+    standardize_epub: f.elements['standardize_epub'] ? f.elements['standardize_epub'].checked : true,
     include_preface: f.elements['include_preface'].checked,
     include_afterword: f.elements['include_afterword'].checked,
     resume: f.elements['resume'].checked,

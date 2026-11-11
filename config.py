@@ -8,7 +8,7 @@ import pathlib
 
 BASE_DIR = pathlib.Path(__file__).resolve().parent
 
-BACKEND_URL = "http://localhost:8000"  # adjust to actual ngrok URL
+BACKEND_URL = "https://playset-setting-supermom.ngrok-free.dev"  # adjust to actual ngrok URL
 UPLOAD_ENDPOINT = "/api/books/"  # placeholder endpoint for POST multipart
 
 # Narou API + site root
@@ -42,10 +42,14 @@ DEFAULT_SETTINGS = {
     "range_start": 1,          # first chapter (1-based)
     "range_end": 0,            # last chapter, 0 = until the end
     "formats": ["epub", "txt"],
-    "target_lang": "id",       # Target translation language: 'id' (Indonesian) or 'en' (English)
+    "target_lang": "en",       # Target translation language: 'en' (English) or 'id' (Indonesian)
     "auto_translate": False,   # Auto-translate after crawl completes
     "auto_upload": False,      # Auto-upload translated EPUB to MyNovels
-    "mynovels_url": "http://localhost:8000", # MyNovels Django backend base URL (or ngrok / Proxmox IP)
+    "mynovels_url": "https://playset-setting-supermom.ngrok-free.dev", # MyNovels Django backend base URL (or ngrok / Proxmox IP)
+    "clean_blank_lines": True, # Quality Control: remove empty <p> & excessive blank line spaces
+    "standardize_epub": True,  # Quality Control: 1-page synopsis, WTR Lab typography & layout
+    "merge_chunks": True,      # Bookfere speed mode: batch/merge paragraphs into chunks (sat-set)
+    "chunk_size": 1800,        # Max chunk size (characters) matching Bookfere default
     "include_preface": True,
     "include_afterword": True,
     "resume": True,            # reuse cached chapters (CONTINUE LATEST behaviour)

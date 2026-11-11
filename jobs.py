@@ -7,6 +7,8 @@ jobs survive a restart (chapter cache makes re-runs resume where they stopped).
 """
 from __future__ import annotations
 
+import os
+import pathlib
 import json
 import threading
 import time
@@ -120,9 +122,23 @@ class JobManager:
         self._last_save = now
         with self.lock:
             data = {"jobs": [self.jobs[j].to_record() for j in self.order]}
-        tmp = config.STATUS_PATH.with_suffix(".json.tmp")
-        tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
-        tmp.replace(config.STATUS_PATH)
+        try:
+            tmp = config.STATUS_PATH.with_suffix(f".{os.getpid()}_{threading.get_ident()}.tmp")
+            tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+            for _ in range(5):
+                try:
+                    tmp.replace(config.STATUS_PATH)
+                    break
+                except OSError:
+                    time.sleep(0.05)
+            else:
+                config.STATUS_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+                try:
+                    tmp.unlink(missing_ok=True)
+                except Exception:
+                    pass
+        except Exception:
+            pass
 
     # ------------------------------------------------------------- logging
     def log(self, message: str, level: str = "info", job: Optional[Job] = None) -> None:
@@ -183,10 +199,12 @@ class JobManager:
             elif action == "retry" and job.status in ("error", "cancelled", "done", "skipped"):
                 fresh = Job(job.ncode, job.title, job.overrides, job.id)
                 self.jobs[job.id] = fresh
-            elif action in ("translate_id", "translate_en") and job.status in ("done", "skipped"):
+            elif action in ("translate_id", "translate_en") and job.status in ("done", "skipped", "translated", "uploaded"):
                 target_lang = "id" if action == "translate_id" else "en"
                 threading.Thread(target=self._run_translate, args=(job, target_lang), daemon=True).start()
-            elif action == "upload_mynovels" and job.status in ("done", "skipped", "translated"):
+            elif action == "qc" and job.status in ("done", "skipped", "translated", "uploaded"):
+                threading.Thread(target=self._run_qc, args=(job,), daemon=True).start()
+            elif action == "upload_mynovels" and job.status in ("done", "skipped", "translated", "uploaded"):
                 threading.Thread(target=self._run_upload, args=(job,), daemon=True).start()
             elif action == "remove" and job.status not in ("running", "paused", "translating", "uploading"):
                 self.jobs.pop(job_id)
@@ -347,6 +365,29 @@ class JobManager:
         finally:
             self._save(force=True)
 
+    def _run_qc(self, job: Job) -> None:
+        from . import qc
+        prev_msg = job.message
+        job.message = "Running EPUB Quality Control..."
+        self.log(f"Quality Control (QC) started for {job.ncode}", job=job)
+        self._save(force=True)
+
+        cleaned_total = 0
+        all_targets = list(job.files) + list(job.tl_files)
+        epubs = [pathlib.Path(fp) for fp in all_targets if str(fp).lower().endswith(".epub") and os.path.isfile(fp)]
+
+        for p in epubs:
+            try:
+                _, stats = qc.standardize_epub_file(p)
+                blanks = stats.get("blank_tags_removed", 0)
+                cleaned_total += blanks
+                self.log(f"QC completed on {p.name}: {blanks} blank tags removed, 1-page synopsis standardized", job=job)
+            except Exception as e:
+                self.log(f"QC failed on {p.name}: {e}", "warning", job=job)
+
+        job.message = f"QC Done: {cleaned_total} blank tags cleaned across {len(epubs)} EPUB(s)"
+        self._save(force=True)
+
     def _run_upload(self, job: Job) -> None:
         from . import uploader
         prev_status = job.status
@@ -379,10 +420,12 @@ class JobManager:
 
             settings = crawler.load_settings()
             backend_url = settings.get("mynovels_url") or config.BACKEND_URL
+            target_lang = "en" if "_en" in target_file.lower() else ("id" if "_id" in target_file.lower() else "ja")
             resp = uploader.upload_to_mynovels(
                 epub_path=target_file,
                 title=title,
                 original_title=job.title or job.ncode,
+                language=target_lang,
                 backend_url=backend_url,
             )
             job.status = "uploaded"

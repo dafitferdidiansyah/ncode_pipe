@@ -20,7 +20,7 @@ import pathlib
 
 from flask import Flask, abort, jsonify, request, send_from_directory
 
-from . import config, crawler
+from . import config, crawler, jobs, translator, qc
 from .jobs import get_manager
 
 STATIC_DIR = pathlib.Path(__file__).resolve().parent / "static"
@@ -121,6 +121,62 @@ def settings():
     if request.method == "POST":
         return jsonify(crawler.save_settings(request.get_json(silent=True) or {}))
     return jsonify(crawler.load_settings())
+
+
+@app.route("/api/bookfere", methods=["GET", "POST"])
+def bookfere_config():
+    if request.method == "POST":
+        payload = request.get_json(silent=True) or {}
+        sync = bool(payload.pop("sync_calibre", False))
+        return jsonify(translator.save_bookfere_settings(payload, sync_calibre=sync))
+    return jsonify(translator.get_bookfere_settings())
+
+
+@app.post("/api/bookfere/import_calibre")
+def bookfere_import_calibre():
+    return jsonify(translator.import_from_calibre())
+
+
+@app.post("/api/bookfere/sync_calibre")
+def bookfere_sync_calibre():
+    return jsonify(translator.sync_to_calibre())
+
+
+@app.get("/api/bookfere/export")
+def bookfere_export():
+    cfg_path = translator.get_bookfere_config_path()
+    if not cfg_path.is_file():
+        return _err("No config file found to export")
+    return send_from_directory(cfg_path.parent, cfg_path.name, as_attachment=True)
+
+
+@app.post("/api/bookfere/raw")
+def bookfere_raw():
+    payload = request.get_json(silent=True)
+    if not isinstance(payload, dict):
+        return _err("Invalid JSON configuration")
+    cfg_path = translator.get_bookfere_config_path()
+    import json
+    cfg_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+    return jsonify({"ok": True, "settings": translator.get_bookfere_settings()})
+
+
+@app.route("/api/qc", methods=["POST"])
+def run_qc():
+    payload = request.get_json(silent=True) or {}
+    target_file = payload.get("file")
+    if payload.get("all") or not target_file:
+        res = qc.run_batch_qc(config.DOWNLOAD_DIR)
+        return jsonify({"ok": True, "results": res})
+
+    target_path = (config.DOWNLOAD_DIR / target_file).resolve()
+    if config.DOWNLOAD_DIR.resolve() not in target_path.parents or not target_path.is_file():
+        return _err("File not found in downloads")
+    try:
+        _, stats = qc.standardize_epub_file(target_path)
+        return jsonify({"ok": True, "file": target_file, "stats": stats})
+    except Exception as e:
+        return _err(str(e))
 
 
 @app.post("/api/cache/<ncode>/clear")

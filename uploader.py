@@ -14,6 +14,7 @@ def upload_to_mynovels(
     epub_path: str,
     title: str,
     original_title: str = "",
+    language: str = "",
     backend_url: Optional[str] = None,
     upload_endpoint: Optional[str] = None,
     timeout: int = 60,
@@ -28,7 +29,16 @@ def upload_to_mynovels(
 
     base_url = (backend_url or config.BACKEND_URL).rstrip("/")
     endpoint = upload_endpoint or "/api/upload/"
+    if not endpoint.startswith("/"):
+        endpoint = f"/{endpoint}"
+    if not endpoint.endswith("/"):
+        endpoint = f"{endpoint}/"
     url = f"{base_url}{endpoint}"
+
+    headers = {
+        "User-Agent": "ncode_pipe/1.0",
+        "ngrok-skip-browser-warning": "true",
+    }
 
     filename = path.name
     with open(path, "rb") as fp:
@@ -37,7 +47,9 @@ def upload_to_mynovels(
             "title": title,
             "original_title": original_title,
         }
-        resp = requests.post(url, files=files, data=data, timeout=timeout)
+        if language:
+            data["language"] = language
+        resp = requests.post(url, files=files, data=data, headers=headers, timeout=timeout)
 
     if resp.status_code not in (200, 201):
         raise RuntimeError(f"Upload failed [{resp.status_code}]: {resp.text}")

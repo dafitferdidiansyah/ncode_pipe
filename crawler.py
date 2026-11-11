@@ -498,38 +498,109 @@ def _xhtml(title: str, body: str) -> str:
     )
 
 
-def _paras_html(paras: List[str], css: str = "") -> str:
+def _paras_html(paras: List[str], css: str = "", clean_blank: bool = True) -> str:
     out = []
+    prev_blank = False
     for p in paras:
-        if p.strip():
-            out.append(f"<p>{html.escape(p)}</p>")
+        p_str = p.strip()
+        if p_str:
+            out.append(f"<p>{html.escape(p_str)}</p>")
+            prev_blank = False
         else:
-            out.append('<p class="blank"><br/></p>')
+            if not clean_blank:
+                out.append('<p class="blank"><br/></p>')
+            elif not prev_blank:
+                out.append('<p class="blank"></p>')
+                prev_blank = True
     inner = "\n".join(out)
     return f'<div class="{css}">\n{inner}\n</div>' if css else inner
 
 
-def write_epub(meta: Dict, chapters: List[Dict], path: pathlib.Path) -> pathlib.Path:
-    """Minimal valid EPUB3 (nav + ncx) using only the stdlib."""
+def _generate_retro_cover_jpg(title: str, author: str, ncode: str = "", tag: str = "SYOSETU NOVEL ARCHIVE") -> bytes:
+    from PIL import Image, ImageDraw, ImageFont
+    import io, textwrap
+    img = Image.new("RGB", (800, 1200), color="#111114")
+    draw = ImageDraw.Draw(img)
+    draw.rectangle([36, 36, 764, 1164], outline="#38383e", width=4)
+    draw.rectangle([48, 48, 752, 1152], outline="#72727c", width=1)
+    try:
+        font_tag = ImageFont.truetype("arial.ttf", 18)
+        font_title = ImageFont.truetype("msgothic.ttc", 40)
+        font_author = ImageFont.truetype("msgothic.ttc", 26)
+        font_sub = ImageFont.truetype("arial.ttf", 16)
+    except Exception:
+        font_tag = font_title = font_author = font_sub = ImageFont.load_default()
+    draw.text((400, 130), tag.upper(), fill="#8a8a96", font=font_tag, anchor="mm")
+    draw.line([(340, 155), (460, 155)], fill="#38383e", width=2)
+    lines = textwrap.wrap(title, width=16)[:6]
+    start_y = 480 - (len(lines) * 30)
+    for idx, line in enumerate(lines):
+        draw.text((400, start_y + (idx * 58)), line, fill="#f5f5f7", font=font_title, anchor="mm")
+    author_y = 960
+    draw.line([(350, author_y - 40), (450, author_y - 40)], fill="#38383e", width=2)
+    draw.text((400, author_y - 18), "AUTHOR", fill="#8a8a96", font=font_sub, anchor="mm")
+    draw.text((400, author_y + 25), author or "Unknown", fill="#e0e0ea", font=font_author, anchor="mm")
+    if ncode:
+        draw.text((400, 1100), f"{ncode.upper()} • WTR ARCHIVE", fill="#666672", font=font_sub, anchor="mm")
+    buf = io.BytesIO()
+    img.save(buf, format="JPEG", quality=90)
+    return buf.getvalue()
+
+
+def write_epub(meta: Dict, chapters: List[Dict], path: pathlib.Path, settings: Optional[Dict] = None) -> pathlib.Path:
+    """Standardized EPUB3 with clean WTR typography and single-page synopsis QC."""
     book_id = f"urn:uuid:{uuid.uuid5(uuid.NAMESPACE_URL, meta['url'])}"
     modified = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    css = ("body{font-family:serif;line-height:1.8;margin:0 4%;}h1,h2{text-align:center;}"
-           "p{margin:0;text-indent:0;}p.blank{height:1em;}.preface,.afterword{font-size:.9em;"
-           "color:#555;border-top:1px solid #999;border-bottom:1px solid #999;padding:.5em 0;margin:1em 0;}"
-           ".info{text-align:center;}.story{margin-top:2em;text-align:left;}")
+    clean_blank = True if settings is None else settings.get("clean_blank_lines", True)
+
+    lang = (meta.get("language") or meta.get("target_lang") or "ja").lower()
+    if lang in ("id", "indonesia", "indonesian"):
+        lang = "id"
+    elif lang in ("en", "english"):
+        lang = "en"
+    elif lang in ("ja", "jp", "japanese"):
+        lang = "ja"
+
+    ncode_tag = meta.get("ncode", "")
+    target_tag = f"{lang.upper()} TRANSLATED" if lang != "ja" else "SYOSETU ARCHIVE"
+    cover_jpg = _generate_retro_cover_jpg(meta.get("title", ""), meta.get("writer", ""), ncode=ncode_tag, tag=target_tag)
+    cover_page = (
+        '<?xml version="1.0" encoding="utf-8"?>\n'
+        '<!DOCTYPE html>\n'
+        '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">\n'
+        '<head><title>Cover</title><style>body,html{margin:0;padding:0;height:100%;text-align:center;background:#111114;}img{width:100%;height:100%;max-width:100%;object-fit:contain;}</style></head>\n'
+        '<body><div><img src="cover.jpg" alt="Cover" /></div></body>\n</html>'
+    )
+
+    css = (
+        "body{font-family:\"Georgia\",\"Times New Roman\",serif;line-height:1.65;margin:0 4%;text-align:justify;color:#111;}\n"
+        "h1{text-align:center;font-size:1.6em;margin-top:1.5em;margin-bottom:0.8em;color:#222;}\n"
+        "h2{text-align:center;font-size:1.3em;margin-top:1.8em;margin-bottom:1.2em;page-break-before:always;color:#222;}\n"
+        "p{margin-top:0;margin-bottom:0.8em;text-indent:0;}\n"
+        "p.blank{height:0.5em;margin:0;}\n"
+        ".preface,.afterword{font-size:.9em;color:#555;border-top:1px solid #ccc;border-bottom:1px solid #ccc;padding:.8em 0;margin:1.2em 0;}\n"
+        ".info-card{text-align:center;padding:1.5em 0.5em;page-break-after:always;}\n"
+        ".info-meta{font-size:.9em;color:#666;margin:1em 0;line-height:1.4;}\n"
+        ".story{text-align:justify;border-top:1px solid #ddd;padding-top:1.2em;margin-top:1.2em;}\n"
+    )
     info_body = (
-        f'<div class="info"><h1>{html.escape(meta["title"])}</h1>'
-        f'<p>{html.escape(meta["writer"])}</p><p>{html.escape(meta["url"])}</p></div>'
-        f'<div class="story">{_paras_html(meta.get("story", "").splitlines())}</div>'
+        f'<div class="info-card">'
+        f'<h1>{html.escape(meta["title"])}</h1>'
+        f'<div class="info-meta">'
+        f'<p><b>Author:</b> {html.escape(meta.get("writer", "Unknown"))}</p>'
+        f'<p><b>Source:</b> {html.escape(meta.get("url", ""))}</p>'
+        f'</div>'
+        f'<div class="story">{_paras_html(meta.get("story", "").splitlines(), clean_blank=clean_blank)}</div>'
+        f'</div>'
     )
     files = [("info.xhtml", "Info", _xhtml(meta["title"], info_body))]
     for idx, ch in enumerate(chapters, 1):
         parts = [f"<h2>{html.escape(ch['title'])}</h2>"]
         if ch.get("preface"):
-            parts.append(_paras_html(ch["preface"], "preface"))
-        parts.append(_paras_html(ch.get("body", [])))
+            parts.append(_paras_html(ch["preface"], "preface", clean_blank=clean_blank))
+        parts.append(_paras_html(ch.get("body", []), clean_blank=clean_blank))
         if ch.get("afterword"):
-            parts.append(_paras_html(ch["afterword"], "afterword"))
+            parts.append(_paras_html(ch["afterword"], "afterword", clean_blank=clean_blank))
         files.append((f"ch{idx:05d}.xhtml", ch["title"], _xhtml(ch["title"], "\n".join(parts))))
 
     nav_items = "\n".join(f'<li><a href="{f}">{html.escape(t)}</a></li>' for f, t, _ in files)
@@ -546,19 +617,23 @@ def write_epub(meta: Dict, chapters: List[Dict], path: pathlib.Path) -> pathlib.
     spine = "\n".join(f'<itemref idref="f{i}"/>' for i in range(len(files)))
     opf = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="bookid" xml:lang="ja">\n'
+        f'<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="bookid" xml:lang="{lang}">\n'
         '<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">'
         f'<dc:identifier id="bookid">{book_id}</dc:identifier>'
         f'<dc:title>{html.escape(meta["title"])}</dc:title>'
         f'<dc:creator>{html.escape(meta["writer"])}</dc:creator>'
-        '<dc:language>ja</dc:language><dc:publisher>小説家になろう</dc:publisher>'
+        f'<dc:language>{lang}</dc:language><dc:publisher>小説家になろう</dc:publisher>'
         f'<dc:source>{html.escape(meta["url"])}</dc:source>'
         f'<dc:description>{html.escape(meta.get("story", ""))}</dc:description>{subjects}'
-        f'<meta property="dcterms:modified">{modified}</meta></metadata>\n'
+        f'<meta property="dcterms:modified">{modified}</meta>'
+        '<meta name="cover" content="cover-image"/>'
+        '</metadata>\n'
         '<manifest><item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>'
         '<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>'
+        '<item id="cover-page" href="cover.xhtml" media-type="application/xhtml+xml"/>'
+        '<item id="cover-image" href="cover.jpg" media-type="image/jpeg" properties="cover-image"/>'
         f'<item id="css" href="style.css" media-type="text/css"/>\n{manifest}</manifest>\n'
-        f'<spine toc="ncx">\n{spine}\n</spine>\n</package>'
+        f'<spine toc="ncx">\n<itemref idref="cover-page"/>\n{spine}\n</spine>\n</package>'
     )
     container = ('<?xml version="1.0" encoding="UTF-8"?>\n<container version="1.0" '
                  'xmlns="urn:oasis:names:tc:opendocument:xmlns:container"><rootfiles>'
@@ -570,6 +645,8 @@ def write_epub(meta: Dict, chapters: List[Dict], path: pathlib.Path) -> pathlib.
         zf.writestr(zipfile.ZipInfo("mimetype"), "application/epub+zip", compress_type=zipfile.ZIP_STORED)
         zf.writestr("META-INF/container.xml", container, compress_type=zipfile.ZIP_DEFLATED)
         zf.writestr("OEBPS/content.opf", opf, compress_type=zipfile.ZIP_DEFLATED)
+        zf.writestr("OEBPS/cover.jpg", cover_jpg, compress_type=zipfile.ZIP_DEFLATED)
+        zf.writestr("OEBPS/cover.xhtml", cover_page, compress_type=zipfile.ZIP_DEFLATED)
         zf.writestr("OEBPS/nav.xhtml", nav, compress_type=zipfile.ZIP_DEFLATED)
         zf.writestr("OEBPS/toc.ncx", ncx, compress_type=zipfile.ZIP_DEFLATED)
         zf.writestr("OEBPS/style.css", css, compress_type=zipfile.ZIP_DEFLATED)
@@ -699,7 +776,14 @@ def crawl_novel(ncode: str, settings: Optional[Dict] = None, control: Optional[C
     base = out_path / output_basename(meta)
     files = []
     if "epub" in settings["formats"]:
-        files.append(str(write_epub(meta, view, base.with_suffix(".epub"))))
+        ep_path = write_epub(meta, view, base.with_suffix(".epub"))
+        if settings.get("standardize_epub", True) or settings.get("clean_blank_lines", True):
+            try:
+                from . import qc
+                qc.standardize_epub_file(ep_path)
+            except Exception as e:
+                logger.warning(f"QC pass failed on {ep_path}: {e}")
+        files.append(str(ep_path))
     if "txt" in settings["formats"]:
         files.append(str(write_txt(meta, view, base.with_suffix(".txt"))))
     emit({"type": "stage", "stage": "done", "message": f"Saved {len(files)} file(s)"})
