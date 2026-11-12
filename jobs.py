@@ -414,9 +414,13 @@ class JobManager:
                 raise RuntimeError("No EPUB file available to upload.")
 
             stem = pathlib.Path(target_file).stem
-            title = stem
-            if " - " in stem:
-                title = stem.rsplit(" - ", 1)[0].strip()
+            title = job.title or ""
+            if not title:
+                if " - " in stem:
+                    parts = stem.split(" - ", 1)
+                    title = parts[1].strip() if len(parts) > 1 else parts[0].strip()
+                else:
+                    title = stem
 
             settings = crawler.load_settings()
             backend_url = settings.get("mynovels_url") or config.BACKEND_URL

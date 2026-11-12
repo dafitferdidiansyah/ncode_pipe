@@ -522,30 +522,87 @@ def _paras_html(paras: List[str], css: str = "", clean_blank: bool = True) -> st
 
 def _generate_retro_cover_jpg(title: str, author: str, ncode: str = "", tag: str = "READ THIS • WEB NOVEL") -> bytes:
     from PIL import Image, ImageDraw, ImageFont
-    import io, textwrap
-    img = Image.new("RGB", (800, 1200), color="#111114")
+    import io
+
+    img = Image.new("RGB", (800, 1200), color="#101014")
     draw = ImageDraw.Draw(img)
-    draw.rectangle([36, 36, 764, 1164], outline="#38383e", width=4)
-    draw.rectangle([48, 48, 752, 1152], outline="#72727c", width=1)
+
+    # Outer & Inner Retro Frames
+    draw.rectangle([36, 36, 764, 1164], outline="#27272a", width=4)
+    draw.rectangle([48, 48, 752, 1152], outline="#3f3f46", width=2)
+
+    # Corner notches
+    draw.line([(40, 70), (70, 70), (70, 40)], fill="#71717a", width=2)
+    draw.line([(760, 70), (730, 70), (730, 40)], fill="#71717a", width=2)
+    draw.line([(40, 1130), (70, 1130), (70, 1160)], fill="#71717a", width=2)
+    draw.line([(760, 1130), (730, 1130), (730, 1160)], fill="#71717a", width=2)
+
     try:
-        font_tag = ImageFont.truetype("arial.ttf", 18)
-        font_title = ImageFont.truetype("msgothic.ttc", 40)
-        font_author = ImageFont.truetype("msgothic.ttc", 26)
-        font_sub = ImageFont.truetype("arial.ttf", 16)
+        font_tag = ImageFont.truetype("arial.ttf", 22)
+        font_author = ImageFont.truetype("msgothic.ttc", 28)
+        font_sub = ImageFont.truetype("arial.ttf", 18)
     except Exception:
-        font_tag = font_title = font_author = font_sub = ImageFont.load_default()
-    draw.text((400, 130), tag.upper(), fill="#8a8a96", font=font_tag, anchor="mm")
-    draw.line([(340, 155), (460, 155)], fill="#38383e", width=2)
-    lines = textwrap.wrap(title, width=16)[:6]
-    start_y = 480 - (len(lines) * 30)
-    for idx, line in enumerate(lines):
-        draw.text((400, start_y + (idx * 58)), line, fill="#f5f5f7", font=font_title, anchor="mm")
-    author_y = 960
-    draw.line([(350, author_y - 40), (450, author_y - 40)], fill="#38383e", width=2)
-    draw.text((400, author_y - 18), "AUTHOR", fill="#8a8a96", font=font_sub, anchor="mm")
-    draw.text((400, author_y + 25), author or "Unknown", fill="#e0e0ea", font=font_author, anchor="mm")
-    if ncode:
-        draw.text((400, 1100), f"{ncode.upper()} • WTR ARCHIVE", fill="#666672", font=font_sub, anchor="mm")
+        font_tag = font_author = font_sub = ImageFont.load_default()
+
+    # Top Tag
+    draw.text((400, 125), tag.upper(), fill="#a1a1aa", font=font_tag, anchor="mm")
+    draw.line([(310, 150), (490, 150)], fill="#3f3f46", width=2)
+    draw.polygon([(400, 145), (405, 150), (400, 155), (395, 150)], fill="#71717a")
+
+    # Center Art Emblem based on seed
+    seed = abs(hash((title or "") + (author or ""))) % 4
+
+    if seed == 0:
+        # Astrolabe & Orbit
+        draw.ellipse([(220, 370), (580, 730)], outline="#27272a", width=4)
+        draw.ellipse([(260, 410), (540, 690)], outline="#3f3f46", width=2)
+        draw.ellipse([(310, 460), (490, 640)], outline="#52525b", width=3)
+        draw.line([(190, 550), (610, 550)], fill="#3f3f46", width=2)
+        draw.line([(400, 340), (400, 760)], fill="#3f3f46", width=2)
+        draw.ellipse([(240, 490), (560, 610)], outline="#71717a", width=3)
+        draw.polygon([(400, 480), (412, 535), (470, 550), (412, 565), (400, 620), (388, 565), (330, 550), (388, 535)], fill="#f4f4f5")
+        draw.polygon([(490, 460), (500, 470), (490, 480), (480, 470)], fill="#71717a")
+        draw.polygon([(310, 620), (320, 630), (310, 640), (300, 630)], fill="#71717a")
+    elif seed == 1:
+        # Open Grimoire & Portal
+        draw.polygon([(400, 350), (570, 550), (400, 750), (230, 550)], outline="#27272a", width=4)
+        draw.ellipse([(270, 420), (530, 680)], outline="#3f3f46", width=2)
+        draw.polygon([(400, 410), (435, 455), (400, 500), (365, 455)], outline="#71717a", fill="#18181b", width=2)
+        draw.polygon([(290, 570), (400, 550), (510, 570), (510, 630), (400, 610), (290, 630)], outline="#e4e4e7", fill="#18181b", width=3)
+        draw.line([(400, 550), (400, 610)], fill="#e4e4e7", width=3)
+        draw.polygon([(400, 440), (406, 470), (440, 478), (406, 486), (400, 515), (394, 486), (360, 478), (394, 470)], fill="#f4f4f5")
+    elif seed == 2:
+        # Solar Enso & Mountain Horizon
+        draw.ellipse([(230, 380), (570, 720)], outline="#27272a", width=4)
+        draw.ellipse([(300, 450), (500, 650)], outline="#e4e4e7", width=5)
+        draw.line([(250, 600), (550, 600)], fill="#52525b", width=2)
+        draw.line([(280, 620), (520, 620)], fill="#3f3f46", width=2)
+        draw.polygon([(300, 600), (360, 530), (410, 580), (460, 540), (500, 600)], fill="#111114", outline="#e4e4e7", width=3)
+        draw.polygon([(400, 360), (405, 365), (400, 370), (395, 365)], fill="#f4f4f5")
+    else:
+        # Heraldic Blade & Shield
+        draw.polygon([(260, 470), (400, 370), (540, 470), (540, 620), (400, 740), (260, 620)], outline="#27272a", width=4)
+        draw.line([(400, 400), (400, 680)], fill="#f4f4f5", width=5)
+        draw.line([(340, 500), (460, 500)], fill="#f4f4f5", width=5)
+        draw.ellipse([(392, 680), (408, 696)], fill="#e4e4e7")
+        draw.polygon([(400, 380), (390, 410), (410, 410)], fill="#f4f4f5")
+        draw.polygon([(320, 450), (330, 460), (320, 470), (310, 460)], fill="#a1a1aa")
+        draw.polygon([(480, 450), (490, 460), (480, 470), (470, 460)], fill="#a1a1aa")
+
+    # Author & Bottom Metadata Section
+    author_y = 920
+    draw.line([(310, author_y - 30), (490, author_y - 30)], fill="#3f3f46", width=2)
+    draw.polygon([(400, author_y - 35), (405, author_y - 30), (400, author_y - 25), (395, author_y - 30)], fill="#71717a")
+    draw.text((400, author_y - 5), "AUTHOR", fill="#71717a", font=font_sub, anchor="mm")
+    
+    clean_author = (author or "Unknown").strip()
+    if len(clean_author) > 22:
+        clean_author = clean_author[:21] + "..."
+    draw.text((400, author_y + 35), clean_author, fill="#e4e4e7", font=font_author, anchor="mm")
+
+    bottom_tag = f"{ncode.upper()} • DIGITAL ARCHIVE" if ncode else "ARCHIVE COLLECTION • DIGITAL EDITION"
+    draw.text((400, 1100), bottom_tag, fill="#52525b", font=font_sub, anchor="mm")
+
     buf = io.BytesIO()
     img.save(buf, format="JPEG", quality=90)
     return buf.getvalue()
