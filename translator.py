@@ -629,7 +629,12 @@ def build_translated_epub(tl_meta: Dict, tl_chapters: List[Dict], out_dir: pathl
 
     # Set language tag in metadata
     meta_copy = dict(tl_meta)
-    meta_copy["language"] = tl_meta.get("target_lang", "id")
+    target_l = tl_meta.get("target_lang", "en").lower()
+    meta_copy["language"] = target_l
+
+    # Ensure translated keywords/tags are used for OPF dc:subject
+    if "keywords" in tl_meta:
+        meta_copy["keywords"] = tl_meta["keywords"]
 
     # Add display title to chapters
     view = []

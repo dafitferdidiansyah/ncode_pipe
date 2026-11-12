@@ -352,8 +352,14 @@ class JobManager:
             job.message = f"Translated to {target_lang.upper()}: {pathlib.Path(epub_path).name}"
             self.log(f"Translation finished: {job.message}", job=job)
 
-            # Auto upload if enabled
-            if crawler.load_settings().get("auto_upload"):
+            cur_settings = crawler.load_settings()
+
+            # 3. Pipeline step: Auto-QC translated EPUB if enabled
+            if cur_settings.get("auto_qc", True):
+                self._run_qc(job)
+
+            # 4. Pipeline step: Auto-upload translated EPUB if enabled
+            if cur_settings.get("auto_upload"):
                 self._run_upload(job)
 
         except Exception as exc:
@@ -456,10 +462,19 @@ class JobManager:
             job.message = (f"{result['chapters']} ch ({result['fetched']} new, {result['cached']} cached)"
                            if not result.get("skipped") else "Output exists, skipped")
             self.log(f"Finished: {job.message}", job=job)
-            # Auto translate if enabled
-            if crawler.load_settings().get("auto_translate"):
-                tlang = crawler.load_settings().get("target_lang", "id")
+            cur_settings = crawler.load_settings()
+
+            # 1. Pipeline step: Auto-QC raw EPUB if enabled
+            if cur_settings.get("auto_qc", True):
+                self._run_qc(job)
+
+            # 2. Pipeline step: Auto-translate if enabled
+            if cur_settings.get("auto_translate"):
+                tlang = cur_settings.get("target_lang", "en")
                 self._run_translate(job, target_lang=tlang)
+            elif cur_settings.get("auto_upload"):
+                # If auto_translate is OFF but auto_upload is ON, upload the raw QC'd EPUB
+                self._run_upload(job)
         except crawler.CrawlCancelled:
             job.status, job.message = "cancelled", "Cancelled, progress cached"
             self.log("Cancelled", "warn", job)

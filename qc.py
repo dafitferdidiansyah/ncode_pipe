@@ -434,15 +434,15 @@ def standardize_epub_file(epub_path: pathlib.Path, output_path: Optional[pathlib
             epub_lang = lang_m.group(1).strip() if lang_m else ""
             # Auto-detect if title or filename indicates translated EN / ID
             if not epub_lang or epub_lang == "ja":
-                if title.startswith("[EN]") or epub_path.name.startswith("[EN]"):
+                if "[en]" in title.lower() or "[en]" in epub_path.name.lower():
                     epub_lang = "en"
-                elif title.startswith("[ID]") or epub_path.name.startswith("[ID]"):
+                elif "[id]" in title.lower() or "[id]" in epub_path.name.lower():
                     epub_lang = "id"
                 else:
                     epub_lang = epub_lang or "ja"
 
-            if epub_lang != "ja" and "<dc:language>ja</dc:language>" in opf_text:
-                opf_text = opf_text.replace("<dc:language>ja</dc:language>", f"<dc:language>{epub_lang}</dc:language>")
+            if epub_lang != "ja":
+                opf_text = re.sub(r"<dc:language[^>]*>.*?</dc:language>", f"<dc:language>{epub_lang}</dc:language>", opf_text)
 
             meta = {
                 "title": title,
