@@ -520,7 +520,7 @@ def _paras_html(paras: List[str], css: str = "", clean_blank: bool = True) -> st
     return f'<div class="{css}">\n{inner}\n</div>' if css else inner
 
 
-def _generate_retro_cover_jpg(title: str, author: str, ncode: str = "", tag: str = "READ THIS • WEB NOVEL") -> bytes:
+def _generate_retro_cover_jpg(title: str, author: str, ncode: str = "", tag: str = "") -> bytes:
     from PIL import Image, ImageDraw, ImageFont
     import io
 
@@ -538,70 +538,71 @@ def _generate_retro_cover_jpg(title: str, author: str, ncode: str = "", tag: str
     draw.line([(760, 1130), (730, 1130), (730, 1160)], fill="#71717a", width=2)
 
     try:
-        font_tag = ImageFont.truetype("arial.ttf", 22)
-        font_author = ImageFont.truetype("msgothic.ttc", 28)
-        font_sub = ImageFont.truetype("arial.ttf", 18)
+        font_author = ImageFont.truetype("msgothic.ttc", 30)
     except Exception:
-        font_tag = font_author = font_sub = ImageFont.load_default()
+        font_author = ImageFont.load_default()
 
-    # Top Tag
-    draw.text((400, 125), tag.upper(), fill="#a1a1aa", font=font_tag, anchor="mm")
-    draw.line([(310, 150), (490, 150)], fill="#3f3f46", width=2)
-    draw.polygon([(400, 145), (405, 150), (400, 155), (395, 150)], fill="#71717a")
+    # Top Minimal Accent (Non-edgy)
+    draw.line([(300, 140), (500, 140)], fill="#27272a", width=2)
+    draw.polygon([(400, 134), (406, 140), (400, 146), (394, 140)], fill="#71717a")
 
-    # Center Art Emblem based on seed
+    # Center Pure Diamond Art based on seed
     seed = abs(hash((title or "") + (author or ""))) % 4
 
     if seed == 0:
-        # Astrolabe & Orbit
-        draw.ellipse([(220, 370), (580, 730)], outline="#27272a", width=4)
-        draw.ellipse([(260, 410), (540, 690)], outline="#3f3f46", width=2)
-        draw.ellipse([(310, 460), (490, 640)], outline="#52525b", width=3)
-        draw.line([(190, 550), (610, 550)], fill="#3f3f46", width=2)
-        draw.line([(400, 340), (400, 760)], fill="#3f3f46", width=2)
-        draw.ellipse([(240, 490), (560, 610)], outline="#71717a", width=3)
-        draw.polygon([(400, 480), (412, 535), (470, 550), (412, 565), (400, 620), (388, 565), (330, 550), (388, 535)], fill="#f4f4f5")
-        draw.polygon([(490, 460), (500, 470), (490, 480), (480, 470)], fill="#71717a")
-        draw.polygon([(310, 620), (320, 630), (310, 640), (300, 630)], fill="#71717a")
+        # Concentric Nested Diamond & Orbit
+        draw.polygon([(400, 270), (620, 560), (400, 850), (180, 560)], outline="#27272a", width=4)
+        draw.ellipse([(220, 380), (580, 740)], outline="#3f3f46", width=2)
+        draw.polygon([(400, 350), (560, 560), (400, 770), (240, 560)], outline="#52525b", width=3)
+        draw.polygon([(400, 440), (500, 560), (400, 680), (300, 560)], outline="#71717a", width=3)
+        draw.line([(400, 230), (400, 890)], fill="#3f3f46", width=2)
+        draw.line([(140, 560), (660, 560)], fill="#3f3f46", width=2)
+        draw.polygon([(400, 500), (450, 560), (400, 620), (350, 560)], fill="#f4f4f5")
+        draw.polygon([(400, 220), (408, 230), (400, 240), (392, 230)], fill="#71717a")
+        draw.polygon([(400, 880), (408, 890), (400, 900), (392, 890)], fill="#71717a")
     elif seed == 1:
-        # Open Grimoire & Portal
-        draw.polygon([(400, 350), (570, 550), (400, 750), (230, 550)], outline="#27272a", width=4)
-        draw.ellipse([(270, 420), (530, 680)], outline="#3f3f46", width=2)
-        draw.polygon([(400, 410), (435, 455), (400, 500), (365, 455)], outline="#71717a", fill="#18181b", width=2)
-        draw.polygon([(290, 570), (400, 550), (510, 570), (510, 630), (400, 610), (290, 630)], outline="#e4e4e7", fill="#18181b", width=3)
-        draw.line([(400, 550), (400, 610)], fill="#e4e4e7", width=3)
-        draw.polygon([(400, 440), (406, 470), (440, 478), (406, 486), (400, 515), (394, 486), (360, 478), (394, 470)], fill="#f4f4f5")
+        # Faceted Crystal Cut
+        draw.polygon([(290, 420), (510, 420), (620, 560), (400, 850), (180, 560)], outline="#3f3f46", width=4)
+        draw.polygon([(330, 420), (470, 420), (530, 490), (400, 490), (270, 490)], outline="#52525b", width=2)
+        draw.line([(180, 560), (620, 560)], fill="#71717a", width=3)
+        draw.line([(330, 420), (270, 490)], fill="#52525b", width=2)
+        draw.line([(470, 420), (530, 490)], fill="#52525b", width=2)
+        draw.line([(400, 490), (400, 560)], fill="#71717a", width=3)
+        draw.line([(180, 560), (400, 850)], fill="#71717a", width=3)
+        draw.line([(290, 560), (400, 850)], fill="#52525b", width=2)
+        draw.line([(400, 560), (400, 850)], fill="#a1a1aa", width=4)
+        draw.line([(510, 560), (400, 850)], fill="#52525b", width=2)
+        draw.line([(620, 560), (400, 850)], fill="#71717a", width=3)
+        draw.ellipse([(210, 390), (590, 770)], outline="#27272a", width=2)
     elif seed == 2:
-        # Solar Enso & Mountain Horizon
-        draw.ellipse([(230, 380), (570, 720)], outline="#27272a", width=4)
-        draw.ellipse([(300, 450), (500, 650)], outline="#e4e4e7", width=5)
-        draw.line([(250, 600), (550, 600)], fill="#52525b", width=2)
-        draw.line([(280, 620), (520, 620)], fill="#3f3f46", width=2)
-        draw.polygon([(300, 600), (360, 530), (410, 580), (460, 540), (500, 600)], fill="#111114", outline="#e4e4e7", width=3)
-        draw.polygon([(400, 360), (405, 365), (400, 370), (395, 365)], fill="#f4f4f5")
+        # Interlocking Dual Rhombus
+        draw.polygon([(400, 270), (620, 560), (400, 850), (180, 560)], outline="#3f3f46", width=4)
+        draw.polygon([(570, 390), (570, 730), (230, 730), (230, 390)], outline="#27272a", width=4)
+        draw.ellipse([(250, 410), (550, 710)], outline="#52525b", width=2)
+        draw.polygon([(400, 370), (540, 560), (400, 750), (260, 560)], outline="#71717a", width=3)
+        draw.line([(400, 290), (400, 830)], fill="#52525b", width=2)
+        draw.line([(200, 560), (600, 560)], fill="#52525b", width=2)
+        draw.polygon([(400, 500), (450, 560), (400, 620), (350, 560)], fill="#f4f4f5")
     else:
-        # Heraldic Blade & Shield
-        draw.polygon([(260, 470), (400, 370), (540, 470), (540, 620), (400, 740), (260, 620)], outline="#27272a", width=4)
-        draw.line([(400, 400), (400, 680)], fill="#f4f4f5", width=5)
-        draw.line([(340, 500), (460, 500)], fill="#f4f4f5", width=5)
-        draw.ellipse([(392, 680), (408, 696)], fill="#e4e4e7")
-        draw.polygon([(400, 380), (390, 410), (410, 410)], fill="#f4f4f5")
-        draw.polygon([(320, 450), (330, 460), (320, 470), (310, 460)], fill="#a1a1aa")
-        draw.polygon([(480, 450), (490, 460), (480, 470), (470, 460)], fill="#a1a1aa")
+        # Linear Sacred Geometry Diamond Grid
+        draw.polygon([(400, 270), (620, 560), (400, 850), (180, 560)], outline="#27272a", width=5)
+        draw.polygon([(400, 330), (570, 560), (400, 790), (230, 560)], outline="#3f3f46", width=3)
+        draw.polygon([(400, 390), (530, 560), (400, 730), (270, 560)], outline="#52525b", width=3)
+        draw.polygon([(400, 450), (480, 560), (400, 670), (320, 560)], outline="#71717a", width=3)
+        draw.polygon([(400, 510), (440, 560), (400, 610), (360, 560)], fill="#f4f4f5")
+        draw.line([(270, 420), (530, 700)], fill="#3f3f46", width=2)
+        draw.line([(530, 420), (270, 700)], fill="#3f3f46", width=2)
+        draw.ellipse([(394, 230), (406, 242)], fill="#71717a")
+        draw.ellipse([(394, 880), (406, 892)], fill="#71717a")
 
-    # Author & Bottom Metadata Section
-    author_y = 920
-    draw.line([(310, author_y - 30), (490, author_y - 30)], fill="#3f3f46", width=2)
-    draw.polygon([(400, author_y - 35), (405, author_y - 30), (400, author_y - 25), (395, author_y - 30)], fill="#71717a")
-    draw.text((400, author_y - 5), "AUTHOR", fill="#71717a", font=font_sub, anchor="mm")
+    # Lower Section: Minimal Divider & Author Name (Clean, non-edgy)
+    draw.line([(300, 980), (500, 980)], fill="#27272a", width=2)
+    draw.polygon([(400, 974), (406, 980), (400, 986), (394, 980)], fill="#71717a")
     
     clean_author = (author or "Unknown").strip()
     if len(clean_author) > 22:
         clean_author = clean_author[:21] + "..."
-    draw.text((400, author_y + 35), clean_author, fill="#e4e4e7", font=font_author, anchor="mm")
-
-    bottom_tag = f"{ncode.upper()} • DIGITAL ARCHIVE" if ncode else "ARCHIVE COLLECTION • DIGITAL EDITION"
-    draw.text((400, 1100), bottom_tag, fill="#52525b", font=font_sub, anchor="mm")
+    draw.text((400, 1040), clean_author, fill="#a1a1aa", font=font_author, anchor="mm")
 
     buf = io.BytesIO()
     img.save(buf, format="JPEG", quality=90)
