@@ -16,9 +16,12 @@ API
 """
 from __future__ import annotations
 
+import logging
 import pathlib
 
 from flask import Flask, abort, jsonify, request, send_from_directory
+
+logger = logging.getLogger("ncode_pipe.monitor")
 
 try:
     from . import config, crawler, jobs, translator, qc
