@@ -624,8 +624,11 @@ const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 
 // API helpers
+const API_BASE = window.location.pathname.startsWith('/crawler') ? '/crawler' : '';
+
 async function api(path, opts = {}) {
-  const res = await fetch(path, {
+  const url = path.startsWith('/api') ? `${API_BASE}${path}` : path;
+  const res = await fetch(url, {
     headers: { 'Content-Type': 'application/json', ...(opts.headers || {}) },
     ...opts,
   });
@@ -1498,7 +1501,7 @@ $('#btn-sync-calibre').addEventListener('click', async () => {
 
 // Export JSON
 $('#btn-export-bf').addEventListener('click', () => {
-  window.open('/api/bookfere/export', '_blank');
+  window.open(`${API_BASE}/api/bookfere/export`, '_blank');
 });
 
 // Import JSON file
