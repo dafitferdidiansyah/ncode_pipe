@@ -234,7 +234,8 @@ def sync_to_calibre() -> Dict[str, Any]:
 def get_bookfere_settings() -> Dict[str, Any]:
     """Reads live settings from local bookfere_config.json or Calibre."""
     calibre_bin = get_calibre_debug()
-    has_calibre = os.path.isfile(calibre_bin) or (subprocess.run(["where", calibre_bin], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0)
+    import shutil
+    has_calibre = os.path.isfile(calibre_bin) or (shutil.which(calibre_bin) is not None)
 
     calibre_cfg = get_calibre_config_path()
     cfg_path = get_bookfere_config_path()

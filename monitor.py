@@ -57,9 +57,13 @@ def options():
 @app.post("/api/search")
 def search():
     query = request.get_json(silent=True) or {}
+    logger.info(f"Incoming search query: {query}")
     try:
-        return jsonify(crawler.search(query))
+        res = crawler.search(query)
+        logger.info(f"Search result: allcount={res.get('allcount')}, items_count={len(res.get('items', []))}")
+        return jsonify(res)
     except Exception as exc:
+        logger.error(f"Search failed: {exc}", exc_info=True)
         return _err(f"Search failed: {exc}", 502)
 
 
