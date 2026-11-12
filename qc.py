@@ -461,7 +461,7 @@ def standardize_epub_file(epub_path: pathlib.Path, output_path: Optional[pathlib
                 from .crawler import _generate_retro_cover_jpg
                 lang_m = re.search(r"<dc:language[^>]*>(.*?)</dc:language>", opf_text, re.IGNORECASE)
                 cov_lang = lang_m.group(1).strip() if lang_m else "ja"
-                tag_label = f"{cov_lang.upper()} TRANSLATED" if cov_lang != "ja" else "SYOSETU ARCHIVE"
+                tag_label = f"{cov_lang.upper()} EDITION" if cov_lang != "ja" else "ORIGINAL EDITION"
                 cov_bytes = _generate_retro_cover_jpg(title, writer, tag=tag_label)
                 (oebps_dir / "cover.jpg").write_bytes(cov_bytes)
 

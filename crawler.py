@@ -516,7 +516,7 @@ def _paras_html(paras: List[str], css: str = "", clean_blank: bool = True) -> st
     return f'<div class="{css}">\n{inner}\n</div>' if css else inner
 
 
-def _generate_retro_cover_jpg(title: str, author: str, ncode: str = "", tag: str = "SYOSETU NOVEL ARCHIVE") -> bytes:
+def _generate_retro_cover_jpg(title: str, author: str, ncode: str = "", tag: str = "READ THIS • WEB NOVEL") -> bytes:
     from PIL import Image, ImageDraw, ImageFont
     import io, textwrap
     img = Image.new("RGB", (800, 1200), color="#111114")
@@ -562,7 +562,7 @@ def write_epub(meta: Dict, chapters: List[Dict], path: pathlib.Path, settings: O
         lang = "ja"
 
     ncode_tag = meta.get("ncode", "")
-    target_tag = f"{lang.upper()} TRANSLATED" if lang != "ja" else "SYOSETU ARCHIVE"
+    target_tag = f"{lang.upper()} EDITION" if lang != "ja" else "ORIGINAL EDITION"
     cover_jpg = _generate_retro_cover_jpg(meta.get("title", ""), meta.get("writer", ""), ncode=ncode_tag, tag=target_tag)
     cover_page = (
         '<?xml version="1.0" encoding="utf-8"?>\n'
@@ -621,6 +621,7 @@ def write_epub(meta: Dict, chapters: List[Dict], path: pathlib.Path, settings: O
         '<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">'
         f'<dc:identifier id="bookid">{book_id}</dc:identifier>'
         f'<dc:title>{html.escape(meta["title"])}</dc:title>'
+        + (f'<dc:title id="original_title">{html.escape(meta["original_title"])}</dc:title>' if meta.get("original_title") else '') +
         f'<dc:creator>{html.escape(meta["writer"])}</dc:creator>'
         f'<dc:language>{lang}</dc:language><dc:publisher>小説家になろう</dc:publisher>'
         f'<dc:source>{html.escape(meta["url"])}</dc:source>'
