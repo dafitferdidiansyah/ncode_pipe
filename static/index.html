@@ -1158,14 +1158,18 @@ function updatePipelineRow(tr, j) {
 
   // Pipeline specific action buttons
   let acts = '';
-  if (j.status === 'translating' || j.status === 'uploading') {
-    acts = `<span style="font-size:11px;color:var(--muted)">Processing in background...</span>`;
+  if (j.status === 'translating' || j.status === 'uploading' || j.status === 'running') {
+    acts = `
+      <span style="font-size:11px;color:var(--muted)">Active...</span>
+      <button class="btn danger" onclick="jobAction('${j.id}','cancel')" title="Cancel job">CANCEL</button>
+    `;
   } else {
     acts = `
       <button class="btn primary" onclick="jobAction('${j.id}','translate_id')" title="Translate to Indonesian using Google Free Engine">TL (ID)</button>
       <button class="btn" onclick="jobAction('${j.id}','translate_en')" title="Translate to English using Google Free Engine">TL (EN)</button>
       <button class="btn" onclick="jobAction('${j.id}','qc')" title="Run EPUB Quality Control & Standardization">QC</button>
       <button class="btn" onclick="jobAction('${j.id}','upload_mynovels')" title="Push to MyNovels backend">PUSH</button>
+      <button class="btn danger" onclick="jobAction('${j.id}','remove')" title="Delete from list">DEL</button>
     `;
   }
   updHtml(f.actions, acts);
