@@ -135,12 +135,22 @@ class ChunkMerger:
                 tail_joined = "\n\n".join(parts[num_expected - 1:])
                 results.append({"id": original_items[-1]["id"], "text": tail_joined})
             else:
-                # Fewer parts: fill matched, fallback remainder to original text
+                # Fewer parts: delimiter loss! Fall back to translating remaining items directly
                 num_parts = len(parts)
                 for i in range(num_parts):
                     results.append({"id": original_items[i]["id"], "text": parts[i]})
+                # Translate missing items individually so 0 lines are left untranslated
                 for i in range(num_parts, num_expected):
-                    results.append({"id": original_items[i]["id"], "text": original_items[i].get("text", "")})
+                    missing_item = original_items[i]
+                    txt = missing_item.get("text", "")
+                    if not txt or not txt.strip():
+                        results.append({"id": missing_item["id"], "text": ""})
+                    else:
+                        try:
+                            direct_tl = self.translate(txt, source_lang=source_lang, target_lang=target_lang)
+                            results.append({"id": missing_item["id"], "text": direct_tl})
+                        except Exception:
+                            results.append({"id": missing_item["id"], "text": txt})
 
         return results
 

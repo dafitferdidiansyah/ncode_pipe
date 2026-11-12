@@ -605,6 +605,20 @@ def translate_novel_cached(
         if ch.get("afterword"):
             tl_ch["afterword"] = [res_map.get(f"aft_{aidx}", ch["afterword"][aidx]) for aidx in range(len(ch["afterword"]))]
 
+        # Auto-repair check: check if any line in chapter still contains Japanese characters
+        jp_regex = re.compile(r'[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]')
+        leak_indices = [idx for idx, line in enumerate(translated_body) if len(line.strip()) > 1 and jp_regex.search(line)]
+        if leak_indices:
+            emit({"type": "stage", "stage": "tl_chunk", "message": f"Ch {ep}: repairing {len(leak_indices)} leaked untranslated lines..."})
+            for l_idx in leak_indices:
+                orig_txt = lines[l_idx].strip()
+                if orig_txt:
+                    try:
+                        translated_body[l_idx] = translator.translate_single(orig_txt)
+                    except Exception:
+                        pass
+            tl_ch["body"] = translated_body
+            tl_ch["lines"] = translated_body
         ch_cache_file.write_text(json.dumps(tl_ch, ensure_ascii=False), encoding="utf-8")
         tl_chapters.append(tl_ch)
 
