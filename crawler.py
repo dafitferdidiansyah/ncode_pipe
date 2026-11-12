@@ -115,9 +115,15 @@ def save_settings(values: Dict) -> Dict:
                 current[key] = max(minimum, int(values[key]))
             except (TypeError, ValueError):
                 pass
-    for key in ("include_preface", "include_afterword", "resume", "skip_existing"):
+    for key in ("include_preface", "include_afterword", "resume", "skip_existing",
+                "auto_qc", "auto_translate", "auto_upload", "clean_blank_lines",
+                "standardize_epub", "merge_chunks"):
         if key in values:
             current[key] = bool(values[key])
+    if "target_lang" in values:
+        current["target_lang"] = str(values["target_lang"]).strip()
+    if "mynovels_url" in values:
+        current["mynovels_url"] = str(values["mynovels_url"]).strip()
     if "formats" in values:
         fmts = [f for f in values["formats"] if f in ("epub", "txt")]
         current["formats"] = fmts or ["epub"]

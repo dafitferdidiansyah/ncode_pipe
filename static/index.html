@@ -475,9 +475,9 @@ n2267be
             </div>
           </div>
           <div class="row wrap" style="gap:16px">
-            <label class="chk-label"><input type="checkbox" name="auto_qc"/> Auto-run EPUB Quality Control (QC & Clean Layout)</label>
-            <label class="chk-label"><input type="checkbox" name="auto_translate"/> Auto-translate after crawl completes (Bookfere Engine)</label>
-            <label class="chk-label"><input type="checkbox" name="auto_upload"/> Auto-upload completed EPUB to MyNovels backend</label>
+            <label class="chk-label"><input type="checkbox" name="auto_qc" checked/> Auto-run EPUB Quality Control (QC & Clean Layout)</label>
+            <label class="chk-label"><input type="checkbox" name="auto_translate" checked/> Auto-translate after crawl completes (Bookfere Engine)</label>
+            <label class="chk-label"><input type="checkbox" name="auto_upload" checked/> Auto-upload completed EPUB to MyNovels backend</label>
           </div>
           <div class="row wrap" style="gap:16px;margin-top:10px">
             <div style="flex:1;min-width:260px">
@@ -1384,8 +1384,8 @@ function applySettingsToForm(s) {
   f.elements['resume'].checked = !!s.resume;
   f.elements['skip_existing'].checked = !!s.skip_existing;
   if (f.elements['auto_qc']) f.elements['auto_qc'].checked = s.auto_qc !== false;
-  if (f.elements['auto_translate']) f.elements['auto_translate'].checked = !!s.auto_translate;
-  if (f.elements['auto_upload']) f.elements['auto_upload'].checked = !!s.auto_upload;
+  if (f.elements['auto_translate']) f.elements['auto_translate'].checked = s.auto_translate !== false;
+  if (f.elements['auto_upload']) f.elements['auto_upload'].checked = s.auto_upload !== false;
   if (f.elements['mynovels_url']) f.elements['mynovels_url'].value = s.mynovels_url || '';
 }
 
@@ -1564,8 +1564,8 @@ $('#settings-form').addEventListener('submit', async e => {
     skip_existing: f.elements['skip_existing'].checked,
     target_lang: f.elements['target_lang'].value,
     auto_qc: f.elements['auto_qc'] ? f.elements['auto_qc'].checked : true,
-    auto_translate: f.elements['auto_translate'].checked,
-    auto_upload: f.elements['auto_upload'].checked,
+    auto_translate: f.elements['auto_translate'] ? f.elements['auto_translate'].checked : true,
+    auto_upload: f.elements['auto_upload'] ? f.elements['auto_upload'].checked : true,
     mynovels_url: (f.elements['mynovels_url'].value || '').trim(),
   };
 
