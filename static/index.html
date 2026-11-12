@@ -657,6 +657,7 @@ async function init() {
   applySettingsToForm(state.options.settings);
   loadBookfereSettings();
   startPolling();
+  doSearch(1);
 }
 
 function renderOptions() {
@@ -782,7 +783,8 @@ async function doSearch(page = 1) {
   $('#btn-search').textContent = 'SEARCHING...';
   try {
     const res = await api('/api/search', { method: 'POST', body: JSON.stringify(query) });
-    state.search = { items: res.items, page, limit: query.limit, allcount: res.allcount, query };
+    console.log('Search response:', res);
+    state.search = { items: res.items || [], page, limit: query.limit, allcount: res.allcount || 0, query };
     renderResults();
   } catch (err) {
     alert('Search error: ' + err.message);
