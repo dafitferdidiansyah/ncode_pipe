@@ -478,9 +478,13 @@ def clear_cache(ncode: str) -> int:
 # ---------------------------------------------------------------------------
 # Output writers
 # ---------------------------------------------------------------------------
-def _safe_name(name: str, max_len: int = 80) -> str:
+def _safe_name(name: str, max_bytes: int = 120) -> str:
     name = re.sub(r'[\\/:*?"<>|\r\n\t]+', " ", name).strip().rstrip(".")
-    return (name[:max_len].strip() or "novel")
+    # Truncate by UTF-8 bytes to prevent Linux filesystem 255-byte limit errors
+    encoded = name.encode("utf-8")
+    if len(encoded) > max_bytes:
+        name = encoded[:max_bytes].decode("utf-8", errors="ignore").strip().rstrip(".")
+    return name or "novel"
 
 
 def output_basename(meta: Dict) -> str:

@@ -622,7 +622,9 @@ def build_translated_epub(tl_meta: Dict, tl_chapters: List[Dict], out_dir: pathl
     title = tl_meta.get("title", "novel")
     writer = tl_meta.get("writer", "Unknown")
 
-    filename = f"[{lang_tag}] {crawler._safe_name(title)} - {crawler._safe_name(writer)}.epub"
+    title_clean = crawler._safe_name(title, max_bytes=100)
+    writer_clean = crawler._safe_name(writer, max_bytes=40)
+    filename = f"[{lang_tag}] {title_clean} - {writer_clean}.epub"
     out_file = out_dir / filename
 
     # Set language tag in metadata
