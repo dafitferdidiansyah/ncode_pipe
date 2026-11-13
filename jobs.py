@@ -10,6 +10,7 @@ from __future__ import annotations
 import os
 import pathlib
 import json
+import re
 import threading
 import time
 import traceback
