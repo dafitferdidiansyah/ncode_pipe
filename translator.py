@@ -596,7 +596,9 @@ def translate_novel_cached(
 
         tl_ch = dict(ch)
         tl_ch["original_title"] = ch.get("title", "")
-        tl_ch["title"] = res_map.get("title") or ch.get("title", "")
+        tl_title = res_map.get("title") or ch.get("title", "")
+        from . import qc
+        tl_ch["title"] = qc.normalize_chapter_title(tl_title, ep)
         translated_body = [res_map.get(f"p_{idx}", lines[idx]) for idx in range(len(lines))]
         tl_ch["body"] = translated_body
         tl_ch["lines"] = translated_body
@@ -636,8 +638,8 @@ def build_translated_epub(tl_meta: Dict, tl_chapters: List[Dict], out_dir: pathl
     title = tl_meta.get("title", "novel")
     writer = tl_meta.get("writer", "Unknown")
 
-    title_clean = crawler._safe_name(title, max_bytes=100)
-    writer_clean = crawler._safe_name(writer, max_bytes=40)
+    title_clean = crawler._safe_name(title, max_bytes=140)
+    writer_clean = crawler._safe_name(writer, max_bytes=60)
     filename = f"[{lang_tag}] {title_clean} - {writer_clean}.epub"
     out_file = out_dir / filename
 

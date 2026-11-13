@@ -487,9 +487,13 @@ def clear_cache(ncode: str) -> int:
 def _safe_name(name: str, max_bytes: int = 120) -> str:
     name = re.sub(r'[\\/:*?"<>|\r\n\t]+', " ", name).strip().rstrip(".")
     # Truncate by UTF-8 bytes to prevent Linux filesystem 255-byte limit errors
+    # Split on whitespace boundary if possible to avoid cutting words in half
     encoded = name.encode("utf-8")
     if len(encoded) > max_bytes:
-        name = encoded[:max_bytes].decode("utf-8", errors="ignore").strip().rstrip(".")
+        truncated = encoded[:max_bytes].decode("utf-8", errors="ignore").strip().rstrip(".")
+        if " " in truncated and len(truncated) > 20:
+            truncated = truncated.rsplit(" ", 1)[0].strip().rstrip(".")
+        name = truncated
     return name or "novel"
 
 

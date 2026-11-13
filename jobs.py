@@ -420,21 +420,38 @@ class JobManager:
                 raise RuntimeError("No EPUB file available to upload.")
 
             stem = pathlib.Path(target_file).stem
-            title = job.title or ""
+            title = ""
+            original_title = job.title or job.ncode or ""
+            target_lang = "en" if "_en" in target_file.lower() else ("id" if "_id" in target_file.lower() else "ja")
+
+            # Check if translated metadata cache exists for translated title
+            if target_lang != "ja":
+                meta_cache_file = pathlib.Path(config.CACHE_DIR) / job.ncode / f"tl_{target_lang}" / "meta.json"
+                if meta_cache_file.exists():
+                    try:
+                        tl_meta_cache = json.loads(meta_cache_file.read_text(encoding="utf-8"))
+                        title = tl_meta_cache.get("title", "").strip()
+                        if tl_meta_cache.get("original_title"):
+                            original_title = tl_meta_cache["original_title"].strip()
+                    except Exception:
+                        pass
+
             if not title:
+                # Fallback: derive title from cleaned stem
                 if " - " in stem:
                     parts = stem.split(" - ", 1)
                     title = parts[1].strip() if len(parts) > 1 else parts[0].strip()
                 else:
                     title = stem
+                # Clean prefix tag like [EN] or [ID]
+                title = re.sub(r"^\[(?:EN|ID|JA)\]\s*", "", title, flags=re.IGNORECASE).strip()
 
             settings = crawler.load_settings()
             backend_url = settings.get("mynovels_url") or config.BACKEND_URL
-            target_lang = "en" if "_en" in target_file.lower() else ("id" if "_id" in target_file.lower() else "ja")
             resp = uploader.upload_to_mynovels(
                 epub_path=target_file,
                 title=title,
-                original_title=job.title or job.ncode,
+                original_title=original_title,
                 language=target_lang,
                 backend_url=backend_url,
             )
