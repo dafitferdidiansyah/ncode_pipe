@@ -423,7 +423,16 @@ class JobManager:
             stem = pathlib.Path(target_file).stem
             title = ""
             original_title = job.title or job.ncode or ""
-            target_lang = "en" if "_en" in target_file.lower() else ("id" if "_id" in target_file.lower() else "ja")
+            # Determine target language from filename or cached translation folders
+            target_file_name = pathlib.Path(target_file).name
+            if target_file_name.startswith("[EN]") or "_en" in target_file_name.lower():
+                target_lang = "en"
+            elif target_file_name.startswith("[ID]") or "_id" in target_file_name.lower():
+                target_lang = "id"
+            elif any((pathlib.Path(config.CACHE_DIR) / job.ncode / f"tl_{l}").exists() for l in ("en", "id")):
+                target_lang = "en" if (pathlib.Path(config.CACHE_DIR) / job.ncode / "tl_en").exists() else "id"
+            else:
+                target_lang = "ja"
 
             # Check if translated metadata cache exists for translated title
             if target_lang != "ja":
@@ -438,10 +447,10 @@ class JobManager:
                         pass
 
             if not title:
-                # Fallback: derive title from cleaned stem
+                # Derive title from cleaned stem: filename is "[TAG] Title - Author"
                 if " - " in stem:
-                    parts = stem.split(" - ", 1)
-                    title = parts[1].strip() if len(parts) > 1 else parts[0].strip()
+                    parts = stem.rsplit(" - ", 1)
+                    title = parts[0].strip()
                 else:
                     title = stem
                 # Clean prefix tag like [EN] or [ID]
