@@ -520,6 +520,15 @@ def translate_novel_cached(
     meta_cache_file = cache_dir / "meta.json"
     if meta_cache_file.exists():
         tl_meta = json.loads(meta_cache_file.read_text(encoding="utf-8"))
+        if target_lang == "id":
+            en_meta_file = cache_dir.parent / "tl_en" / "meta.json"
+            if en_meta_file.exists():
+                try:
+                    en_data = json.loads(en_meta_file.read_text(encoding="utf-8"))
+                    if en_data.get("title"):
+                        tl_meta["title"] = en_data["title"]
+                except Exception:
+                    pass
         emit({"type": "stage", "stage": "tl_meta", "message": "Using cached translated metadata"})
     else:
         emit({"type": "stage", "stage": "tl_meta", "message": f"Translating title, synopsis & tags to {target_lang.upper()} ({engine_name})..."})
@@ -536,6 +545,40 @@ def translate_novel_cached(
         tl_meta = dict(meta)
         tl_meta["original_title"] = meta.get("title", "")
         tl_meta["title"] = lookup.get("title") or meta.get("title", "")
+
+        # Rule: Keep novel title in English even for Indonesian edition (Indonesian titles sound awkward)
+        if target_lang == "id":
+            en_title = None
+            en_meta_file = cache_dir.parent / "tl_en" / "meta.json"
+            if en_meta_file.exists():
+                try:
+                    en_data = json.loads(en_meta_file.read_text(encoding="utf-8"))
+                    en_title = en_data.get("title")
+                except Exception:
+                    pass
+
+            if not en_title:
+                try:
+                    from . import glossary
+                    terms = glossary.glossary_manager.get_terms_for_novel(ncode)
+                    orig_t = meta.get("title", "")
+                    if orig_t in terms:
+                        en_title = terms[orig_t]
+                except Exception:
+                    pass
+
+            if not en_title:
+                try:
+                    en_tr = get_translator("en", engine=engine_name)
+                    en_res = en_tr.translate_batch([{"id": "title_en", "text": meta.get("title", "")}])
+                    if en_res and en_res[0].get("text"):
+                        en_title = en_res[0]["text"]
+                except Exception as e:
+                    logger.warning(f"Failed to fetch English title for ID edition: {e}")
+
+            if en_title:
+                tl_meta["title"] = en_title
+
         # Preserve original author name (names should not be machine translated)
         tl_meta["original_writer"] = meta.get("writer", "")
         tl_meta["writer"] = meta.get("writer", "")
