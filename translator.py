@@ -578,8 +578,15 @@ def translate_novel_cached(
 
         orig_title = ch.get("title", "")
         p_title, title_map = glossary.glossary_manager.protect_terms(orig_title, terms)
-        batch = [{"id": "title", "text": p_title}]
 
+        # ISOLATE TITLE: Translate chapter title independently to avoid chunk merger misalignment
+        raw_tl_title = translator.translate_single(p_title) if p_title.strip() else orig_title
+        restored_title = glossary.glossary_manager.restore_terms(raw_tl_title, title_map)
+        from . import qc
+        final_chapter_title = qc.normalize_chapter_title(restored_title, ep)
+
+        # Body and notes are packed into chunks
+        batch = []
         lines = ch.get("body") or ch.get("lines") or []
         body_maps = {}
         for idx, line in enumerate(lines):
@@ -603,21 +610,17 @@ def translate_novel_cached(
 
         emit({"type": "stage", "stage": "tl_chunk", "message": f"Ch {ep}: translating {len(batch)} lines via Bookfere chunks..."})
 
-        # Translate in chunk mode (merges into ~1-3 requests)
+        # Translate body & notes in chunk mode
         sub_res = translator.translate_batch(
             batch,
             log_callback=lambda msg: emit({"type": "stage", "stage": "tl_engine_log", "message": msg}),
-        )
+        ) if batch else []
         res_map = {r["id"]: r.get("text", "") for r in sub_res}
 
         # Restore protected terms
         tl_ch = dict(ch)
         tl_ch["original_title"] = orig_title
-        raw_tl_title = res_map.get("title") or orig_title
-        restored_title = glossary.glossary_manager.restore_terms(raw_tl_title, title_map)
-
-        from . import qc
-        tl_ch["title"] = qc.normalize_chapter_title(restored_title, ep)
+        tl_ch["title"] = final_chapter_title
 
         translated_body = []
         for idx in range(len(lines)):
