@@ -513,11 +513,12 @@ def output_basename(meta: Dict) -> str:
     return f"{meta['ncode']} - {_safe_name(meta['title'])}"
 
 
-def _xhtml(title: str, body: str) -> str:
+def _xhtml(title: str, body: str, lang: str = "en") -> str:
+    target_lang = lang if lang in ("en", "id", "ja") else "en"
     return (
         '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE html>\n'
-        '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" '
-        'xml:lang="ja" lang="ja">\n<head><meta charset="UTF-8"/>'
+        f'<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" '
+        f'xml:lang="{target_lang}" lang="{target_lang}">\n<head><meta charset="UTF-8"/>'
         f"<title>{html.escape(title)}</title>"
         '<link rel="stylesheet" type="text/css" href="style.css"/></head>\n'
         f"<body>\n{body}\n</body>\n</html>\n"
@@ -670,15 +671,15 @@ def write_epub(meta: Dict, chapters: List[Dict], path: pathlib.Path, settings: O
     )
 
     css = (
-        "body{font-family:\"Georgia\",\"Times New Roman\",serif;line-height:1.65;margin:0 4%;text-align:justify;color:#111;}\n"
-        "h1{text-align:center;font-size:1.6em;margin-top:1.5em;margin-bottom:0.8em;color:#222;}\n"
-        "h2{text-align:center;font-size:1.3em;margin-top:1.8em;margin-bottom:1.2em;page-break-before:always;color:#222;}\n"
+        "body{font-family:\"Georgia\",\"Times New Roman\",serif;line-height:1.65;margin:0 4%;text-align:justify;color:inherit;background-color:transparent;}\n"
+        "h1{text-align:center;font-size:1.6em;margin-top:1.5em;margin-bottom:0.8em;color:inherit;}\n"
+        "h2{text-align:center;font-size:1.3em;margin-top:1.8em;margin-bottom:1.2em;page-break-before:always;color:inherit;}\n"
         "p{margin-top:0;margin-bottom:0.8em;text-indent:0;}\n"
         "p.blank{height:0.5em;margin:0;}\n"
-        ".preface,.afterword{font-size:.9em;color:#555;border-top:1px solid #ccc;border-bottom:1px solid #ccc;padding:.8em 0;margin:1.2em 0;}\n"
+        ".preface,.afterword{font-size:.9em;color:inherit;background-color:rgba(128,128,128,0.08);border-left:3px solid rgba(128,128,128,0.5);padding:.8em 1em;margin:1.2em 0;}\n"
         ".info-card{text-align:center;padding:1.5em 0.5em;page-break-after:always;}\n"
-        ".info-meta{font-size:.9em;color:#666;margin:1em 0;line-height:1.4;}\n"
-        ".story{text-align:justify;border-top:1px solid #ddd;padding-top:1.2em;margin-top:1.2em;}\n"
+        ".info-meta{font-size:.9em;opacity:0.8;margin:1em 0;line-height:1.4;}\n"
+        ".story{text-align:justify;border-top:1px solid rgba(128,128,128,0.25);padding-top:1.2em;margin-top:1.2em;}\n"
     )
     info_body = (
         f'<div class="info-card">'
@@ -690,7 +691,7 @@ def write_epub(meta: Dict, chapters: List[Dict], path: pathlib.Path, settings: O
         f'<div class="story">{_paras_html(meta.get("story", "").splitlines(), clean_blank=clean_blank)}</div>'
         f'</div>'
     )
-    files = [("info.xhtml", "Info", _xhtml(meta["title"], info_body))]
+    files = [("info.xhtml", "Info", _xhtml(meta["title"], info_body, lang=lang))]
     for idx, ch in enumerate(chapters, 1):
         parts = [f"<h2>{html.escape(ch['title'])}</h2>"]
         if ch.get("preface"):
@@ -698,10 +699,10 @@ def write_epub(meta: Dict, chapters: List[Dict], path: pathlib.Path, settings: O
         parts.append(_paras_html(ch.get("body", []), clean_blank=clean_blank))
         if ch.get("afterword"):
             parts.append(_paras_html(ch["afterword"], "afterword", clean_blank=clean_blank))
-        files.append((f"ch{idx:05d}.xhtml", ch["title"], _xhtml(ch["title"], "\n".join(parts))))
+        files.append((f"ch{idx:05d}.xhtml", ch["title"], _xhtml(ch["title"], "\n".join(parts), lang=lang)))
 
     nav_items = "\n".join(f'<li><a href="{f}">{html.escape(t)}</a></li>' for f, t, _ in files)
-    nav = _xhtml("Contents", f'<nav epub:type="toc" id="toc"><h1>Contents</h1><ol>\n{nav_items}\n</ol></nav>')
+    nav = _xhtml("Contents", f'<nav epub:type="toc" id="toc"><h1>Contents</h1><ol>\n{nav_items}\n</ol></nav>', lang=lang)
     ncx_points = "\n".join(
         f'<navPoint id="np{i}" playOrder="{i}"><navLabel><text>{html.escape(t)}</text></navLabel>'
         f'<content src="{f}"/></navPoint>' for i, (f, t, _) in enumerate(files, 1))

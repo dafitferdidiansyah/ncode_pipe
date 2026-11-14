@@ -27,15 +27,15 @@ body {
     margin: 0 4%;
     padding: 0;
     text-align: justify;
-    color: #111111;
-    background-color: #fafafa;
+    color: inherit;
+    background-color: transparent;
 }
 
 /* Headings */
 h1, h2, h3 {
     font-family: "Georgia", "Times New Roman", serif;
     font-weight: 700;
-    color: #1a1a1a;
+    color: inherit;
 }
 
 /* Chapter Title & Header */
@@ -51,7 +51,7 @@ h1, h2, h3 {
     font-size: 0.82em;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #777777;
+    opacity: 0.75;
     margin-bottom: 0.4em;
     font-weight: 600;
 }
@@ -60,7 +60,7 @@ h1, h2, h3 {
     font-size: 1.35em;
     line-height: 1.35;
     margin: 0;
-    color: #111111;
+    color: inherit;
 }
 
 /* Paragraphs & Spacing */
@@ -75,14 +75,14 @@ p {
 .scene-divider {
     text-align: center;
     margin: 1.4em 0;
-    color: #888888;
+    opacity: 0.6;
     font-size: 0.9em;
     letter-spacing: 0.3em;
 }
 
 hr.scene-break {
     border: 0;
-    border-top: 1px dashed #cccccc;
+    border-top: 1px dashed rgba(128, 128, 128, 0.4);
     margin: 1.5em auto;
     width: 35%;
 }
@@ -90,9 +90,9 @@ hr.scene-break {
 /* Notes & Sections */
 .preface, .afterword {
     font-size: 0.9em;
-    color: #444444;
-    background-color: #f4f4f4;
-    border-left: 3px solid #888888;
+    color: inherit;
+    background-color: rgba(128, 128, 128, 0.08);
+    border-left: 3px solid rgba(128, 128, 128, 0.5);
     padding: 0.8em 1.2em;
     margin: 1.4em 0;
 }
@@ -100,7 +100,7 @@ hr.scene-break {
 .section-label {
     font-weight: bold;
     font-size: 0.85em;
-    color: #666666;
+    opacity: 0.75;
     margin-bottom: 0.4em;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -117,12 +117,12 @@ hr.scene-break {
     font-size: 1.75em;
     line-height: 1.3;
     margin-bottom: 0.4em;
-    color: #111111;
+    color: inherit;
 }
 
 .novel-meta {
     font-size: 0.88em;
-    color: #666666;
+    opacity: 0.8;
     margin: 1.2em 0 1.8em 0;
     line-height: 1.6;
 }
@@ -133,12 +133,13 @@ hr.scene-break {
 }
 
 .meta-item b {
-    color: #333333;
+    color: inherit;
+    font-weight: 700;
 }
 
 .synopsis-box {
     text-align: justify;
-    border-top: 1px solid #d5d5d5;
+    border-top: 1px solid rgba(128, 128, 128, 0.3);
     padding-top: 1.5em;
     margin-top: 1.5em;
 }
@@ -148,7 +149,7 @@ hr.scene-break {
     font-size: 1.05em;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #555555;
+    opacity: 0.8;
     margin-bottom: 1em;
 }
 """
@@ -590,6 +591,11 @@ def standardize_epub_file(epub_path: pathlib.Path, output_path: Optional[pathlib
                 cleaned_body,
                 count=1,
             )
+
+            # Ensure correct language attribute on html tag
+            if epub_lang:
+                cleaned_body = re.sub(r'xml:lang="[^"]*"', f'xml:lang="{epub_lang}"', cleaned_body)
+                cleaned_body = re.sub(r'\blang="[^"]*"', f'lang="{epub_lang}"', cleaned_body)
 
             ch_file.write_text(cleaned_body, encoding="utf-8")
             stats["chapters_processed"] += 1
