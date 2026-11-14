@@ -215,11 +215,15 @@ def _normalize_novel(raw: Dict) -> Dict:
         and not any(j in k for j in junk_kw_blacklist)
     ]
 
+    # Compact multi-blank lines into compact paragraph spacing so delimiters don't fragment
+    raw_story = raw.get("story", "") or ""
+    compact_story = re.sub(r"\n\s*\n+", "\n\n", raw_story).strip()
+
     return {
         "ncode": ncode,
         "title": raw.get("title", ""),
         "writer": raw.get("writer", ""),
-        "story": raw.get("story", ""),
+        "story": compact_story,
         "genre": raw.get("genre"),
         "genre_name": config.GENRE_MAP.get(raw.get("genre"), str(raw.get("genre", ""))),
         "keywords": clean_kws,
@@ -387,11 +391,13 @@ def _text_or(soup: BeautifulSoup, selector: str, default: str = "") -> str:
 def _parse_meta(soup: BeautifulSoup, ncode: str) -> Dict:
     author = _text_or(soup, ".p-novel__author, .novel_writername", "Unknown")
     author = re.sub(r"^作者[：:]\s*", "", author).strip()
+    raw_story = _text_or(soup, "#novel_ex, .p-novel__summary")
+    compact_story = re.sub(r"\n\s*\n+", "\n\n", raw_story).strip()
     return {
         "ncode": ncode,
         "title": _text_or(soup, ".p-novel__title, .novel_title, h1", ncode),
         "writer": author,
-        "story": _text_or(soup, "#novel_ex, .p-novel__summary"),
+        "story": compact_story,
         "url": f"{config.NOVEL_BASE_URL}/{ncode}/",
     }
 
