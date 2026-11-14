@@ -548,7 +548,19 @@ def translate_novel_cached(
         except Exception:
             tl_meta["story"] = draft_story
         tl_meta["target_lang"] = target_lang
-        tl_meta["keywords"] = [lookup.get(f"kw_{k_idx}") or kw for k_idx, kw in enumerate(keywords)]
+        raw_tl_kws = [lookup.get(f"kw_{k_idx}") or kw for k_idx, kw in enumerate(keywords)]
+        junk_tl_kw_blacklist = [
+            "published", "reposted", "magnet", "other site", "thank you", "understanding",
+            "good day", "hello", "everyone", "not so bad", "teen 15+", "r15", "violence",
+            "gore", "award", "prize", "大賞", "contest", "cruelty", "original", "second life begins",
+            "am i the", "live normally"
+        ]
+        tl_meta["keywords"] = [
+            kw_str for kw_str in raw_tl_kws
+            if kw_str and len(kw_str) <= 30
+            and not any(c in kw_str for c in ['"', "'", "“", "”", "「", "」", "『", "』", "!", "?", "！", "？", "*", "/", "…", "【", "】", "→"])
+            and not any(j in kw_str.lower() for j in junk_tl_kw_blacklist)
+        ]
         meta_cache_file.write_text(json.dumps(tl_meta, ensure_ascii=False, indent=2), encoding="utf-8")
 
     # 2. Translate chapters

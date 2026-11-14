@@ -203,6 +203,18 @@ def _join_ids(value) -> str:
 def _normalize_novel(raw: Dict) -> Dict:
     ncode = (raw.get("ncode") or "").lower()
     is_short = raw.get("noveltype") == 2
+    raw_kws = (raw.get("keyword") or "").split()
+    junk_kw_blacklist = [
+        "他サイト", "重複", "警告", "お知らせ", "掲載", "転載", "大賞", "コンテスト",
+        "やりたい放題", "掲示板", "外道", "r15", "残酷な描写あり"
+    ]
+    clean_kws = [
+        k for k in raw_kws
+        if k and len(k) <= 25
+        and not any(c in k for c in ['"', "'", "“", "”", "「", "」", "『", "』", "!", "?", "！", "？", "*", "/", "…", "【", "】", "→"])
+        and not any(j in k for j in junk_kw_blacklist)
+    ]
+
     return {
         "ncode": ncode,
         "title": raw.get("title", ""),
@@ -210,7 +222,7 @@ def _normalize_novel(raw: Dict) -> Dict:
         "story": raw.get("story", ""),
         "genre": raw.get("genre"),
         "genre_name": config.GENRE_MAP.get(raw.get("genre"), str(raw.get("genre", ""))),
-        "keywords": (raw.get("keyword") or "").split(),
+        "keywords": clean_kws,
         "type": "short" if is_short else "serial",
         "complete": is_short or raw.get("end") == 0,
         "chapters": raw.get("general_all_no", 0),
