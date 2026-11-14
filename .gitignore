@@ -21,3 +21,10 @@ bookfere_config.json
 .idea/
 .DS_Store
 Thumbs.db
+
+# Secrets & Local credentials
+.env
+*.env
+keys.json
+gemini_keys.txt
+secrets.json

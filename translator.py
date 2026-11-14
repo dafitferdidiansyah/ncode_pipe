@@ -539,7 +539,14 @@ def translate_novel_cached(
         # Preserve original author name (names should not be machine translated)
         tl_meta["original_writer"] = meta.get("writer", "")
         tl_meta["writer"] = meta.get("writer", "")
-        tl_meta["story"] = lookup.get("story") or meta.get("story", "")
+        draft_story = lookup.get("story") or meta.get("story", "")
+        # Polish synopsis via Gemini Flash QC if available
+        try:
+            from . import gemini_qc
+            polished = gemini_qc.qc_llm.audit_synopsis(tl_meta["title"], draft_story, target_lang=target_lang)
+            tl_meta["story"] = polished
+        except Exception:
+            tl_meta["story"] = draft_story
         tl_meta["target_lang"] = target_lang
         tl_meta["keywords"] = [lookup.get(f"kw_{k_idx}") or kw for k_idx, kw in enumerate(keywords)]
         meta_cache_file.write_text(json.dumps(tl_meta, ensure_ascii=False, indent=2), encoding="utf-8")
