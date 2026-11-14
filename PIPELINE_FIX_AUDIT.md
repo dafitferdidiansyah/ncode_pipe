@@ -32,6 +32,27 @@ Dibuat sebagai referensi persisten agar tidak hilang saat transisi session conte
   - Ditambahkan blok auto-repair spesifik untuk `tl_ch["preface"]` dan `tl_ch["afterword"]`.
   - Setiap baris yang terdeteksi masih mengandung karakter Jepang akan otomatis di-translate ulang secara individual via `translator.translate_single()`.
 
+### D. Normalisasi Spasi Sinopsis & Pencegahan Terpotong (Synopsis Delimiter Leak)
+- **Masalah:** Sinopsis novel pada hasil crawling terpotong pendek dan baris lanjutannya tumpah mengotori daftar tag/keywords.
+- **Root Cause:**
+  1. Penulis di Syosetu kerap menyisipkan 2-4 baris kosong beruntun (`\n\n\n\n`) di `#novel_ex`.
+  2. Batch translator memecah elemen dengan delimiter `\n\n`. Baris kosong ekstra memicu false-split sehingga sisa sinopsis dianggap elemen batch berikutnya (tags).
+- **Fix:**
+  - File: `ncode_pipe/crawler.py` (`_normalize_novel` & `_parse_meta`)
+    - Baris kosong multi-line dinormalisasi rapat ke satu pemisah paragraf standar via regex: `re.sub(r"\n\s*\n+", "\n\n", raw_story).strip()`.
+  - File: `ncode_pipe/translator.py`
+    - Sinopsis (`story`) dipisahkan dari batch keywords dan diterjemahkan terpisah via `translate_single()` agar formatting paragraf terjaga utuh 100%.
+
+### E. Penutupan Kebocoran Domain Backend Ngrok pada Media Cover
+- **Masalah:** Di DevTools Network/Sources browser muncul domain `playset-setting-supermom.ngrok-free.dev` di bawah folder `media/covers/`, membocorkan endpoint tunnel dan mem-bypass Cloudflare Edge Caching.
+- **Root Cause:** Serializer Django `EpubBookListSerializer` dan `EpubBookDetailSerializer` menggunakan `request.build_absolute_uri()`. Frontend juga menerima absolute URL tersebut.
+- **Fix:**
+  - File: `MyNovels/backend/books/serializers.py`
+    - `get_cover` diubah selalu mengembalikan path relatif: `/media/covers/...`.
+  - File: `MyNovels/frontend/src/api.js`, `BookCard.jsx`, `BookModal.jsx`, `CoverImage.jsx`, `App.jsx`
+    - Diterapkan `normalizeCoverUrl()` yang otomatis memangkas domain host lokal/ngrok menjadi path relatif `/media/...`.
+    - Semua request media kini 100% dialirkan lewat Cloudflare Pages Functions (`/media/[[path]].js`) dengan Edge Cache 30 hari.
+
 ---
 
 ## 2. Status 10 Novel yang Sudah Terupload (Mitigasi Risiko)
@@ -53,5 +74,7 @@ Untuk memitigasi risiko beban komputasi dan tidak membebani konteks:
 | **1. Crawl** | `ncode_pipe.crawler` | Pastikan chapter count sesuai TOC Syosetu (pagination 100 ch/page). | OK |
 | **2. Translate** | `ncode_pipe.translator` | Deteksi `jp_regex` di title, body, preface, afterword via auto-repair. | OK (Patched) |
 | **3. QC & EPUB** | `ncode_pipe.qc` | Card metadata 1 halaman, sinopsis satu bahasa, margin rapi. | OK (Patched) |
-| **4. Upload API** | `ncode_pipe.pipeline` | POST ke `/api/upload/` menghasilkan HTTP 200/201. | OK |
-| **5. Download** | `MyNovels/frontend` | Unduhan via Fetch Blob + Header `ngrok-skip-browser-warning`. | OK (Patched) |
+| **4. Metadata & Sinopsis** | `ncode_pipe.crawler` + `translator` | Normalisasi regex spasi rapat (`\n\n`) & isolasi translasi sinopsis. | OK (Patched) |
+| **5. Upload API** | `ncode_pipe.pipeline` | POST ke `/api/upload/` menghasilkan HTTP 200/201. | OK |
+| **6. Media & Cover Security** | `Django Serializers` + `Cloudflare` | Relative path `/media/` + Cloudflare Edge Cache (Zero Ngrok leak). | OK (Patched) |
+| **7. Download** | `MyNovels/frontend` | Unduhan via Fetch Blob + Header `ngrok-skip-browser-warning`. | OK (Patched) |
