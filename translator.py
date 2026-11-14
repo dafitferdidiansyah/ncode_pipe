@@ -716,14 +716,21 @@ def translate_novel_cached(
         jp_regex = re.compile(r'[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]')
         leak_indices = [idx for idx, line in enumerate(translated_body) if len(line.strip()) > 1 and jp_regex.search(line)]
         if leak_indices:
-            emit({"type": "stage", "stage": "tl_chunk", "message": f"Ch {ep}: repairing {len(leak_indices)} leaked untranslated body lines..."})
+            emit({"type": "stage", "stage": "tl_chunk", "message": f"Ch {ep}: batch-repairing {len(leak_indices)} leaked untranslated body lines..."})
+            repair_batch = []
             for l_idx in leak_indices:
                 orig_txt = lines[l_idx].strip()
                 if orig_txt:
-                    try:
-                        translated_body[l_idx] = translator.translate_single(orig_txt)
-                    except Exception:
-                        pass
+                    repair_batch.append({"id": str(l_idx), "text": orig_txt})
+            if repair_batch:
+                try:
+                    rep_results = translator.translate_batch(repair_batch)
+                    rep_map = {r["id"]: r.get("text", "") for r in rep_results}
+                    for l_idx in leak_indices:
+                        if str(l_idx) in rep_map and rep_map[str(l_idx)].strip():
+                            translated_body[l_idx] = rep_map[str(l_idx)]
+                except Exception as e:
+                    logger.warning(f"Ch {ep}: body batch-repair failed ({e}), keeping original translation")
             tl_ch["body"] = translated_body
             tl_ch["lines"] = translated_body
 
@@ -731,31 +738,45 @@ def translate_novel_cached(
         if ch.get("preface") and tl_ch.get("preface"):
             pref_leak_indices = [idx for idx, line in enumerate(tl_ch["preface"]) if len(line.strip()) > 1 and jp_regex.search(line)]
             if pref_leak_indices:
-                emit({"type": "stage", "stage": "tl_chunk", "message": f"Ch {ep}: repairing {len(pref_leak_indices)} leaked preface lines..."})
-                repaired_pref = list(tl_ch["preface"])
+                emit({"type": "stage", "stage": "tl_chunk", "message": f"Ch {ep}: batch-repairing {len(pref_leak_indices)} leaked preface lines..."})
+                pref_batch = []
                 for p_idx in pref_leak_indices:
                     orig_p = ch["preface"][p_idx].strip()
                     if orig_p:
-                        try:
-                            repaired_pref[p_idx] = translator.translate_single(orig_p)
-                        except Exception:
-                            pass
-                tl_ch["preface"] = repaired_pref
+                        pref_batch.append({"id": str(p_idx), "text": orig_p})
+                if pref_batch:
+                    try:
+                        rep_results = translator.translate_batch(pref_batch)
+                        rep_map = {r["id"]: r.get("text", "") for r in rep_results}
+                        repaired_pref = list(tl_ch["preface"])
+                        for p_idx in pref_leak_indices:
+                            if str(p_idx) in rep_map and rep_map[str(p_idx)].strip():
+                                repaired_pref[p_idx] = rep_map[str(p_idx)]
+                        tl_ch["preface"] = repaired_pref
+                    except Exception as e:
+                        logger.warning(f"Ch {ep}: preface batch-repair failed ({e})")
 
         # Auto-repair check for afterword (catatan akhir / author note)
         if ch.get("afterword") and tl_ch.get("afterword"):
             aft_leak_indices = [idx for idx, line in enumerate(tl_ch["afterword"]) if len(line.strip()) > 1 and jp_regex.search(line)]
             if aft_leak_indices:
-                emit({"type": "stage", "stage": "tl_chunk", "message": f"Ch {ep}: repairing {len(aft_leak_indices)} leaked afterword lines..."})
-                repaired_aft = list(tl_ch["afterword"])
+                emit({"type": "stage", "stage": "tl_chunk", "message": f"Ch {ep}: batch-repairing {len(aft_leak_indices)} leaked afterword lines..."})
+                aft_batch = []
                 for a_idx in aft_leak_indices:
                     orig_a = ch["afterword"][a_idx].strip()
                     if orig_a:
-                        try:
-                            repaired_aft[a_idx] = translator.translate_single(orig_a)
-                        except Exception:
-                            pass
-                tl_ch["afterword"] = repaired_aft
+                        aft_batch.append({"id": str(a_idx), "text": orig_a})
+                if aft_batch:
+                    try:
+                        rep_results = translator.translate_batch(aft_batch)
+                        rep_map = {r["id"]: r.get("text", "") for r in rep_results}
+                        repaired_aft = list(tl_ch["afterword"])
+                        for a_idx in aft_leak_indices:
+                            if str(a_idx) in rep_map and rep_map[str(a_idx)].strip():
+                                repaired_aft[a_idx] = rep_map[str(a_idx)]
+                        tl_ch["afterword"] = repaired_aft
+                    except Exception as e:
+                        logger.warning(f"Ch {ep}: afterword batch-repair failed ({e})")
         ch_cache_file.write_text(json.dumps(tl_ch, ensure_ascii=False), encoding="utf-8")
         tl_chapters.append(tl_ch)
 

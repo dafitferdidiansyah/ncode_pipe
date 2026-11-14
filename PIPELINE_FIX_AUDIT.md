@@ -43,15 +43,19 @@ Dibuat sebagai referensi persisten agar tidak hilang saat transisi session conte
   - File: `ncode_pipe/translator.py`
     - Sinopsis (`story`) dipisahkan dari batch keywords dan diterjemahkan terpisah via `translate_single()` agar formatting paragraf terjaga utuh 100%.
 
-### E. Penutupan Kebocoran Domain Backend Ngrok pada Media Cover
-- **Masalah:** Di DevTools Network/Sources browser muncul domain `playset-setting-supermom.ngrok-free.dev` di bawah folder `media/covers/`, membocorkan endpoint tunnel dan mem-bypass Cloudflare Edge Caching.
-- **Root Cause:** Serializer Django `EpubBookListSerializer` dan `EpubBookDetailSerializer` menggunakan `request.build_absolute_uri()`. Frontend juga menerima absolute URL tersebut.
+### F. Batch Mini-Chunking Auto-Repair pada Translator
+- **Masalah:** Proses translasi berjalan sangat lambat saat fase repairing. Tiap baris teks bocor memicu request HTTP `translate_single()` terpisah secara sekuensial.
+- **Root Cause:** Auto-repair body, preface, dan afterword mengeksekusi loop 1 request per baris, memicu puluhan round-trip HTTP berlebih.
 - **Fix:**
-  - File: `MyNovels/backend/books/serializers.py`
-    - `get_cover` diubah selalu mengembalikan path relatif: `/media/covers/...`.
-  - File: `MyNovels/frontend/src/api.js`, `BookCard.jsx`, `BookModal.jsx`, `CoverImage.jsx`, `App.jsx`
-    - Diterapkan `normalizeCoverUrl()` yang otomatis memangkas domain host lokal/ngrok menjadi path relatif `/media/...`.
-    - Semua request media kini 100% dialirkan lewat Cloudflare Pages Functions (`/media/[[path]].js`) dengan Edge Cache 30 hari.
+  - File: `ncode_pipe/translator.py` (`translate_novel_cached`)
+  - Mengubah perbaikan baris bocor menjadi `translate_batch()` mini-chunk. Baris yang bocor dikumpulkan dan diterjemahkan dalam satu request chunk sekaligus, memangkas waktu reparasi hingga 80-90%.
+
+### G. Fitur MeGaneBuk Custom Range Batch Download
+- **Masalah:** Download novel berepisode panjang (100+ chapter) membebani bandwidth dan sering timeout pada koneksi mobile jika hanya menyediakan file full EPUB raksasa.
+- **Solusi:**
+  - Standardisasi batch 50 chapter (Ch 001 - 050, Ch 051 - 100, dst.).
+  - Backend: `EpubDownloadView` di `MyNovels/backend/books/views.py` mendukung query `?start=X&end=Y`, memotong chapter via `_build_range_epub()` secara on-the-fly dengan proteksi cache di `media/batches/` dan direct transfer via Nginx `X-Accel-Redirect`.
+  - Frontend: Tab "Volumes / Batches" ditambahkan pada `BookModal.jsx` untuk novel dengan bab > 50 chapter, menyajikan daftar part yang dapat diunduh per batch.
 
 ---
 
