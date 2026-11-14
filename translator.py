@@ -532,9 +532,12 @@ def translate_novel_cached(
         emit({"type": "stage", "stage": "tl_meta", "message": "Using cached translated metadata"})
     else:
         emit({"type": "stage", "stage": "tl_meta", "message": f"Translating title, synopsis & tags to {target_lang.upper()} ({engine_name})..."})
+        # Translate synopsis individually so multi-paragraph newlines are preserved intact without polluting tags
+        raw_story = meta.get("story", "")
+        draft_story = translator.translate_single(raw_story) if raw_story else ""
+
         batch = [
             {"id": "title", "text": meta.get("title", "")},
-            {"id": "story", "text": meta.get("story", "")},
         ]
         keywords = meta.get("keywords", [])
         for k_idx, kw in enumerate(keywords):
@@ -582,7 +585,7 @@ def translate_novel_cached(
         # Preserve original author name (names should not be machine translated)
         tl_meta["original_writer"] = meta.get("writer", "")
         tl_meta["writer"] = meta.get("writer", "")
-        draft_story = lookup.get("story") or meta.get("story", "")
+        draft_story = draft_story or meta.get("story", "")
         # Polish synopsis via Gemini Flash QC if available
         try:
             from . import gemini_qc
