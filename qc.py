@@ -253,6 +253,10 @@ def build_standard_info_html(meta: Dict[str, Any], lang: str = "en") -> str:
 
     meta_line = "\n".join(badges)
 
+    # Dynamic synopsis heading matching target language
+    lang_val = (target_lang or "en").strip().lower()
+    synopsis_heading = "Sinopsis" if lang_val in ["id", "ind", "indonesian"] else "Synopsis"
+
     return f"""<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="{target_lang}" lang="{target_lang}">
@@ -268,7 +272,7 @@ def build_standard_info_html(meta: Dict[str, Any], lang: str = "en") -> str:
       {meta_line}
     </div>
     <div class="synopsis-box">
-      <h3 class="synopsis-heading">Synopsis / Sinopsis</h3>
+      <h3 class="synopsis-heading">{synopsis_heading}</h3>
       <div class="synopsis-content">
         {story_html}
       </div>
@@ -280,15 +284,39 @@ def build_standard_info_html(meta: Dict[str, Any], lang: str = "en") -> str:
 
 
 def normalize_chapter_title(title: str, chapter_num: Optional[int] = None) -> str:
-    """Normalize chapter titles: fix spelled-out numbers ('six seven' -> '67'),
-    kanji numbers (第六十七話 -> Episode 67), and bare digits ('6' -> 'Chapter 6').
+    """Normalize chapter titles: fix spelled-out numbers, kanji numbers,
+    and strip weird inconsistent prefixes like 'Episode 16.0:', '29.0 Chapter:',
+    'Bab 16:', 'Episode 28.1', transforming them cleanly to 'Chapter {chapter_num}: {Subtitle}'
+    or 'Chapter {chapter_num}'.
     """
     if not title:
         return f"Chapter {chapter_num}" if chapter_num else ""
 
     t = title.strip()
 
-    # 1. Map spelled out numbers when a title is just numbers (e.g., 'twenty one' -> 21, 'six seven' -> 67)
+    # Strip messy prefixes like:
+    # "Episode 16.0: The Math Teacher" -> "The Math Teacher"
+    # "29.0 Chapter: The Faded Ball" -> "The Faded Ball"
+    # "Chapter 22.0: The Eyes" -> "The Eyes"
+    # "Episode 61.0 A Whim" -> "A Whim"
+    # "44.1 Walking to School ~Yui's Side~" -> "Walking to School ~Yui's Side~"
+    # "Bab 12: ..." -> "..."
+    prefix_patterns = [
+        (r"^(?:Episode|Chapter|Ep\.?|Ch\.?|Bab)\s*[\d\.]+\s*[:\-–—]?\s*", ""),
+        (r"^[\d\.]+\s*(?:Episode|Chapter|Ep\.?|Ch\.?|Bab)\s*[:\-–—]?\s*", ""),
+        (r"^[\d\.]+\s*[:\-–—]\s*", ""),
+        (r"^[\d\.]+\s+", ""),
+        (r"^第\s*[0-9一二三四五六七八九十百千万]+\s*[話章節回]\s*[:\-–—]?\s*", ""),
+    ]
+    prefix_stripped = False
+    for pattern, repl in prefix_patterns:
+        cleaned = re.sub(pattern, repl, t, flags=re.IGNORECASE).strip()
+        if cleaned and cleaned != t:
+            t = cleaned
+            prefix_stripped = True
+            break
+
+    # 1. Map spelled out numbers when a title is just numbers
     words_to_num = {
         "zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
         "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10,
@@ -298,41 +326,39 @@ def normalize_chapter_title(title: str, chapter_num: Optional[int] = None) -> st
         "sixty": 60, "seventy": 70, "eighty": 80, "ninety": 90
     }
 
-    # Match raw word numbers like "twenty one" or "six seven"
     def parse_number_words(s: str) -> Optional[int]:
         tokens = [w for w in re.split(r"[\s\-]+", s.strip().lower()) if w]
         if not tokens or not all(tok in words_to_num for tok in tokens):
             return None
-        # Check digit-by-digit reading (e.g. "six seven" -> 67)
         if len(tokens) == 2 and words_to_num[tokens[0]] < 10 and words_to_num[tokens[1]] < 10:
             return words_to_num[tokens[0]] * 10 + words_to_num[tokens[1]]
         total = 0
         current = 0
         for tok in tokens:
             val = words_to_num[tok]
-            if val >= 20:
-                current += val
-            else:
-                current += val
-        total += current
+            total += val
         return total
 
-    # Check if whole title is bare number or words
+    # Check if the title is purely spelled-out numbers like "six seven" or digits
     num_from_words = parse_number_words(t)
     if num_from_words is not None:
         return f"Chapter {num_from_words}"
-
-    # If title is just bare digits (e.g. "6", "18")
     if t.isdigit():
         return f"Chapter {int(t)}"
 
-    # If title starts with spelled out words followed by colon / subtitle: "six seven: ..."
     m_lead = re.match(r"^((?:[a-zA-Z]+\s*){1,3})[:\-–—]\s*(.+)$", t)
     if m_lead:
         lead_words = m_lead.group(1).strip()
         lead_num = parse_number_words(lead_words)
         if lead_num is not None:
             return f"Chapter {lead_num}: {m_lead.group(2).strip()}"
+
+    # If prefix was stripped (was a weird episode/chapter prefix) and chapter_num is provided:
+    if prefix_stripped and chapter_num:
+        if t and not re.match(r"^Chapter\s+\d+", t, re.IGNORECASE):
+            return f"Chapter {chapter_num}: {t}"
+        elif not t:
+            return f"Chapter {chapter_num}"
 
     return t
 

@@ -190,6 +190,87 @@ def run_qc():
         return _err(str(e))
 
 
+@app.route("/api/glossary", methods=["GET", "POST"])
+def manage_global_glossary():
+    from . import glossary
+    if request.method == "POST":
+        payload = request.get_json(silent=True) or {}
+        terms = payload.get("terms", {})
+        import json
+        glossary.GLOBAL_GLOSSARY_PATH.write_text(json.dumps(terms, indent=2, ensure_ascii=False), encoding="utf-8")
+        glossary.glossary_manager.global_terms = terms
+        return jsonify({"ok": True, "terms": terms})
+    return jsonify({"terms": glossary.glossary_manager.global_terms})
+
+
+@app.route("/api/glossary/<ncode>", methods=["GET", "POST"])
+def manage_novel_glossary(ncode: str):
+    from . import glossary
+    if not crawler.NCODE_RE.fullmatch(ncode.lower()):
+        return _err("Invalid ncode")
+    if request.method == "POST":
+        payload = request.get_json(silent=True) or {}
+        terms = payload.get("terms", {})
+        glossary.glossary_manager.save_novel_terms(ncode, terms)
+        return jsonify({"ok": True, "ncode": ncode, "terms": terms})
+    return jsonify({"ncode": ncode, "terms": glossary.glossary_manager.get_terms_for_novel(ncode)})
+
+
+@app.route("/api/export_range", methods=["POST"])
+def export_range_epub():
+    """Generates a standalone EPUB directly for a specified chapter range."""
+    payload = request.get_json(silent=True) or {}
+    ncode = payload.get("ncode", "").strip().lower()
+    if not crawler.NCODE_RE.fullmatch(ncode):
+        return _err("Invalid ncode")
+
+    start_ep = int(payload.get("start", 1))
+    end_ep = int(payload.get("end", 0))
+    lang = payload.get("lang", "id").lower()
+
+    # Load novel metadata & cached translated chapters
+    cache_dir = config.CACHE_DIR / ncode
+    meta_file = cache_dir / "meta.json"
+    if not meta_file.exists():
+        return _err(f"No metadata found for {ncode}. Please crawl first.")
+
+    import json
+    meta = json.loads(meta_file.read_text(encoding="utf-8"))
+    
+    tl_dir = cache_dir / f"tl_{lang}"
+    if not tl_dir.exists():
+        return _err(f"No translated chapters found for {ncode} in language '{lang}'.")
+
+    chapters = []
+    # Collect matching chapters in range
+    for ep in range(start_ep, end_ep + 1 if end_ep >= start_ep else 999999):
+        ch_file = tl_dir / f"{ep}.json"
+        if ch_file.exists():
+            try:
+                ch_data = json.loads(ch_file.read_text(encoding="utf-8"))
+                chapters.append(ch_data)
+            except Exception:
+                pass
+        elif end_ep > 0:
+            # Range was explicitly specified and chapter missing
+            continue
+
+    if not chapters:
+        return _err(f"No chapters found in range {start_ep}-{end_ep}")
+
+    actual_start = chapters[0].get("episode", start_ep)
+    actual_end = chapters[-1].get("episode", end_ep)
+    range_label = f"Ch {actual_start:03d}-{actual_end:03d}"
+
+    out_file = translator.build_translated_epub(
+        tl_meta={**meta, "target_lang": lang},
+        tl_chapters=chapters,
+        out_dir=config.DOWNLOAD_DIR,
+        range_label=range_label
+    )
+    return jsonify({"ok": True, "file": Path(out_file).name, "chapters_count": len(chapters), "range": range_label})
+
+
 @app.post("/api/cache/<ncode>/clear")
 def cache_clear(ncode: str):
     if not crawler.NCODE_RE.fullmatch(ncode.lower()):

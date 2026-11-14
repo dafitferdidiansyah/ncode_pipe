@@ -116,9 +116,11 @@ class TestBlackBoxButtonsAndAPIs(unittest.TestCase):
 
     def test_buttons_queue_controls_and_row_actions(self):
         """Buttons [PAUSE WORKER, RETRY FAILED, CLEAR COMPLETED, CANCEL ALL, and Job Row Actions]."""
-        # 1. Add test job via /api/jobs with valid Ncode pattern (e.g. n9999zz)
+        # Ensure fresh unique dummy ncode
+        import time
+        dummy_ncode = f"n{int(time.time()) % 10000:04d}zz"
         add_res = self.client.post("/api/jobs", json={
-            "items": [{"ncode": "n9999zz", "title": "Dummy Test Novel", "writer": "Author"}]
+            "items": [{"ncode": dummy_ncode, "title": "Dummy Test Novel", "writer": "Author"}]
         })
         self.assertEqual(add_res.status_code, 200)
         job_data = add_res.get_json()

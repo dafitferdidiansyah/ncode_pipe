@@ -12,6 +12,7 @@ import concurrent.futures
 import html
 import json
 import logging
+import os
 import re
 import time
 from typing import Any, Dict, List, Optional, Tuple
@@ -245,10 +246,30 @@ class GoogleFreeNew(BaseEngine):
             "Accept-Language": "en-US,en;q=0.9",
             "User-Agent": UA_CHROME,
         }
-        resp = requests.get(url, params=params, headers=headers, timeout=25)
-        if resp.status_code == 200:
-            return resp.json().get("translation", "")
-        raise RuntimeError(f"Google(Free)New error HTTP {resp.status_code}: {resp.text[:200]}")
+        # Retry loop with exponential backoff & character-length guard
+        max_attempts = 3
+        backoff_delay = 2.0
+        for attempt in range(max_attempts):
+            try:
+                resp = requests.get(url, params=params, headers=headers, timeout=25)
+                if resp.status_code == 200:
+                    return resp.json().get("translation", "")
+                elif resp.status_code in (429, 500, 502, 503, 504):
+                    logger.warning(f"Google(Free)New HTTP {resp.status_code} on attempt {attempt+1}/{max_attempts}, sleeping {backoff_delay}s...")
+                    time.sleep(backoff_delay)
+                    backoff_delay *= 2
+                    continue
+                else:
+                    raise RuntimeError(f"Google(Free)New error HTTP {resp.status_code}: {resp.text[:200]}")
+            except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as e:
+                if attempt < max_attempts - 1:
+                    logger.warning(f"Google(Free)New connection/timeout error on attempt {attempt+1}: {e}, sleeping {backoff_delay}s...")
+                    time.sleep(backoff_delay)
+                    backoff_delay *= 2
+                    continue
+                raise RuntimeError(f"Google(Free)New timeout after {max_attempts} attempts: {e}") from e
+
+        raise RuntimeError(f"Google(Free)New failed after {max_attempts} attempts")
 
 
 class GoogleFreeHtml(BaseEngine):
@@ -266,11 +287,31 @@ class GoogleFreeHtml(BaseEngine):
             "User-Agent": UA_CHROME,
         }
         payload = [[[text], src, tgt], "wt_lib"]
-        resp = requests.post(url, data=json.dumps(payload), headers=headers, timeout=30)
-        if resp.status_code == 200:
-            res_data = resp.json()
-            return res_data[0][0]
-        raise RuntimeError(f"Google(Free)Html error HTTP {resp.status_code}: {resp.text[:200]}")
+        # Retry loop with exponential backoff & character-length guard
+        max_attempts = 3
+        backoff_delay = 2.0
+        for attempt in range(max_attempts):
+            try:
+                resp = requests.post(url, data=json.dumps(payload), headers=headers, timeout=30)
+                if resp.status_code == 200:
+                    res_data = resp.json()
+                    return res_data[0][0]
+                elif resp.status_code in (429, 500, 502, 503, 504):
+                    logger.warning(f"Google(Free)Html HTTP {resp.status_code} on attempt {attempt+1}/{max_attempts}, sleeping {backoff_delay}s...")
+                    time.sleep(backoff_delay)
+                    backoff_delay *= 2
+                    continue
+                else:
+                    raise RuntimeError(f"Google(Free)Html error HTTP {resp.status_code}: {resp.text[:200]}")
+            except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as e:
+                if attempt < max_attempts - 1:
+                    logger.warning(f"Google(Free)Html connection/timeout error on attempt {attempt+1}: {e}, sleeping {backoff_delay}s...")
+                    time.sleep(backoff_delay)
+                    backoff_delay *= 2
+                    continue
+                raise RuntimeError(f"Google(Free)Html timeout after {max_attempts} attempts: {e}") from e
+
+        raise RuntimeError(f"Google(Free)Html failed after {max_attempts} attempts")
 
 
 class MicrosoftEdgeFree(BaseEngine):
@@ -328,11 +369,57 @@ class CustomLLMEngine(BaseEngine):
         raise RuntimeError(f"CustomLLM error HTTP {resp.status_code}: {resp.text[:200]}")
 
 
+class DeepLXEngine(BaseEngine):
+    """
+    DeepLX Engine (DeepL web-bypass without API key).
+    Supports local Docker/binary daemon (e.g. http://127.0.0.1:1188/translate)
+    or custom configured proxy.
+    """
+    name = "DeepLX"
+
+    def __init__(self, endpoint: str = "", proxy: str = ""):
+        self.endpoint = endpoint or os.getenv("DEEPLX_URL", "http://127.0.0.1:1188/translate")
+        self.proxy = proxy or os.getenv("TRANSLATION_PROXY", "")
+
+    def translate(self, text: str, source_lang: str = "ja", target_lang: str = "en") -> str:
+        src = normalize_lang(source_lang).upper()
+        tgt = normalize_lang(target_lang).upper()
+        if tgt == "ID":
+            tgt = "ID"
+        elif tgt == "EN":
+            tgt = "EN"
+
+        payload = {
+            "text": text,
+            "source_lang": src,
+            "target_lang": tgt,
+        }
+        headers = {
+            "Content-Type": "application/json",
+            "User-Agent": UA_CHROME,
+        }
+        proxies = {"http": self.proxy, "https": self.proxy} if self.proxy else None
+
+        resp = requests.post(self.endpoint, json=payload, headers=headers, proxies=proxies, timeout=25)
+        if resp.status_code == 200:
+            data = resp.json()
+            if "data" in data:
+                return data["data"]
+            if "translation" in data:
+                return data["translation"]
+            return str(data)
+        elif resp.status_code == 429:
+            raise RuntimeError(f"DeepLX 429 Too Many Requests (IP rate-limited): {resp.text[:150]}")
+        raise RuntimeError(f"DeepLX HTTP {resp.status_code}: {resp.text[:200]}")
+
+
 class SmartAutoEngine(BaseEngine):
-    """Auto-cascading engine: tries Google(Free)New -> Google(Free)Html -> MicrosoftEdge(Free)."""
+    """Auto-cascading engine: tries DeepLX (if enabled) -> Google(Free)New -> Google(Free)Html -> MicrosoftEdge(Free)."""
     name = "SmartAuto"
 
-    def __init__(self):
+    def __init__(self, prefer_deeplx: bool = False, deeplx_url: str = ""):
+        self.prefer_deeplx = prefer_deeplx
+        self.deeplx = DeepLXEngine(endpoint=deeplx_url) if (prefer_deeplx or deeplx_url) else None
         self.google_new = GoogleFreeNew()
         self.google_html = GoogleFreeHtml()
         self.edge = MicrosoftEdgeFree()
@@ -343,7 +430,11 @@ class SmartAutoEngine(BaseEngine):
         primary = self.google_html if has_tags else self.google_new
         secondary = self.google_new if has_tags else self.google_html
 
-        for eng in (primary, secondary, self.edge):
+        candidates = [self.deeplx, primary, secondary, self.edge] if self.deeplx else [primary, secondary, self.edge]
+
+        for eng in candidates:
+            if not eng:
+                continue
             try:
                 res = eng.translate(text, source_lang=source_lang, target_lang=target_lang)
                 if res and res.strip():
@@ -365,6 +456,10 @@ def get_engine(engine_name: str = "SmartAuto", custom_config: Optional[Dict] = N
         return GoogleFreeHtml()
     if name_clean in ("MicrosoftEdge(Free)", "Microsoft Edge (Free)", "edge"):
         return MicrosoftEdgeFree()
+    if name_clean in ("deeplx", "DeepLX", "deepl"):
+        url = custom_config.get("deeplx_url", "") if custom_config else ""
+        proxy = custom_config.get("translation_proxy", "") if custom_config else ""
+        return DeepLXEngine(endpoint=url, proxy=proxy)
     if custom_config and "url" in custom_config:
         return CustomLLMEngine(
             endpoint=custom_config["url"],

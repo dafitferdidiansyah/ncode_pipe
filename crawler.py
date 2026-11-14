@@ -635,7 +635,20 @@ def write_epub(meta: Dict, chapters: List[Dict], path: pathlib.Path, settings: O
 
     ncode_tag = meta.get("ncode", "")
     target_tag = f"{lang.upper()} EDITION" if lang != "ja" else "ORIGINAL EDITION"
-    cover_jpg = _generate_retro_cover_jpg(meta.get("title", ""), meta.get("writer", ""), ncode=ncode_tag, tag=target_tag)
+
+    # Cache cover image locally to avoid re-generating or re-fetching
+    cache_cover = config.CACHE_DIR / ncode_tag.lower() / f"cover_{lang}.jpg" if ncode_tag else None
+    if cache_cover and cache_cover.exists():
+        cover_jpg = cache_cover.read_bytes()
+    else:
+        cover_jpg = _generate_retro_cover_jpg(meta.get("title", ""), meta.get("writer", ""), ncode=ncode_tag, tag=target_tag)
+        if cache_cover:
+            try:
+                cache_cover.parent.mkdir(parents=True, exist_ok=True)
+                cache_cover.write_bytes(cover_jpg)
+            except Exception:
+                pass
+
     cover_page = (
         '<?xml version="1.0" encoding="utf-8"?>\n'
         '<!DOCTYPE html>\n'
@@ -687,6 +700,7 @@ def write_epub(meta: Dict, chapters: List[Dict], path: pathlib.Path, settings: O
     manifest = "\n".join(f'<item id="f{i}" href="{f}" media-type="application/xhtml+xml"/>'
                          for i, (f, _, _) in enumerate(files))
     spine = "\n".join(f'<itemref idref="f{i}"/>' for i in range(len(files)))
+    pub_status = "Completed" if meta.get("complete") else "Ongoing"
     opf = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         f'<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="bookid" xml:lang="{lang}">\n'
@@ -699,6 +713,8 @@ def write_epub(meta: Dict, chapters: List[Dict], path: pathlib.Path, settings: O
         f'<dc:source>{html.escape(meta["url"])}</dc:source>'
         f'<dc:description>{html.escape(meta.get("story", ""))}</dc:description>{subjects}'
         f'<meta property="dcterms:modified">{modified}</meta>'
+        f'<meta property="ncode:status">{pub_status}</meta>'
+        f'<meta name="status" content="{pub_status}"/>'
         '<meta name="cover" content="cover-image"/>'
         '</metadata>\n'
         '<manifest><item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>'

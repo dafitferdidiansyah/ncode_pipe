@@ -525,7 +525,6 @@ def translate_novel_cached(
         emit({"type": "stage", "stage": "tl_meta", "message": f"Translating title, synopsis & tags to {target_lang.upper()} ({engine_name})..."})
         batch = [
             {"id": "title", "text": meta.get("title", "")},
-            {"id": "writer", "text": meta.get("writer", "")},
             {"id": "story", "text": meta.get("story", "")},
         ]
         keywords = meta.get("keywords", [])
@@ -537,7 +536,9 @@ def translate_novel_cached(
         tl_meta = dict(meta)
         tl_meta["original_title"] = meta.get("title", "")
         tl_meta["title"] = lookup.get("title") or meta.get("title", "")
-        tl_meta["writer"] = lookup.get("writer") or meta.get("writer", "")
+        # Preserve original author name (names should not be machine translated)
+        tl_meta["original_writer"] = meta.get("writer", "")
+        tl_meta["writer"] = meta.get("writer", "")
         tl_meta["story"] = lookup.get("story") or meta.get("story", "")
         tl_meta["target_lang"] = target_lang
         tl_meta["keywords"] = [lookup.get(f"kw_{k_idx}") or kw for k_idx, kw in enumerate(keywords)]
@@ -572,18 +573,33 @@ def translate_novel_cached(
                 pass
 
         # Prepare paragraphs to translate
-        batch = [{"id": "title", "text": ch.get("title", "")}]
-        lines = ch.get("body") or ch.get("lines") or []
-        for idx, line in enumerate(lines):
-            batch.append({"id": f"p_{idx}", "text": line})
+        from . import glossary
+        terms = glossary.glossary_manager.get_terms_for_novel(ncode)
 
+        orig_title = ch.get("title", "")
+        p_title, title_map = glossary.glossary_manager.protect_terms(orig_title, terms)
+        batch = [{"id": "title", "text": p_title}]
+
+        lines = ch.get("body") or ch.get("lines") or []
+        body_maps = {}
+        for idx, line in enumerate(lines):
+            p_line, line_map = glossary.glossary_manager.protect_terms(line, terms)
+            body_maps[f"p_{idx}"] = line_map
+            batch.append({"id": f"p_{idx}", "text": p_line})
+
+        pref_maps = {}
         if ch.get("preface"):
             for pidx, pline in enumerate(ch["preface"]):
-                batch.append({"id": f"pref_{pidx}", "text": pline})
+                p_pref, pref_map = glossary.glossary_manager.protect_terms(pline, terms)
+                pref_maps[f"pref_{pidx}"] = pref_map
+                batch.append({"id": f"pref_{pidx}", "text": p_pref})
 
+        aft_maps = {}
         if ch.get("afterword"):
             for aidx, aline in enumerate(ch["afterword"]):
-                batch.append({"id": f"aft_{aidx}", "text": aline})
+                p_aft, aft_map = glossary.glossary_manager.protect_terms(aline, terms)
+                aft_maps[f"aft_{aidx}"] = aft_map
+                batch.append({"id": f"aft_{aidx}", "text": p_aft})
 
         emit({"type": "stage", "stage": "tl_chunk", "message": f"Ch {ep}: translating {len(batch)} lines via Bookfere chunks..."})
 
@@ -594,24 +610,45 @@ def translate_novel_cached(
         )
         res_map = {r["id"]: r.get("text", "") for r in sub_res}
 
+        # Restore protected terms
         tl_ch = dict(ch)
-        tl_ch["original_title"] = ch.get("title", "")
-        tl_title = res_map.get("title") or ch.get("title", "")
+        tl_ch["original_title"] = orig_title
+        raw_tl_title = res_map.get("title") or orig_title
+        restored_title = glossary.glossary_manager.restore_terms(raw_tl_title, title_map)
+
         from . import qc
-        tl_ch["title"] = qc.normalize_chapter_title(tl_title, ep)
-        translated_body = [res_map.get(f"p_{idx}", lines[idx]) for idx in range(len(lines))]
+        tl_ch["title"] = qc.normalize_chapter_title(restored_title, ep)
+
+        translated_body = []
+        for idx in range(len(lines)):
+            raw_tl_line = res_map.get(f"p_{idx}", lines[idx])
+            restored_line = glossary.glossary_manager.restore_terms(raw_tl_line, body_maps.get(f"p_{idx}", {}))
+            translated_body.append(restored_line)
+
         tl_ch["body"] = translated_body
         tl_ch["lines"] = translated_body
+
         if ch.get("preface"):
-            tl_ch["preface"] = [res_map.get(f"pref_{pidx}", ch["preface"][pidx]) for pidx in range(len(ch["preface"]))]
+            translated_pref = []
+            for pidx in range(len(ch["preface"])):
+                raw_pref = res_map.get(f"pref_{pidx}", ch["preface"][pidx])
+                restored_pref = glossary.glossary_manager.restore_terms(raw_pref, pref_maps.get(f"pref_{pidx}", {}))
+                translated_pref.append(restored_pref)
+            tl_ch["preface"] = translated_pref
+
         if ch.get("afterword"):
-            tl_ch["afterword"] = [res_map.get(f"aft_{aidx}", ch["afterword"][aidx]) for aidx in range(len(ch["afterword"]))]
+            translated_aft = []
+            for aidx in range(len(ch["afterword"])):
+                raw_aft = res_map.get(f"aft_{aidx}", ch["afterword"][aidx])
+                restored_aft = glossary.glossary_manager.restore_terms(raw_aft, aft_maps.get(f"aft_{aidx}", {}))
+                translated_aft.append(restored_aft)
+            tl_ch["afterword"] = translated_aft
 
         # Auto-repair check: check if any line in chapter still contains Japanese characters
         jp_regex = re.compile(r'[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]')
         leak_indices = [idx for idx, line in enumerate(translated_body) if len(line.strip()) > 1 and jp_regex.search(line)]
         if leak_indices:
-            emit({"type": "stage", "stage": "tl_chunk", "message": f"Ch {ep}: repairing {len(leak_indices)} leaked untranslated lines..."})
+            emit({"type": "stage", "stage": "tl_chunk", "message": f"Ch {ep}: repairing {len(leak_indices)} leaked untranslated body lines..."})
             for l_idx in leak_indices:
                 orig_txt = lines[l_idx].strip()
                 if orig_txt:
@@ -621,6 +658,36 @@ def translate_novel_cached(
                         pass
             tl_ch["body"] = translated_body
             tl_ch["lines"] = translated_body
+
+        # Auto-repair check for preface (catatan awal / notice)
+        if ch.get("preface") and tl_ch.get("preface"):
+            pref_leak_indices = [idx for idx, line in enumerate(tl_ch["preface"]) if len(line.strip()) > 1 and jp_regex.search(line)]
+            if pref_leak_indices:
+                emit({"type": "stage", "stage": "tl_chunk", "message": f"Ch {ep}: repairing {len(pref_leak_indices)} leaked preface lines..."})
+                repaired_pref = list(tl_ch["preface"])
+                for p_idx in pref_leak_indices:
+                    orig_p = ch["preface"][p_idx].strip()
+                    if orig_p:
+                        try:
+                            repaired_pref[p_idx] = translator.translate_single(orig_p)
+                        except Exception:
+                            pass
+                tl_ch["preface"] = repaired_pref
+
+        # Auto-repair check for afterword (catatan akhir / author note)
+        if ch.get("afterword") and tl_ch.get("afterword"):
+            aft_leak_indices = [idx for idx, line in enumerate(tl_ch["afterword"]) if len(line.strip()) > 1 and jp_regex.search(line)]
+            if aft_leak_indices:
+                emit({"type": "stage", "stage": "tl_chunk", "message": f"Ch {ep}: repairing {len(aft_leak_indices)} leaked afterword lines..."})
+                repaired_aft = list(tl_ch["afterword"])
+                for a_idx in aft_leak_indices:
+                    orig_a = ch["afterword"][a_idx].strip()
+                    if orig_a:
+                        try:
+                            repaired_aft[a_idx] = translator.translate_single(orig_a)
+                        except Exception:
+                            pass
+                tl_ch["afterword"] = repaired_aft
         ch_cache_file.write_text(json.dumps(tl_ch, ensure_ascii=False), encoding="utf-8")
         tl_chapters.append(tl_ch)
 
@@ -630,8 +697,10 @@ def translate_novel_cached(
     return {"meta": tl_meta, "chapters": tl_chapters}
 
 
-def build_translated_epub(tl_meta: Dict, tl_chapters: List[Dict], out_dir: pathlib.Path) -> str:
-    """Builds EPUB with translated metadata, contents, and QC standardization."""
+def build_translated_epub(tl_meta: Dict, tl_chapters: List[Dict], out_dir: pathlib.Path, range_label: Optional[str] = None) -> str:
+    """Builds EPUB with translated metadata, contents, and QC standardization.
+    Supports range_label (e.g. 'Ch 001-050') for direct partial EPUB downloads.
+    """
     from . import crawler
 
     lang_tag = tl_meta.get("target_lang", "id").upper()
@@ -640,7 +709,10 @@ def build_translated_epub(tl_meta: Dict, tl_chapters: List[Dict], out_dir: pathl
 
     title_clean = crawler._safe_name(title, max_bytes=140)
     writer_clean = crawler._safe_name(writer, max_bytes=60)
-    filename = f"[{lang_tag}] {title_clean} - {writer_clean}.epub"
+    if range_label:
+        filename = f"[{lang_tag}] {title_clean} ({range_label}) - {writer_clean}.epub"
+    else:
+        filename = f"[{lang_tag}] {title_clean} - {writer_clean}.epub"
     out_file = out_dir / filename
 
     # Set language tag in metadata

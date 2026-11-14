@@ -4,6 +4,7 @@
 - DEFAULT_SETTINGS: crawl settings (editable from the dashboard, persisted to settings.json).
 - GENRE_MAP / TAG_GROUPS / SEARCH_FLAGS / NOVEL_TYPES / ORDERS: option lists for the search UI.
 """
+import os
 import pathlib
 
 BASE_DIR = pathlib.Path(__file__).resolve().parent
@@ -50,13 +51,17 @@ DEFAULT_SETTINGS = {
     "clean_blank_lines": True, # Quality Control: remove empty <p> & excessive blank line spaces
     "standardize_epub": True,  # Quality Control: 1-page synopsis, WTR Lab typography & layout
     "merge_chunks": True,      # Bookfere speed mode: batch/merge paragraphs into chunks (sat-set)
-    "chunk_size": 1800,        # Max chunk size (characters) matching Bookfere default
+    "chunk_size": 1800,        # Default chunk threshold (chars) matching Bookfere standard (1800)
     "include_preface": True,
     "include_afterword": True,
     "resume": True,            # reuse cached chapters (CONTINUE LATEST behaviour)
     "skip_existing": False,    # skip ncode when output file already exists
     "novel_delay_s": 5,        # pause between novels in a bulk queue
     "custom_tags": [],         # user-added keyword chips for the search UI
+    # DeepLX & Proxy Settings
+    "deeplx_url": os.getenv("DEEPLX_URL", "http://127.0.0.1:1188/translate"),
+    "translation_proxy": os.getenv("TRANSLATION_PROXY", ""),
+    "prefer_deeplx": False,    # Default False: stable on GoogleFreeNew
 }
 
 # Narou genre codes (current system)
