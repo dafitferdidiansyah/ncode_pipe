@@ -813,12 +813,37 @@ def build_translated_epub(tl_meta: Dict, tl_chapters: List[Dict], out_dir: pathl
     if "keywords" in tl_meta:
         meta_copy["keywords"] = tl_meta["keywords"]
 
+    # Translate unique volumes if present and ensure clean Latin display
+    unique_volumes = list(dict.fromkeys([c.get("volume") for c in chapters if c.get("volume")]))
+    vol_map = {}
+    if unique_volumes:
+        vol_batch = [{"id": str(i), "text": v} for i, v in enumerate(unique_volumes)]
+        try:
+            vol_res = translator.translate_batch(vol_batch)
+            vol_map = {unique_volumes[int(r["id"])]: r.get("text", "") for r in vol_res if r.get("text")}
+        except Exception as e:
+            logger.warning(f"Failed to batch-translate volumes: {e}")
+
     # Add display title to chapters
+    jp_regex = re.compile(r'[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff]')
     view = []
     for ch in tl_chapters:
         c = dict(ch)
-        if c.get("volume") and c["volume"] != tl_meta.get("title") and not c["title"].startswith(c["volume"]):
-            c["title"] = f"{c['volume']} - {c['title']}"
+        raw_vol = c.get("volume") or ""
+        tl_vol = vol_map.get(raw_vol, "").strip()
+        # If translation contains Japanese leftovers, keep clean romanized or drop
+        if tl_vol and jp_regex.search(tl_vol):
+            tl_vol = ""
+
+        # Normalize Japanese arc names like 第一章 -> Chapter / Arc if untranslated
+        if raw_vol and not tl_vol:
+            m_kanji = re.match(r"^第([0-9一二三四五六七八九十百千万]+)[章部巻編]", raw_vol)
+            if m_kanji:
+                tl_vol = f"Volume {m_kanji.group(1)}"
+
+        # Do not prepend volume if it duplicates novel title or chapter already has it
+        if tl_vol and tl_vol != tl_meta.get("title") and not c["title"].lower().startswith(tl_vol.lower()):
+            c["title"] = f"{tl_vol} - {c['title']}"
         view.append(c)
 
     # Pass QC settings (clean blank spaces, standard 1-page synopsis)

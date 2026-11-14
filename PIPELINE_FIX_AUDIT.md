@@ -50,12 +50,20 @@ Dibuat sebagai referensi persisten agar tidak hilang saat transisi session conte
   - File: `ncode_pipe/translator.py` (`translate_novel_cached`)
   - Mengubah perbaikan baris bocor menjadi `translate_batch()` mini-chunk. Baris yang bocor dikumpulkan dan diterjemahkan dalam satu request chunk sekaligus, memangkas waktu reparasi hingga 80-90%.
 
-### G. Fitur MeGaneBuk Custom Range Batch Download
-- **Masalah:** Download novel berepisode panjang (100+ chapter) membebani bandwidth dan sering timeout pada koneksi mobile jika hanya menyediakan file full EPUB raksasa.
-- **Solusi:**
-  - Standardisasi batch 50 chapter (Ch 001 - 050, Ch 051 - 100, dst.).
-  - Backend: `EpubDownloadView` di `MyNovels/backend/books/views.py` mendukung query `?start=X&end=Y`, memotong chapter via `_build_range_epub()` secara on-the-fly dengan proteksi cache di `media/batches/` dan direct transfer via Nginx `X-Accel-Redirect`.
-  - Frontend: Tab "Volumes / Batches" ditambahkan pada `BookModal.jsx` untuk novel dengan bab > 50 chapter, menyajikan daftar part yang dapat diunduh per batch.
+### H. Standardisasi UI/UX Tab Unduhan dan Sanitasi Kanji Volume Chapter
+- **Masalah:**
+  1. Teks arc/volume raw Kanji (contoh: `第一章`) dari Syosetu menempel di sebelah judul chapter yang sudah diterjemahkan (`第一章 - Chapter 2: ...`).
+  2. Tab unduhan dan judul label masih menggunakan istilah non-standar / gimmick ("MeGaneBuk Standard Arc Batches", "Volumes / Batches").
+- **Root Cause:**
+  1. Di `ncode_pipe/translator.py`, field metadata `ch["volume"]` (nama arc) diambil mentah dari HTML TOC Syosetu tanpa diterjemahkan atau disanitasi sebelum digabungkan ke `c["title"]`.
+  2. Naming tab UI kurang netral dan tidak to-the-point.
+- **Fix:**
+  - File: `ncode_pipe/translator.py`
+    - Semua arc/volume unik dikumpulkan dan diterjemahkan via batch translation ke teks Latin/Inggris.
+    - Menambahkan filter sanitasi kanji regex: jika masih terdapat sisa Kanji atau gagal diterjemahkan, string arc dibersihkan menjadi format standar `Volume {N}` atau dihilangkan agar judul bab tidak terkotori teks kanji mentah di e-reader.
+  - File: `MyNovels/frontend/src/components/BookModal.jsx`
+    - Mengganti label tab menjadi netral & profesional: **"Download Parts"** (singkat, to-the-point).
+    - Menghapus semua referensi teks non-standar/gimmick, diganti dengan **"Select Chapter Range (50 Chapters / Part)"** dan tombol **"Download Part"**.
 
 ---
 
